@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import {
     Button,
     Label,
@@ -22,49 +21,50 @@ import {
     DropdownMenu,
     DropdownItem,
 } from "reactstrap";
+import styled from "styled-components";
 
-function Magazine(){
+function Products(){
     return(
         <>
             <div className="section section-basic" >
                 <Container>
-                    <h3 className="title">Magazine</h3>
+                    <h3 className="title">Products here</h3>
                     <Row>
                         <ProductFrame className="col col-lg-3">
                             <ProductImageWrapper>
-                                <ProductImage src={require("assets/img/ryan.jpg").default}></ProductImage>
+                                <ProductImage src={require("assets/img/avatar.jpg").default}></ProductImage>
                             </ProductImageWrapper>
                             <ProductInfoWrapper>
-                                <span><h3>post title</h3></span>
-                                <span><h5>details</h5></span>
+                                <span><h3>Product title</h3></span>
+                                <span><h5>Product details</h5></span>
                             </ProductInfoWrapper>
                         </ProductFrame>
                         <ProductFrame className="col col-lg-3">
                             <ProductImageWrapper>
-                                <ProductImage src={require("assets/img/ryan.jpg").default}></ProductImage>
+                                <ProductImage src={require("assets/img/avatar.jpg").default}></ProductImage>
                             </ProductImageWrapper>
                             <ProductInfoWrapper>
-                                <span><h3>post title</h3></span>
-                                <span><h5>details</h5></span>
+                                <span><h3>Product title</h3></span>
+                                <span><h5>Product details</h5></span>
                             </ProductInfoWrapper>
                         </ProductFrame>
                         <ProductFrame className="col col-lg-3">
                             <ProductImageWrapper>
-                                <ProductImage src={require("assets/img/ryan.jpg").default}></ProductImage>
+                                <ProductImage src={require("assets/img/avatar.jpg").default}></ProductImage>
                             </ProductImageWrapper>
                             <ProductInfoWrapper>
-                                <span><h3>post title</h3></span>
-                                <span><h5>details</h5></span>
+                                <span><h3>Product title</h3></span>
+                                <span><h5>Product details</h5></span>
                             </ProductInfoWrapper>
                         </ProductFrame>
                     </Row>
-
                 </Container>
             </div>
         </>
     );
+
 }
-export default Magazine;
+export default Products;
 
 const ProductFrame = styled.div`
   border-radius: 25px;
@@ -91,4 +91,3 @@ const ProductInfoWrapper = styled.div`
   flex-direction: column;
   & > span {
     text-align: center`;
-

@@ -26,6 +26,7 @@ import Examples from "./index-sections/Examples.js";
 import Download from "./index-sections/Download.js";
 import Search from "./index-sections/Search";
 import Magazine from "./index-sections/Magazine";
+import Products from "./index-sections/Products";
 
 function Index() {
   React.useEffect(() => {
@@ -47,6 +48,7 @@ function Index() {
         <div className="main">
           <Search/>
           <Magazine/>
+          <Products/>
           <BasicElements />
           <Navbars />
           <Tabs />
