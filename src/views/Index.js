@@ -1,8 +1,31 @@
 import React from "react";
 
 // reactstrap components
-// import {
-// } from "reactstrap";
+import {
+  Button,
+  Label,
+  FormGroup,
+  Input,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup,
+  Container,
+  Row,
+  Card,
+  Col,
+  Navbar,
+  NavbarBrand,
+  Collapse,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
+
+import styled from "styled-components";
 
 // core components
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
@@ -27,6 +50,11 @@ import Download from "./index-sections/Download.js";
 import Search from "./index-sections/Search";
 import Magazine from "./index-sections/Magazine";
 import Products from "./index-sections/Products";
+import Articles from "./index-sections/Articles";
+
+//json data to be replaced when backend is ready
+import articles from "../Magazine.json";
+import products from "../products.json"
 
 function Index() {
   React.useEffect(() => {
@@ -47,8 +75,58 @@ function Index() {
         <IndexHeader />
         <div className="main">
           <Search/>
-          <Magazine/>
-          <Products/>
+
+          {/*articles section from magazine*/}
+          <div className="section section-basic" >
+            <Container>
+              <Row style={{display : "flex"}}>
+                  <h3 className="title">Magazine</h3>
+                  <Button className="btn-round" style={{marginLeft:"auto", height:"50px" }} color="info" outline type="button">More Articles</Button>
+
+              </Row>
+
+              <ProductsWrapper>
+                {
+                  articles.map((article,index) => (
+                      <Magazine article={article} key={index} ></Magazine>
+                  ))
+                }
+              </ProductsWrapper>
+            </Container>
+          </div>
+
+          {/*ask a medical question*/}
+          <div className="section section-tabs" >
+            <Container>
+              <Row style={{display : "flex"}}>
+                <h3 className="title">Medical questions</h3>
+                <Button className="btn-round" style={{marginLeft:"auto", height:"50px" }} color="primary" outline type="button">Ask question ?</Button>
+                <Button className="btn-round" style={{height:"50px" }} color="success" outline type="button">Find an answer</Button>
+
+              </Row>
+              <Card>
+
+              </Card>
+            </Container>
+          </div>
+
+          {/*products section from shop */}
+          <div className="section section-basic" >
+            <Container>
+              <h3 className="title">Products</h3>
+              <ProductsWrapper>
+                {
+                  products.map((product,index) =>(
+                      <Products product={product} key={index} ></Products>
+                  ))
+                }
+              </ProductsWrapper>
+            </Container>
+          </div>
+
+
+
+
           <BasicElements />
           <Navbars />
           <Tabs />
@@ -60,8 +138,7 @@ function Index() {
           <NucleoIcons />
           <CompleteExamples />
           <SignUp />
-          <Examples />
-          <Download />
+
         </div>
         <DarkFooter />
       </div>
@@ -70,3 +147,8 @@ function Index() {
 }
 
 export default Index;
+
+const ProductsWrapper = styled.div `
+  text-align: center;
+  display: flex;
+`
