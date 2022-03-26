@@ -50,11 +50,12 @@ function IndexNavbar() {
           }}
         />
       ) : null}
-      <Navbar className={"fixed-top " + navbarColor} expand="lg" color="info">
+      <Navbar expand="lg" color="info">
         <Container>
           <div className="navbar-translate">
             <NavbarBrand href="/" id="navbar-brand">
-              <img src="/src/img/logo.png"
+              <img src = {require("assets/img/hb_logo.png").default}
+                  alt=""
                    width="30"
                    height="30"
                    className="d-inline-block align-top"

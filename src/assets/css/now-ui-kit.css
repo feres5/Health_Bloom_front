@@ -380,7 +380,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   border-radius: 3px;
   background: #FFF;
   cursor: default;
-  box-shadow: inset 0 0 1px #FFF, inset 0 1px 7px #EBEBEB, 0 3px 6px -3px #BBB;
+  box-shadow: inset 0 0 1px #FFF, inset 0 1px 7px #EBEBEB, 0 3px 6px -3px #BBB;
   -webkit-transition: 300ms ease 0s;
   -moz-transition: 300ms ease 0s;
   -ms-transition: 300ms ease 0s;
@@ -2777,8 +2777,8 @@ Created using IcoMoon - icomoon.io
 -------------------------------- */
 @font-face {
   font-family: 'Nucleo Outline';
-  src: url("../fonts/nucleo-outline.eot");
-  src: url("../fonts/nucleo-outline.eot") format("embedded-opentype"), url("../fonts/nucleo-outline.woff2") format("woff2"), url("../fonts/nucleo-outline.woff") format("woff"), url("../fonts/nucleo-outline.ttf") format("truetype");
+  src: url("~assets/fonts/nucleo-outline.eot");
+  src: url("~assets/fonts/nucleo-outline.eot") format("embedded-opentype"), url("~assets/fonts/nucleo-outline.woff2") format("woff2"), url("~assets/fonts/nucleo-outline.woff") format("woff"), url("~assets/fonts/nucleo-outline.ttf") format("truetype");
   font-weight: normal;
   font-style: normal; }
 
@@ -4566,6 +4566,10 @@ img {
   [data-background-color]:not([data-background-color="gray"]).section-nucleo-icons .icons-container i:nth-child(6) {
     color: #FFFFFF; }
 
+.section-topic-title {
+  display: flex;
+  justify-content: flex-end; }
+
 @media screen and (max-width: 991px) {
   .sidebar-collapse .navbar-collapse {
     position: fixed;
@@ -5850,6 +5854,9 @@ td.rdtYear:hover {
   color: #2CA8FF;
   font-size: 21px; }
 
+.popover .arrow:before {
+  border-color: transparent !important; }
+
 .popover-primary .popover {
   background-color: #f96332; }
   .popover-primary .popover .popover-body {
@@ -5865,6 +5872,8 @@ td.rdtYear:hover {
   .popover-primary .popover .popover-header {
     color: #FFFFFF;
     opacity: .6; }
+  .popover-primary .popover .arrow:after {
+    border-left-color: #f96332; }
 
 .popover-info .popover {
   background-color: #2CA8FF; }
@@ -5881,6 +5890,8 @@ td.rdtYear:hover {
   .popover-info .popover .popover-header {
     color: #FFFFFF;
     opacity: .6; }
+  .popover-info .popover .arrow:after {
+    border-left-color: #2CA8FF; }
 
 .popover-warning .popover {
   background-color: #FFB236; }
@@ -5897,6 +5908,8 @@ td.rdtYear:hover {
   .popover-warning .popover .popover-header {
     color: #FFFFFF;
     opacity: .6; }
+  .popover-warning .popover .arrow:after {
+    border-left-color: #FFB236; }
 
 .popover-danger .popover {
   background-color: #FF3636; }
@@ -5913,6 +5926,8 @@ td.rdtYear:hover {
   .popover-danger .popover .popover-header {
     color: #FFFFFF;
     opacity: .6; }
+  .popover-danger .popover .arrow:after {
+    border-left-color: #FF3636; }
 
 .popover-success .popover {
   background-color: #18ce0f; }
@@ -5929,6 +5944,20 @@ td.rdtYear:hover {
   .popover-success .popover .popover-header {
     color: #FFFFFF;
     opacity: .6; }
+  .popover-success .popover .arrow:after {
+    border-left-color: #18ce0f; }
+
+.bs-tooltip-auto[x-placement^=left] .arrow::before, .bs-tooltip-left .arrow::before {
+  border-left-color: #FFFFFF; }
+
+.bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+  border-right-color: #FFFFFF; }
+
+.bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+  border-top-color: #FFFFFF; }
+
+.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+  border-bottom-color: #FFFFFF; }
 
 .clear-filter[filter-color="blue"] {
   background: rgba(44, 44, 44, 0.2);
@@ -5955,7 +5984,9 @@ td.rdtYear:hover {
 @media screen and (max-width: 991px) {
   .sidebar-collapse .navbar-collapse:before {
     background: #2CA8FF;
-    background: linear-gradient(#2CA8FF, #2c2c2c 80%); } }
+    background: linear-gradient(#2CA8FF, #2c2c2c 80%); }
+  .navbar-nav .dropdown-menu {
+    position: static !important; } }
 
 @media screen and (max-width: 768px) {
   .nav-tabs {
