@@ -16,6 +16,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import {useHistory} from "react-router-dom";
 
 // core components
 

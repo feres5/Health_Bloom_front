@@ -70,6 +70,7 @@ function Index() {
       document.body.classList.remove("sidebar-collapse");
     };
   });
+
   return (
     <>
       <IndexNavbar />
