@@ -51,10 +51,12 @@ import Search from "./index-sections/Search";
 import Magazine from "./index-sections/Magazine";
 import Products from "./index-sections/Products";
 import Articles from "./index-sections/Articles";
+import Faq from "./index-sections/Faq";
 
 //json data to be replaced when backend is ready
 import articles from "../Magazine.json";
 import products from "../products.json"
+import subject from "../FAQ.json"
 
 function Index() {
   React.useEffect(() => {
@@ -84,7 +86,6 @@ function Index() {
                   <Button className="btn-round" style={{marginLeft:"auto", height:"50px" }} color="info" outline type="button">More Articles</Button>
 
               </Row>
-
               <ProductsWrapper>
                 {
                   articles.map((article,index) => (
@@ -104,9 +105,13 @@ function Index() {
                 <Button className="btn-round" style={{height:"50px" }} color="success" outline type="button">Find an answer</Button>
 
               </Row>
-              <Card>
-
-              </Card>
+              <Row >
+              {
+                subject.map((subject,index) => (
+                    <Faq subject={subject} key={index}></Faq>
+                ))
+              }
+              </Row>
             </Container>
           </div>
 
