@@ -30,6 +30,8 @@ import NucleoIcons from "views/NucleoIcons.js";
 import LoginPage from "views/examples/LoginPage.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
+import SignUp from "./views/index-sections/SignUp";
+import MedicalSignUp from "./views/index-sections/MedicalSignUp";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -51,6 +53,14 @@ ReactDOM.render(
         <Route
           path="/login-page"
           render={(props) => <LoginPage {...props} />}
+        />
+        <Route
+            path="/signUp"
+            render={(props) => <SignUp {...props} />}
+        />
+        <Route
+            path="/medical-signUp"
+            render={(props) => <MedicalSignUp {...props} />}
         />
         <Redirect to="/index" />
         <Redirect from="/" to="/index" />
