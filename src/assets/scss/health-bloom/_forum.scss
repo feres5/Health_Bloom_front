@@ -190,6 +190,11 @@
     min-height: 500px;
 }
 
+.thread-content
+{
+    padding: 0;
+}
+
 .thread-title
 {
     background-color: $color-pistachio;
@@ -199,4 +204,70 @@
 
     margin-bottom: 0;
     margin-top: 0;
+}
+
+.thread-title-row
+{
+    background-color: $color-pistachio;
+    margin: 0;
+}
+
+.thread-title-row > div
+{
+    padding: 0;
+}
+
+
+.thread-content-card
+{
+    min-height: 250px;
+    width: 100%;
+}
+
+.thread-content-card > div
+{
+    min-height: 250px;
+}
+
+.thread-comment-content
+{
+    padding: 25px;
+}
+
+.thread-comment-content p
+{
+    font-weight: 500;
+}
+
+.thread-profile-info
+{
+    background-color: brown;
+    padding: 15px;
+}
+
+.thread-profile-info > div
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.thread-profile-info img
+{
+    width: 70%;
+    position: relative;
+}
+
+.thread-profile-info h5
+{
+    background-color: rgb(46, 44, 42);
+    padding: 10px;
+    font-size: 1.1em;
+    color: white;
+}
+
+.thread-comment-content
+{
+    background-color: coral;
 }

@@ -12,8 +12,7 @@ import DarkFooter from 'components/Footers/DarkFooter';
 import { Link } from 'react-router-dom';
 import HBFooter from 'components/Footers/HBFooter';
 import HBNavbar from 'components/Navbars/HBNavbar';
-import SectionThreadsContent from 'components/Forum/SectionThreadsContent';
-
+import ThreadContentCard from 'components/Forum/ThreadContentCard'
 
 function Thread()
 {
@@ -22,9 +21,17 @@ function Thread()
         <HBNavbar /> 
         <div className="wrapper">
             <Container className="thread">
-            <h4 className="thread-title">Section: Section Title</h4>
+                <Row className="thread-title-row">
+                    <Col  sm="3">
+                    </Col>
+
+                    <Col sm="9">
+                        <h4 className="thread-title">Section: Section Title</h4>
+                    </Col>
+                </Row>
+
                 <Container className="thread-content">
-                    
+                    <ThreadContentCard></ThreadContentCard>
                 </Container>
             </Container>
             <HBFooter />
