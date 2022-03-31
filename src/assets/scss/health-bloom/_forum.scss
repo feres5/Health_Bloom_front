@@ -9,7 +9,7 @@
 {
     border: 2px $color-pistachio solid;
     border-top: 0;
-    padding: 25px 0;
+    padding: 25px 0 25px 25px;
     margin-bottom: 25px;
 }
 
@@ -54,9 +54,149 @@
     display: flex;
     justify-content: flex-end;
     justify-items: flex-end;
+    margin-bottom: 10px;
 }
 
 .forum-link
 {
-    padding: 0 5px;
+    padding: 0 8px;
+    color: $color-forest-green;
+    &:hover,
+    &:focus{
+      color: $color-kelly-green;
+    }
+}
+
+.section-threads-title
+{
+    background-color: $color-pistachio;
+    color: $color-pistachio-dim;
+    font-size: 1.5em;
+    padding: 5px 0 5px 15px;
+
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.section-threads
+{
+    padding-top: 30px;
+    padding-bottom: 100px;
+    min-height: 500px;
+}
+
+.section-thread-content
+{
+    border: 2px $color-pistachio solid;
+    border-top: 0;
+    padding: 15px 0 ;
+    margin-bottom: 25px;
+}
+
+.section-thread-content th
+{
+    background-color: $color-g56;
+    color: $color-g4;
+    padding-left: 10px;
+}
+
+.section-threads-table
+{
+    height: 30px;
+    width: 100%;
+    margin-top: 0;
+}
+
+
+.section-thread-content
+{
+    padding-top: 0;
+}
+
+.section-threads-table td
+{
+    padding: 0;
+}
+.section-threads-title-table-header
+{
+    width: 70%;
+    
+}
+
+.section-threads-activity-table-header
+{
+    width: 10%;
+}
+
+.section-threads-last-added-table-header
+{
+    width: 20%;
+}
+
+.section-thread-table-row
+{
+    &:nth-child(odd)
+    {
+    background-color: $color-g24;
+        
+    }
+
+    &:nth-child(even){
+        background-color: $color-g8;
+    }
+}
+
+.section-thread-card
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding: 10px;
+}
+
+.section-thread-card-title
+{
+    font-size: 1.2em;
+    color: $color-forest-green;
+
+    &:hover,
+    &:focus{
+      color: $color-kelly-green;
+    }
+}
+
+.section-thread-card-infos a
+{
+    color: $color-forest-green;
+
+    &:hover,
+    &:focus{
+      color: $color-kelly-green;
+    }
+}
+
+.section-threads-pagination
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 25px;
+}
+
+.thread
+{
+    padding-top: 30px;
+    padding-bottom: 100px;
+    min-height: 500px;
+}
+
+.thread-title
+{
+    background-color: $color-pistachio;
+    color: $color-pistachio-dim;
+    font-size: 1.5em;
+    padding: 5px 0 5px 15px;
+
+    margin-bottom: 0;
+    margin-top: 0;
 }

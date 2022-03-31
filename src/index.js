@@ -31,6 +31,8 @@ import ForumWelcome from "views/forum/forum-welcome.js";
 import LoginPage from "views/examples/LoginPage.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
+import SectionThreads from "views/forum/section-threads.js"
+import Thread from "views/forum/thread";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -55,9 +57,21 @@ ReactDOM.render(
         />
 
         <Route
+          path="/forum/section/1"
+          render={(props) => <SectionThreads {...props} />}
+        />
+
+        <Route
+          path="/forum/thread/1"
+          render={(props) => <Thread {...props} />}
+        />
+
+        <Route
           path="/forum"
           render={(props) => <ForumWelcome {...props} />}
         />
+
+
         <Redirect to="/index" />
         <Redirect from="/" to="/index" />
       </Switch>
