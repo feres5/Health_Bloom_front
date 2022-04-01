@@ -2,30 +2,17 @@ import React from "react";
 
 import {
     Button,
-    Label,
     FormGroup,
     Input,
     InputGroupAddon,
     InputGroupText,
     InputGroup,
     Container,
-    Row,
-    Col,
-    Navbar,
-    NavbarBrand,
-    Collapse,
-    Nav,
-    NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
+    Row
 } from "reactstrap";
 
 function Search(){
     const [rightFocus, setRightFocus] = React.useState(false);
-    const [collapseOpen, setCollapseOpen] = React.useState(false);
 
     return(
         <>

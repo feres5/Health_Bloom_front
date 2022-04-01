@@ -21,8 +21,6 @@ import {
 
 function MedicalSignUp() {
     const [firstFocus, setFirstFocus] = React.useState(false);
-    const [lastFocus, setLastFocus] = React.useState(false);
-    const [emailFocus, setEmailFocus] = React.useState(false);
     return (
         <>
             <div

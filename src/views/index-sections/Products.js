@@ -1,30 +1,8 @@
 import React, {useState} from "react";
-import {
-    Button,
-    Label,
-    FormGroup,
-    Input,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroup,
-    Container,
-    Row,
-    Col,
-    Navbar,
-    NavbarBrand,
-    Collapse,
-    Nav,
-    NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-} from "reactstrap";
 import styled from "styled-components";
 
 function Products(props){
-    const [product,setProduct]=useState(props.product);
+    const [product]=useState(props.product);
     return(
         <>
             <ProductFrame className="col col-lg-3">

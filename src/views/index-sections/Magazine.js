@@ -1,34 +1,16 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import {
-    Button,
-    Label,
-    FormGroup,
-    Input,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroup,
-    Container,
-    Row,
-    Col,
-    Navbar,
-    NavbarBrand,
-    Collapse,
     Nav,
     NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem, CardHeader, CardBody, TabContent, TabPane, Card,
+    NavLink,CardHeader, CardBody, TabContent, TabPane, Card,
 } from "reactstrap";
 
 function Magazine(props){
 
-    const [article,setArticle] = useState(props.article);
+    const [article] = useState(props.article);
 
     const [iconPills, setIconPills] = React.useState("1");
-    const [pills, setPills] = React.useState("1");
     return(
         <>
             <Card style={{margin : "10px"}}>
@@ -78,15 +60,6 @@ function Magazine(props){
 }
 export default Magazine;
 
-const ProductFrame = styled.div`
-  border-radius: 25px;
-  min-height: 150px;
-  min-width: 150px;
-  background-color: rgba(110, 110, 110, 0.2);
-  margin: 10px;
-  display: flex;
-  flex-direction: column;
-`;
 const ProductImageWrapper = styled.div`
   margin-top: 5px;
   margin-left: auto;
@@ -98,11 +71,3 @@ const ProductImage = styled.img`
   height: 100%;
   border-radius: 25px;
 `;
-const ProductInfoWrapper = styled.div`
-  margin-top: auto;
-  margin-bottom: 5px;
-  display: flex;
-  flex-direction: column;
-  & > span {
-    text-align: center`;
-

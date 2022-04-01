@@ -3,26 +3,8 @@ import React from "react";
 // reactstrap components
 import {
   Button,
-  Label,
-  FormGroup,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Container,
-  Row,
-  Card,
-  Col,
-  Navbar,
-  NavbarBrand,
-  Collapse,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
+  Row
 } from "reactstrap";
 
 import styled from "styled-components";
@@ -33,7 +15,6 @@ import IndexHeader from "components/Headers/IndexHeader.js";
 import DarkFooter from "components/Footers/DarkFooter.js";
 
 // sections for this page
-import Images from "./index-sections/Images.js";
 import BasicElements from "./index-sections/BasicElements.js";
 import Navbars from "./index-sections/Navbars.js";
 import Tabs from "./index-sections/Tabs.js";
@@ -45,13 +26,15 @@ import Carousel from "./index-sections/Carousel.js";
 import NucleoIcons from "./index-sections/NucleoIcons.js";
 import CompleteExamples from "./index-sections/CompleteExamples.js";
 import SignUp from "./index-sections/SignUp.js";
-import Examples from "./index-sections/Examples.js";
-import Download from "./index-sections/Download.js";
 import Search from "./index-sections/Search";
 import Magazine from "./index-sections/Magazine";
 import Products from "./index-sections/Products";
-import Articles from "./index-sections/Articles";
 import Faq from "./index-sections/Faq";
+
+// import Articles from "./index-sections/Articles";
+// import Examples from "./index-sections/Examples.js";
+// import Download from "./index-sections/Download.js";
+// import Images from "./index-sections/Images.js";
 
 //json data to be replaced when backend is ready
 import articles from "../Magazine.json";

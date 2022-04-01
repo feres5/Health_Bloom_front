@@ -1,30 +1,12 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import {
-    Button,
-    Label,
-    FormGroup,
-    Input,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroup,
-    Container,
     Row,
-    Col,
-    Navbar,
-    NavbarBrand,
-    Collapse,
-    Nav,
-    NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem, CardHeader, CardBody, TabContent, TabPane, Card,
+    Col
 } from "reactstrap";
 
 export default function Faq(props){
-    const [subject,setSubject]=useState(props.subject)
+    const [subject]=useState(props.subject)
 
     return(
         <Frame  className="col-sm-3">
