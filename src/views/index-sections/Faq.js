@@ -15,8 +15,8 @@ export default function Faq(props){
             </TitleFrame>
             <Row>
                 {
-                    subject.Posts.map(post => (
-                        <Col className="bg-light border">
+                    subject.Posts.map((post,index) => (
+                        <Col className="bg-light border" key={index} >
                             {post.question}
                         </Col>
                     ))
