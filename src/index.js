@@ -30,6 +30,8 @@ import NucleoIcons from "views/NucleoIcons.js";
 import LoginPage from "views/examples/LoginPage.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
+import MedicalMagazine from "views/Magazine/MedicalMagazine";
+import ArticleDetails from "views/Magazine/ArticleDetails";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -39,6 +41,14 @@ ReactDOM.render(
         <Route
           path="/nucleo-icons"
           render={(props) => <NucleoIcons {...props} />}
+        />
+        <Route
+          path="/medical-magazine"
+          render={(props) => <MedicalMagazine {...props} />}
+        />
+        <Route
+          path="/article"
+          render={(props) => <ArticleDetails {...props} />}
         />
         <Route
           path="/landing-page"
