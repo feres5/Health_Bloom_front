@@ -99,13 +99,8 @@ function IndexNavbar() {
 
               <NavItem>
                 <NavLink
-                    href="#pablo"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document
-                          .getElementById("download-section")
-                          .scrollIntoView();
-                    }}
+                    href="/medical-magazine"
+                   
                 >
                   <i className="now-ui-icons business_bulb-63 mr-1"></i>
                   <p>Medical Magazine</p>

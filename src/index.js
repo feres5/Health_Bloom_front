@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, {Component} from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
@@ -30,19 +30,25 @@ import NucleoIcons from "views/NucleoIcons.js";
 import LoginPage from "views/examples/LoginPage.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
-import SignUp from "./views/index-sections/SignUp";
-import MedicalSignUp from "./views/index-sections/MedicalSignUp";
+import MedicalMagazine from "views/Magazine/MedicalMagazine";
+import ArticleDetails from "views/Magazine/ArticleDetails";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Switch>
-
         <Route path="/index" render={(props) => <Index {...props} />} />
-
         <Route
           path="/nucleo-icons"
           render={(props) => <NucleoIcons {...props} />}
+        />
+        <Route
+          path="/medical-magazine"
+          render={(props) => <MedicalMagazine {...props} />}
+        />
+        <Route
+          path="/article"
+          render={(props) => <ArticleDetails {...props} />}
         />
         <Route
           path="/landing-page"
@@ -55,14 +61,6 @@ ReactDOM.render(
         <Route
           path="/login-page"
           render={(props) => <LoginPage {...props} />}
-        />
-        <Route
-            path="/signUp"
-            render={(props) => <SignUp {...props} />}
-        />
-        <Route
-            path="/medical-signUp"
-            render={(props) => <MedicalSignUp {...props} />}
         />
         <Redirect to="/index" />
         <Redirect from="/" to="/index" />
