@@ -34,6 +34,7 @@ import ProtectedRoute from "./protectedRoute";
 ReactDOM.render(
   <BrowserRouter>
       <Switch>
+        <Switch>
         <Route path="/index" render={(props) => <Index {...props} />} />
         <Route
           path="/nucleo-icons"
@@ -43,7 +44,7 @@ ReactDOM.render(
           path="/landing-page"
           render={(props) => <LandingPage {...props} />}
         />
-          //this route is protected, only access when logged in
+          {/*this route is protected, only access when logged in*/}
         <ProtectedRoute exact path="/profile-page" component={ProfilePage} />
         <Route
           path="/login-page"
@@ -57,15 +58,18 @@ ReactDOM.render(
             path="/medical-signUp"
             render={(props) => <MedicalSignUp {...props} />}
         />
+
+        {/*this section is for dashboard routes*/}
         <Main>
           <Route exact path="/dashboard" component={Home} />
           <Route exact path="/tables" component={Tables} />
           <Route exact path="/billing" component={Billing} />
           <Route exact path="/rtl" component={Rtl} />
           <Route exact path="/profile" component={Profile} />
+        </Main>
           <Redirect to="/index" />
           <Redirect from="/" to="/index" />
-        </Main>
+        </Switch>
       </Switch>
   </BrowserRouter>,
   document.getElementById("root")
