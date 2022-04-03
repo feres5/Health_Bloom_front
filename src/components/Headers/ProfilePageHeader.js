@@ -40,7 +40,7 @@ function ProfilePageHeader() {
             <img alt="..." src={require("assets/img/ryan.jpg").default}></img>
           </div>
           <h3 className="title">Ryan Scheinder</h3>
-          <p className="category">Photographer</p>
+          <p className="category">Generalist</p>
           <div className="content">
             <div className="social-description">
               <h2>26</h2>

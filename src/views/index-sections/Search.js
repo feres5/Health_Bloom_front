@@ -65,9 +65,12 @@ function Search(){
                                     <option value="">3</option>
                                 </Input>
                             </FormGroup>
-                            <Button className="btn-round" color="info" type="button">
-                                <i className="now-ui-icons ui-1_zoom-bold"> Search</i>
-                            </Button>
+                            <FormGroup>
+                                <Button className="btn-round" color="info" type="button">
+                                    <i className="now-ui-icons ui-1_zoom-bold"> Search</i>
+                                </Button>
+                            </FormGroup>
+
                         </Row>
                     </form>
 

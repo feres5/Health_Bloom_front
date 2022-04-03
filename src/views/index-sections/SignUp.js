@@ -73,6 +73,24 @@ function SignUp() {
                 </CardHeader>
                 <CardBody>
                   <InputGroup
+                      className={
+                        "no-border" + (firstFocus ? " input-group-focus" : "")
+                      }
+                  >
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="now-ui-icons business_badge"></i>
+                      </InputGroupText>
+                    </InputGroupAddon>
+
+                    <Input id="exampleFormControlSelect2" multiple="" type="select">
+                      <option>Doctor</option>
+                      <option>Assistant</option>
+                      <option>Patient</option>
+                    </Input>
+                  </InputGroup>
+
+                  <InputGroup
                     className={
                       "no-border" + (firstFocus ? " input-group-focus" : "")
                     }
@@ -123,6 +141,93 @@ function SignUp() {
                       onBlur={() => setEmailFocus(false)}
                     ></Input>
                   </InputGroup>
+                  <InputGroup
+                      className={
+                        "no-border" + (firstFocus ? " input-group-focus" : "")
+                      }
+                  >
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="now-ui-icons objects_key-25"></i>
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                        placeholder="Password..."
+                        type="text"
+                        onFocus={() => setFirstFocus(true)}
+                        onBlur={() => setFirstFocus(false)}
+                    ></Input>
+                  </InputGroup>
+                  <InputGroup
+                      className={
+                        "no-border" + (firstFocus ? " input-group-focus" : "")
+                      }
+                  >
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="now-ui-icons ui-1_lock-circle-open"></i>
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                        placeholder="Confirm Password..."
+                        type="text"
+                        onFocus={() => setFirstFocus(true)}
+                        onBlur={() => setFirstFocus(false)}
+                    ></Input>
+                  </InputGroup>
+                  <InputGroup
+                      className={
+                        "no-border" + (firstFocus ? " input-group-focus" : "")
+                      }
+                  >
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="now-ui-icons location_pin"></i>
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                        placeholder="Adress..."
+                        type="text"
+                        onFocus={() => setFirstFocus(true)}
+                        onBlur={() => setFirstFocus(false)}
+                    ></Input>
+                  </InputGroup>
+                  <InputGroup
+                      className={
+                        "no-border" + (firstFocus ? " input-group-focus" : "")
+                      }
+                  >
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="now-ui-icons location_world"></i>
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                        placeholder="City..."
+                        type="text"
+                        onFocus={() => setFirstFocus(true)}
+                        onBlur={() => setFirstFocus(false)}
+                    ></Input>
+                  </InputGroup>
+                  <InputGroup
+                      className={
+                        "no-border" + (firstFocus ? " input-group-focus" : "")
+                      }
+                  >
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="now-ui-icons tech_mobile"></i>
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                        placeholder="Phone..."
+                        type="text"
+                        onFocus={() => setFirstFocus(true)}
+                        onBlur={() => setFirstFocus(false)}
+                    ></Input>
+                  </InputGroup>
+
+
                 </CardBody>
                 <CardFooter className="text-center">
                   <Button
