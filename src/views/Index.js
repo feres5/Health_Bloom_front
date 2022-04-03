@@ -63,23 +63,7 @@ function Index() {
           <Search/>
 
           {/*articles section from magazine*/}
-          <div className="section section-basic" >
-            <Container>
-              <Row style={{display : "flex"}}>
-                  <h3 className="title">Magazine</h3>
-                  <Button className="btn-round" style={{marginLeft:"auto", height:"50px" }} color="info" outline type="button">More Articles</Button>
-
-              </Row>
-              <ProductsWrapper>
-                {
-                  articles.map((article,index) => (
-                      <Magazine article={article} key={index} ></Magazine>
-                  ))
-                }
-              </ProductsWrapper>
-            </Container>
-          </div>
-
+          <Magazine/>
           {/*ask a medical question*/}
           <div className="section section-tabs" >
             <Container>
