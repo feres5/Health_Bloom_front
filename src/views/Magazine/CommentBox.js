@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import cn from "classnames";
 import "../../assets/css/CommentBox.css";
 import qs from 'querystring';
-import api from "../../api.js"
 
 const INITIAL_HEIGHT = 46;
 
