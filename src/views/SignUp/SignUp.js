@@ -48,7 +48,7 @@ function SignUp() {
         if(formData.Password === ConfirmPassword){
             console.log("password ok");
             let result = await fetch(
-                "http://127.0.0.1:3001/users/addUser",
+                "http://127.0.0.1:3002/users/addUser",
                 {
                     method:'POST',
                     headers:{
