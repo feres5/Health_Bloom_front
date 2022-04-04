@@ -44,7 +44,7 @@ function LoginPage() {
     console.log("login a user", Email , Password);
     let item={Email,Password};
     let result = await fetch(
-        "http://127.0.0.1:3001/users/login",
+        "http://127.0.0.1:3002/users/login",
         {
           method:'POST',
           headers:{

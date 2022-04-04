@@ -15,6 +15,8 @@ import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
 import SignUp from "./views/SignUp/SignUp";
 import MedicalSignUp from "./views/index-sections/MedicalSignUp";
+import MedicalMagazine from "views/Magazine/MedicalMagazine";
+import ArticleDetails from "views/Magazine/ArticleDetails";
 
 // pages for dashbord
 
@@ -40,6 +42,14 @@ ReactDOM.render(
           path="/nucleo-icons"
           render={(props) => <NucleoIcons {...props} />}
         />
+          <Route
+              path="/medical-magazine"
+              render={(props) => <MedicalMagazine {...props} />}
+          />
+          <Route
+              path="/article"
+              render={(props) => <ArticleDetails {...props} />}
+          />
         <Route
           path="/landing-page"
           render={(props) => <LandingPage {...props} />}

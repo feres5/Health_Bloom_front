@@ -52,7 +52,7 @@ function Magazine() {
       <div className="section" id="Magazine">
         <Container>
           <div className="title">
-          <h3 className="title"><i class="now-ui-icons sport_trophy"></i> Our best articles</h3>          
+          <h3 className="title"><i className="now-ui-icons sport_trophy"></i> Our best articles</h3>
           </div>
           <Row className="justify-content-center">
             <Col lg="8" md="12">
@@ -71,6 +71,7 @@ function Magazine() {
                     <CarouselItem
                       onExiting={onExiting}
                       onExited={onExited}
+
                       key={require("assets/img/bg1.jpg").default}
                     >
                       <img src={process.env.PUBLIC_URL+ item.image} alt={item.title} />

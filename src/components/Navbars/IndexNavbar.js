@@ -64,7 +64,7 @@ function IndexNavbar() {
       <Navbar className={"fixed-top " + navbarColor} expand="lg" color="info">
         <Container>
           <div className="navbar-translate">
-            <NavbarBrand href="/" id="navbar-brand">
+            <NavbarBrand href="/index" id="navbar-brand">
               <img src={require("assets/img/logoNav1.png").default}
                    width="70"
                    className="d-inline-block align-top"
@@ -259,7 +259,7 @@ function IndexNavbar() {
             <Navbar className={"fixed-top " + navbarColor} expand="lg" color="info">
               <Container>
                 <div className="navbar-translate">
-                  <NavbarBrand href="/" id="navbar-brand">
+                  <NavbarBrand href="/index" id="navbar-brand">
                     <img src={require("assets/img/logoNav1.png").default}
                          width="70"
                          className="d-inline-block align-top"
