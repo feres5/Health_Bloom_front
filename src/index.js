@@ -20,7 +20,7 @@ import ArticleDetails from "views/Magazine/ArticleDetails";
 
 // pages for dashbord
 
-import Home from "./Dashboard/pages/Home"
+import Home from "./Dashboard/pages/Home";
 import Tables from "./Dashboard/pages/Tables";
 import Billing from "./Dashboard/pages/Billing";
 import Rtl from "./Dashboard/pages/Rtl";
@@ -32,42 +32,42 @@ import "./Dashboard/assets/styles/responsive.css";
 
 //protection of routes
 import ProtectedRoute from "./protectedRoute";
+import ProfileDoctor from "views/doctor/ProfileDoctor";
+import DoctorFormPage from "./views/examples/doctor/DoctorFormPage";
 
 ReactDOM.render(
   <BrowserRouter>
+    <Switch>
       <Switch>
-        <Switch>
         <Route path="/index" render={(props) => <Index {...props} />} />
         <Route
           path="/nucleo-icons"
           render={(props) => <NucleoIcons {...props} />}
         />
-          <Route
-              path="/medical-magazine"
-              render={(props) => <MedicalMagazine {...props} />}
-          />
-          <Route
-              path="/article"
-              render={(props) => <ArticleDetails {...props} />}
-          />
+        <Route
+          path="/medical-magazine"
+          render={(props) => <MedicalMagazine {...props} />}
+        />
+        <Route
+          path="/article"
+          render={(props) => <ArticleDetails {...props} />}
+        />
         <Route
           path="/landing-page"
           render={(props) => <LandingPage {...props} />}
         />
-          {/*this route is protected, only access when logged in*/}
+        {/*this route is protected, only access when logged in*/}
         <ProtectedRoute exact path="/profile-page" component={ProfilePage} />
         <Route
           path="/login-page"
           render={(props) => <LoginPage {...props} />}
         />
+        <Route path="/signUp" render={(props) => <SignUp {...props} />} />
         <Route
-            path="/signUp"
-            render={(props) => <SignUp {...props} />}
+          path="/medical-signUp"
+          render={(props) => <MedicalSignUp {...props} />}
         />
-        <Route
-            path="/medical-signUp"
-            render={(props) => <MedicalSignUp {...props} />}
-        />
+        <Route exact path="/doctor-form-page" component={DoctorFormPage} />
 
         {/*this section is for dashboard routes*/}
         <Main>
@@ -76,11 +76,15 @@ ReactDOM.render(
           <Route exact path="/billing" component={Billing} />
           <Route exact path="/rtl" component={Rtl} />
           <Route exact path="/profile" component={Profile} />
+          {/*******************************************************************/}
+          <Route exact path="/doctor-profile" component={ProfileDoctor} />
+
+          {/*******************************************************************/}
         </Main>
-          <Redirect to="/index" />
-          <Redirect from="/" to="/index" />
-        </Switch>
+        <Redirect to="/index" />
+        <Redirect from="/" to="/index" />
       </Switch>
+    </Switch>
   </BrowserRouter>,
   document.getElementById("root")
 );

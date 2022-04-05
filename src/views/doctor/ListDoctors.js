@@ -108,10 +108,6 @@ function ListDoctors() {
     //setDoctorList(doctorL);
     const d = [];
     for (var i = 0; i < doctorL.length; i++) {
-      /*let url = `http://127.0.0.1:3002/doctor/details/${doctorL[i]._doctor}`;
-      let r = await fetch(url);
-      let dd = await r.json();
-*/
       d.push({
         key: `${i}`,
         name: (

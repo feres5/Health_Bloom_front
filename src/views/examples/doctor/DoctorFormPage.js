@@ -21,8 +21,9 @@ import {
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import TransparentFooter from "components/Footers/TransparentFooter.js";
+import TextArea from "antd/lib/input/TextArea";
 
-function LoginPage() {
+function DoctorFormPage() {
   const history = useHistory();
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
@@ -61,7 +62,6 @@ function LoginPage() {
 
   return (
     <>
-      <ExamplesNavbar />
       <div className="page-header clear-filter" filter-color="blue">
         <div
           className="page-header-image"
@@ -96,7 +96,7 @@ function LoginPage() {
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
-                        placeholder="Email..."
+                        placeholder="Speciality..."
                         type="text"
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
@@ -122,6 +122,63 @@ function LoginPage() {
                         onChange={(e) => setPassword(e.target.value)}
                       ></Input>
                     </InputGroup>
+                    <InputGroup
+                      className={
+                        "no-border input-lg" +
+                        (lastFocus ? " input-group-focus" : "")
+                      }
+                    >
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="now-ui-icons text_caps-small"></i>
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input
+                        placeholder="Password..."
+                        type="password"
+                        onFocus={() => setLastFocus(true)}
+                        onBlur={() => setLastFocus(false)}
+                        onChange={(e) => setPassword(e.target.value)}
+                      ></Input>
+                    </InputGroup>
+                    <InputGroup
+                      className={
+                        "no-border input-lg" +
+                        (lastFocus ? " input-group-focus" : "")
+                      }
+                    >
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="now-ui-icons text_caps-small"></i>
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input
+                        placeholder="Password..."
+                        type="password"
+                        onFocus={() => setLastFocus(true)}
+                        onBlur={() => setLastFocus(false)}
+                        onChange={(e) => setPassword(e.target.value)}
+                      ></Input>
+                    </InputGroup>
+                    <InputGroup
+                      className={
+                        "no-border input-lg" +
+                        (lastFocus ? " input-group-focus" : "")
+                      }
+                    >
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="now-ui-icons text_caps-small"></i>
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input
+                        placeholder="Password..."
+                        type="text"
+                        onFocus={() => setLastFocus(true)}
+                        onBlur={() => setLastFocus(false)}
+                        onChange={(e) => setPassword(e.target.value)}
+                      ></Input>
+                    </InputGroup>
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button
@@ -134,28 +191,6 @@ function LoginPage() {
                     >
                       Login
                     </Button>
-                    <div className="pull-left">
-                      <h6>
-                        <a
-                          className="link"
-                          href="#pablo"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          Create Account
-                        </a>
-                      </h6>
-                    </div>
-                    <div className="pull-right">
-                      <h6>
-                        <a
-                          className="link"
-                          href="#pablo"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          Need Help?
-                        </a>
-                      </h6>
-                    </div>
                   </CardFooter>
                 </Form>
               </Card>
@@ -168,4 +203,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default DoctorFormPage;
