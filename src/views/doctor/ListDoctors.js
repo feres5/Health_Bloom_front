@@ -101,58 +101,70 @@ function ListDoctors() {
   /****************************************** */
   const [data, setData] = useState([]);
 
+  const [etat, setetat] = useState("");
+  const [spec, setSpec] = useState("");
+  const [started, setStarted] = useState("");
+
   const getDoctorList = async () => {
     const url = "http://127.0.0.1:3002/doctor/";
     const reponse = await fetch(url);
     const doctorL = await reponse.json();
     //setDoctorList(doctorL);
     const d = [];
-    for (var i = 0; i < doctorL.length; i++) {
-      d.push({
-        key: `${i}`,
-        name: (
-          <>
-            <Avatar.Group>
-              <Avatar
-                className="shape-avatar"
-                shape="square"
-                size={40}
-                src={face2}
-              ></Avatar>
-              <div className="avatar-info">
-                <Title level={5}>
-                  {doctorL[i].FirstName} {doctorL[i].LastName}{" "}
-                </Title>
-                <p>{doctorL[i].Email}</p>
-              </div>
-            </Avatar.Group>{" "}
-          </>
-        ),
-        function: (
-          <>
-            <div className="author-info">
-              <Title level={5}>Doctor</Title>
-              <p></p>
-            </div>
-          </>
-        ),
 
-        status: (
-          <>
-            <Button type="primary" className="tag-primary">
-              ONLINE
-            </Button>
-          </>
-        ),
-        employed: (
-          <>
-            <div className="ant-employed">
-              <span>23/04/18</span>
-              <a href="#pablo">Edit</a>
-            </div>
-          </>
-        ),
-      });
+    for (var i = 0; i < doctorL.length; i++) {
+      const urll = `http://127.0.0.1:3002/doctor/details/${doctorL[i]._doctor}`;
+      const reponse = await fetch(urll);
+      const jres = await reponse.json();
+      //setSpec(jres.Speciality);
+
+      console.log(jres);
+      if (jres)
+        d.push({
+          key: `${i}`,
+          name: (
+            <>
+              <Avatar.Group>
+                <Avatar
+                  className="shape-avatar"
+                  shape="square"
+                  size={40}
+                  src={face2}
+                ></Avatar>
+                <div className="avatar-info">
+                  <Title level={5}>
+                    {doctorL[i].FirstName} {doctorL[i].LastName}{" "}
+                  </Title>
+                  <p>{doctorL[i].Email}</p>
+                </div>
+              </Avatar.Group>{" "}
+            </>
+          ),
+          function: (
+            <>
+              <div className="author-info">
+                <Title level={5}>Doctor</Title>
+                <p>{jres.Speciality}</p>
+              </div>
+            </>
+          ),
+
+          status: (
+            <>
+              <Button type="primary" className="tag-primary">
+                {jres.Status}
+              </Button>
+            </>
+          ),
+          employed: (
+            <>
+              <div className="ant-employed">
+                <span>{jres.createdAt} </span>
+                <a href="#pablo">Edit</a>
+              </div>
+            </>
+          ),
+        });
     }
     setData(d);
   };

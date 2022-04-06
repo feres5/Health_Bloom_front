@@ -80,24 +80,6 @@ function ProfileDoctor() {
       });
     }
   };
-  /**************************************************************** */
-  var token = localStorage.getItem("user_info");
-  var decoded = jwt_decode(token);
-
-  const [doctor, setDoctor] = useState("");
-  /*************************************************************** */
-  const getDoctorInfo = async () => {
-    const url = `http://127.0.0.1:3002/doctor/${decoded.user_id}`;
-    const reponse = await fetch(url);
-    const doctor = await reponse.json();
-    setDoctor(doctor);
-  };
-  useEffect(() => {
-    getDoctorInfo();
-  }, []);
-
-  /*************************************************************** */
-
   const pencil = [
     <svg
       width="20"
@@ -117,66 +99,26 @@ function ProfileDoctor() {
       ></path>
     </svg>,
   ];
+  /**************************************************************** */
+  var token = localStorage.getItem("user_info");
+  var decoded = jwt_decode(token);
+  const [doctor, setDoctor] = useState("");
+  const [user, setUser] = useState("");
 
-  const uploadButton = (
-    <div className="ant-upload-text font-semibold text-dark">
-      {<VerticalAlignTopOutlined style={{ width: 20, color: "#000" }} />}
-      <div>Upload New Project</div>
-    </div>
-  );
+  /*************************************************************** */
+  const url = `http://127.0.0.1:3002/doctor/${decoded.user_id}`;
+  const getDoctorInfo = async () => {
+    const reponse = await fetch(url);
+    const doc = await reponse.json();
+    setDoctor(doc[1]);
+    setUser(doc[0]);
+  };
+  useEffect(() => {
+    getDoctorInfo();
+  }, []);
 
-  const data = [
-    {
-      title: "Sophie B.",
-      avatar: convesionImg,
-      description: "Hi! I need more information…",
-    },
-    {
-      title: "Anne Marie",
-      avatar: convesionImg2,
-      description: "Awesome work, can you…",
-    },
-    {
-      title: "Ivan",
-      avatar: convesionImg3,
-      description: "About files I can…",
-    },
-    {
-      title: "Peterson",
-      avatar: convesionImg4,
-      description: "Have a great afternoon…",
-    },
-    {
-      title: "Nick Daniel",
-      avatar: convesionImg5,
-      description: "Hi! I need more information…",
-    },
-  ];
-
-  const project = [
-    {
-      img: project1,
-      titlesub: "Project #1",
-      title: "Modern",
-      disciption:
-        "As Uber works through a huge amount of internal management turmoil.",
-    },
-    {
-      img: project2,
-      titlesub: "Project #2",
-      title: "Scandinavian",
-      disciption:
-        "Music is something that every person has his or her own specific opinion about.",
-    },
-    {
-      img: project3,
-      titlesub: "Project #3",
-      title: "Minimalist",
-      disciption:
-        "Different people have different taste, and various types of music, Zimbali Resort",
-    },
-  ];
-
+  /*************************************************************** */
+  console.log(doctor);
   return (
     <>
       <div
@@ -194,10 +136,8 @@ function ProfileDoctor() {
                 <Avatar size={74} shape="square" src={profilavatar} />
 
                 <div className="avatar-info">
-                  <h4 className="font-semibold m-0">
-                    {doctor[0].FirstName} {doctor[0].LastName}{" "}
-                  </h4>
-                  <p>CEO / Co-Founder</p>
+                  <h4 className="font-semibold m-0"></h4>
+                  <p> Doctor/{doctor.Speciality} </p>
                 </div>
               </Avatar.Group>
             </Col>
@@ -230,20 +170,20 @@ function ProfileDoctor() {
             extra={<Button type="link">{pencil}</Button>}
             bodyStyle={{ paddingTop: 0, paddingBottom: 16 }}
           >
-            <p className="text-dark"> {doctor[1].Description} </p>
+            <p className="text-dark"> {doctor.Description} </p>
             <hr className="my-25" />
             <Descriptions title="Details">
               <Descriptions.Item label="Full Name" span={3}>
-                {doctor[0].FirstName} {doctor[0].LastName}
+                {user.FirstName} {user.LastName}
               </Descriptions.Item>
               <Descriptions.Item label="Mobile" span={3}>
-                (+216) {doctor[0].Phone}
+                (+216) {user.Phone}
               </Descriptions.Item>
               <Descriptions.Item label="Email" span={3}>
-                {doctor[0].Email}
+                {user.Email}
               </Descriptions.Item>
               <Descriptions.Item label="Location" span={3}>
-                {doctor[0].Address}
+                {user.Address}
               </Descriptions.Item>
             </Descriptions>
           </Card>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 // reactstrap components
 import {
@@ -60,10 +61,11 @@ function SignUp() {
         body: JSON.stringify(formData),
       });
       result = await result.json();
-      history.push("/index");
       localStorage.setItem("user_info", JSON.stringify(result));
-
-      console.log(result);
+      var decodedTOKEN = jwt_decode(result, { payload: true });
+      console.log(decodedTOKEN.Role);
+      if (Role === "Doctor") history.push("/doctor-form-page");
+      else history.push("/index");
     } else {
       console.log("password no match");
     }

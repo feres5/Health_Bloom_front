@@ -34,6 +34,7 @@ import "./Dashboard/assets/styles/responsive.css";
 import ProtectedRoute from "./protectedRoute";
 import ProfileDoctor from "views/doctor/ProfileDoctor";
 import DoctorFormPage from "./views/examples/doctor/DoctorFormPage";
+import ListDoctors from "views/doctor/ListDoctors";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -78,6 +79,7 @@ ReactDOM.render(
           <Route exact path="/profile" component={Profile} />
           {/*******************************************************************/}
           <Route exact path="/doctor-profile" component={ProfileDoctor} />
+          <Route exact path="/doctor-list" component={ListDoctors} />
 
           {/*******************************************************************/}
         </Main>
