@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 
 // styles for this kit
 import "assets/css/bootstrap.min.css";
@@ -33,54 +33,60 @@ import "./Dashboard/assets/styles/responsive.css";
 //protection of routes
 import ProtectedRoute from "./protectedRoute";
 
-ReactDOM.render(
-  <BrowserRouter>
-      <Switch>
-        <Switch>
-        <Route path="/index" render={(props) => <Index {...props} />} />
-        <Route
-          path="/nucleo-icons"
-          render={(props) => <NucleoIcons {...props} />}
-        />
-          <Route
-              path="/medical-magazine"
-              render={(props) => <MedicalMagazine {...props} />}
-          />
-          <Route
-              path="/article"
-              render={(props) => <ArticleDetails {...props} />}
-          />
-        <Route
-          path="/landing-page"
-          render={(props) => <LandingPage {...props} />}
-        />
-          {/*this route is protected, only access when logged in*/}
-        <ProtectedRoute exact path="/profile-page" component={ProfilePage} />
-        <Route
-          path="/login-page"
-          render={(props) => <LoginPage {...props} />}
-        />
-        <Route
-            path="/signUp"
-            render={(props) => <SignUp {...props} />}
-        />
-        <Route
-            path="/medical-signUp"
-            render={(props) => <MedicalSignUp {...props} />}
-        />
+import Shop from "./Shop/Shop";
+import newProduct from "./Shop/pages/NewProduct";
 
-        {/*this section is for dashboard routes*/}
-        <Main>
-          <Route exact path="/dashboard" component={Home} />
-          <Route exact path="/tables" component={Tables} />
-          <Route exact path="/billing" component={Billing} />
-          <Route exact path="/rtl" component={Rtl} />
-          <Route exact path="/profile" component={Profile} />
-        </Main>
-          <Redirect to="/index" />
-          <Redirect from="/" to="/index" />
+ReactDOM.render(
+    <BrowserRouter>
+        <Switch>
+            <Switch>
+                <Route path="/index" render={(props) => <Index {...props} />}/>
+                <Route
+                    path="/nucleo-icons"
+                    render={(props) => <NucleoIcons {...props} />}
+                />
+                <Route
+                    path="/medical-magazine"
+                    render={(props) => <MedicalMagazine {...props} />}
+                />
+                <Route
+                    path="/article"
+                    render={(props) => <ArticleDetails {...props} />}
+                />
+                <Route
+                    path="/landing-page"
+                    render={(props) => <LandingPage {...props} />}
+                />
+                {/*this route is protected, only access when logged in*/}
+                <ProtectedRoute exact path="/profile-page"
+                                component={ProfilePage}/>
+                <Route
+                    path="/login-page"
+                    render={(props) => <LoginPage {...props} />}
+                />
+                <Route
+                    path="/signUp"
+                    render={(props) => <SignUp {...props} />}
+                />
+                <Route
+                    path="/medical-signUp"
+                    render={(props) => <MedicalSignUp {...props} />}
+                />
+
+                {/*this section is for dashboard routes*/}
+                <Main>
+                    <Route exact path="/dashboard" component={Home}/>
+                    <Route exact path="/shop" component={Shop}/>
+                    <Route exact path="/add/product" component={newProduct}/>
+                    <Route exact path="/tables" component={Tables}/>
+                    <Route exact path="/billing" component={Billing}/>
+                    <Route exact path="/rtl" component={Rtl}/>
+                    <Route exact path="/profile" component={Profile}/>
+                </Main>
+                <Redirect to="/index"/>
+                <Redirect from="/" to="/index"/>
+            </Switch>
         </Switch>
-      </Switch>
-  </BrowserRouter>,
-  document.getElementById("root")
+    </BrowserRouter>,
+    document.getElementById("root")
 );
