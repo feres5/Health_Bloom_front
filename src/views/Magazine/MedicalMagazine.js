@@ -58,7 +58,7 @@ function MedicalMagazine() {
         <br/>
         <br/>
        
-              <Col lg="12" md="6">
+              <Col md="6" sm="6">
                 <FormGroup>
                   <Input
                     onChange={handleSearchTerm}
