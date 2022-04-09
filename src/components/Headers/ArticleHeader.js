@@ -38,6 +38,7 @@ function ArticleHeader(props) {
         <Container>
          
           <h3 className="title">{props.title}</h3>
+          <br/>
           <p className="category">By {props.author}</p>
           <div className="content">
             <div className="social-description">

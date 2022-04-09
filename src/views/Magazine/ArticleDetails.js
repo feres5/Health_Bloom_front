@@ -83,6 +83,30 @@ function ArticleDetails(props) {
 
   }
 
+  const unlike = async (id) => {
+
+    fetch(`http://localhost:3002/articles/unlikeArticle/${id}`, {
+      method: 'PUT'
+    })
+      .then(async response => {
+
+        const data = await response.json();
+
+        // check for error response
+        if (!response.ok) {
+          // get error message from body or default to response status
+          const error = (data && data.message) || response.status;
+          return Promise.reject(error);
+        }
+
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+      });
+       refreshPage()
+
+  }
+
   return (
 
     <>
@@ -101,6 +125,10 @@ function ArticleDetails(props) {
                 <i class="now-ui-icons ui-2_favourite-28"></i>
                 Like
               </Button>
+              <Button onClick={() => { unlike(ArticleDetails._id) }} className="btn-round" color="info" size="lg">
+                <i class="now-ui-icons ui-2_favourite-28"></i>
+                Dislike
+              </Button>
 
             </div>
           
@@ -109,6 +137,10 @@ function ArticleDetails(props) {
           <div align="right">
             <CommentBox idArticle={idArticle} />
             </div>  
+            <div align="left">
+
+            <ArticleComments id={idArticle}/>
+            </div>
             </Container>
           </div>
 

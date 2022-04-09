@@ -20,50 +20,45 @@ import {
 import ArticleDetails from "./ArticleDetails";
 
 function ArticleComments(props) {
- const idArticle= props.id;
- const [searchTerm, setsearchTerm] = useState([])
+  const idArticle = props.id;
+  console.log(idArticle)
+
   const [comments, setcomments] = useState([])
   const fetchcomments = async () => {
     const url = "http://localhost:3002/articles/comments/"
-    const urlId= url+idArticle
+    const urlId = url + idArticle
     const reponse = await fetch(urlId)
     const newcomments = await reponse.json()
     setcomments(newcomments)
-    console.log(newcomments)
   }
   useEffect(() => {
     fetchcomments()
-  }, [])
-  
-  const handleSearchTerm = async (e) => {
-    let value = e.target.value;
-    setsearchTerm(value);
-    console.log(value)
-  }  
+    console.log(comments)
 
-  React.useEffect(() => {
-    document.body.classList.add("index-page");
-    document.body.classList.add("sidebar-collapse");
-    document.documentElement.classList.remove("nav-open");
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
-    return function cleanup() {
-      document.body.classList.remove("index-page");
-      document.body.classList.remove("sidebar-collapse");
-    };
-  });
+  }, [])
+
+
+ 
   return (
-      <div >
-    <MDBCard background='primary' className='text-white mb-3' style={{ minWidth: '100rem' }}>
-    <MDBCardHeader>Header</MDBCardHeader>
-    <MDBCardBody>
-      <MDBCardTitle>Primary card title</MDBCardTitle>
-      <MDBCardText>
-        Some quick example text to build on the card title and make up the bulk of the card's content.
-      </MDBCardText>
-    </MDBCardBody>
-  </MDBCard>
-  </div>
+    <div>
+      { comments.map((item)=>{
+        
+        return(
+          <MDBCard background='info' className='text-white mb-3' style={{ minWidth: '50rem' }}>
+          <MDBCardHeader> At: {item.dateTime}</MDBCardHeader>
+          <MDBCardBody>
+            <MDBCardTitle>{item.content}</MDBCardTitle>
+            <MDBCardText>
+              User
+            </MDBCardText>
+          </MDBCardBody>
+        </MDBCard>        )
+
+      })}
+
+
+     {/*    */}
+    </div>
   );
 }
 
