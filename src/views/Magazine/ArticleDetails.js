@@ -27,7 +27,7 @@ function ArticleDetails(props) {
 
   const [theme, setTheme] = useState("light");
   const location = useLocation();
-  const idArticle = location.state.idArticle
+  const idArticle = location.state
 
   const [ArticleDetails, setArticleDetails] = useState([])
   const url = "http://localhost:3002/articles/"
