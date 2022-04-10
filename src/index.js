@@ -17,6 +17,7 @@ import SignUp from "./views/SignUp/SignUp";
 import MedicalSignUp from "./views/index-sections/MedicalSignUp";
 import MedicalMagazine from "views/Magazine/MedicalMagazine";
 import ArticleDetails from "views/Magazine/ArticleDetails";
+import ProfilePatient from "views/Patient/Profile";
 
 // pages for dashbord
 
@@ -44,6 +45,7 @@ ReactDOM.render(
         <Route path="/article" element={<ArticleDetails/>} />
         <Route path="/landing-page" element={<LandingPage/>} />
         <Route path="/profile-page" element={<ProfilePage/>} />
+        <Route path="/PatientProfile" element={<ProfilePatient/>} />
         <Route path="/login-page" element={<LoginPage/>} />
         <Route path="/signUp" element={<SignUp/>} />
         <Route path="/medical-signUp" element={<MedicalSignUp/>} />
@@ -52,10 +54,10 @@ ReactDOM.render(
         {/*this section is for dashboard routes*/}
         {/*you need to put the component that u want to redirect to inside <Main></Main> in element*/}
         <Route path="/dashboard" element={<Main> <Home/> </Main>} />
-        <Route path="/tables" element={<Main> <Tables/> </Main>} />
-        <Route path="/billing" element={<Main> <Billing/> </Main>} />
-        <Route path="/rtl" element={<Main> <Rtl/> </Main>} />
-        <Route path="/profile" element={<Main> <Profile/> </Main>} />
+        <Route path="/dashboard/tables" element={<Main> <Tables/> </Main>} />
+        <Route path="/dashboard/billing" element={<Main> <Billing/> </Main>} />
+        <Route path="/dashboard/rtl" element={<Main> <Rtl/> </Main>} />
+        <Route path="/dashboard/profile" element={<Main> <Profile/> </Main>} />
 
       </Routes>
   </BrowserRouter>,

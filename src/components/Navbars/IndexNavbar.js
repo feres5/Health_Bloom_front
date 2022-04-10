@@ -1,9 +1,9 @@
 import React from "react";
 import {useNavigate } from "react-router-dom";
+
 // reactstrap components
 import {
-  Collapse,
-  DropdownToggle,
+  Collapse, DropdownToggle,
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
@@ -41,7 +41,6 @@ function IndexNavbar() {
   });
   //console.log(localStorage.getItem("user_info"))
   const token = localStorage.getItem("user_info");
-  console.log("token :" +token);
 
   async function LogOut(){
     console.log("logging out");
