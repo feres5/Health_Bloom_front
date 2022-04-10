@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 // reactstrap components
 import {
@@ -43,7 +44,7 @@ function LoginPage() {
     console.log("login a user", Email , Password);
     let item={Email,Password};
     let result = await fetch(
-        "http://127.0.0.1:3001/users/login",
+        "http://127.0.0.1:3002/users/login",
         {
           method:'POST',
           headers:{
@@ -56,6 +57,8 @@ function LoginPage() {
     result = await result.json();
     console.log(result);
     localStorage.setItem("user_info",JSON.stringify(result));
+    var decodedTOKEN = jwt_decode(result,{payload : true});
+    console.log(decodedTOKEN.Role);
     history.push("/index");
 
   }
