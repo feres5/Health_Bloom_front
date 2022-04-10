@@ -1,4 +1,5 @@
 import {React, useEffect, useState} from "react";
+//import { useHistory  } from "react-router-dom";
 
 import Switch from "react-bootstrap-switch";
 // plugin that creates slider
@@ -10,6 +11,7 @@ import DarkFooter from "components/Footers/DarkFooter.js";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro' 
+
 
 // reactstrap components
 import {
@@ -23,28 +25,18 @@ import {
   Container,
   Row,
   Col,
+  Form,
+  FormText,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import ForumSection from "components/Forum/ForumSection";
 
-
-function ForumWelcome() {
-
-    const [sections, setSections] = useState([])
-
-    const fetchSections = async () => {
-      const url = "http://localhost:3002/forum/get-sections";
-      //const urlId= url+idArticle
-      const reponse = await fetch(url);
-      const newSections = await reponse.json();
-      setSections(newSections);
-    }
-    useEffect(() => {
-      fetchSections()
-    }, [])
+const axios = require('axios');
 
 
-    /*React.useEffect(() => {
+function CreateThread() {
+
+    React.useEffect(() => {
       document.body.classList.add("index-page");
       document.body.classList.add("sidebar-collapse");
       document.documentElement.classList.remove("nav-open");
@@ -53,26 +45,43 @@ function ForumWelcome() {
       return function cleanup() {
         document.body.classList.remove("index-page");
         document.body.classList.remove("sidebar-collapse");
+        
       };
-    });*/
+    });
+
+    //const history = useHistory();
+    
+    const handleSubmit = e => {
+        e.preventDefault();
+        // get our form data out of state
+        const title =  e.target.elements.title.value;
+        const body =  e.target.elements.body.value;
+        axios.post("http://localhost:3002/forum/create-thread", {title, body }).then((res) => {
+            console.log(res.data)
+            //history.push("/forum/section/1");
+        }).catch((error) => {
+            console.log(error)
+        });
+    };
+
     return (
       <>
         <IndexNavbar /> 
         <div className="wrapper">
-            <Container className="forum-welcome">
-              
-              <Container className="forum-links-container">
-               
-                <Link className="forum-link" to={"#"}>
-                  <FontAwesomeIcon icon={solid('user')} size="lg" />Profile
-                </Link>
-                
-                <Link className="forum-link" to={"#"}>
-                  <FontAwesomeIcon icon={solid('bell')} size="lg" />Notifications
-                </Link>
-              </Container>
+            <Container className="forum-create-thread">
+                <Form onSubmit={handleSubmit}>
+                    <FormGroup>
+                    <Label for="threadTitle">Title</Label>
+                    <Input type="text" name="title" id="threadTitle" placeholder="" />
+                    </FormGroup>
 
-              <ForumSection topics={sections}></ForumSection>
+                    <FormGroup>
+                    <Label for="threadBody"></Label>
+                    <Input type="textarea" name="body" id="threadBody" />
+                    </FormGroup>
+
+                    <Button>Submit</Button>
+                </Form>
 
             </Container>
           <DarkFooter />
@@ -81,4 +90,4 @@ function ForumWelcome() {
     );
   }
 
-  export default ForumWelcome;
+  export default CreateThread;

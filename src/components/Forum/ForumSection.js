@@ -17,7 +17,7 @@ const ForumSection  = (props) =>
         const sub_arr = props.topics.slice(i*2,i*2+2);
 
         const cols = sub_arr.map((item) => 
-            <Col> <ForumSectionTopic></ForumSectionTopic> </Col>
+            <Col> <ForumSectionTopic section={item} ></ForumSectionTopic> </Col>
         )
 
         tops.push(
@@ -29,7 +29,7 @@ const ForumSection  = (props) =>
     return (
         <>
             <Container className="forum-section">
-                <h4 className="forum-section-title">Section Title</h4>
+                <h4 className="forum-section-title">_______________________________________________________________________________</h4>
                     <Container className="forum-section-content">
                         {tops}
                     </Container>

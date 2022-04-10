@@ -33,6 +33,7 @@ import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
 import SectionThreads from "views/forum/section-threads.js"
 import Thread from "views/forum/thread";
+import CreateThread from "views/forum/create-thread";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -57,12 +58,16 @@ ReactDOM.render(
         />
 
         <Route
-          path="/forum/section/1"
+          path="/forum/create-thread"
+          render={(props) => <CreateThread {...props} />}
+        />
+        <Route
+          path="/forum/section/:id"
           render={(props) => <SectionThreads {...props} />}
         />
 
         <Route
-          path="/forum/thread/1"
+          path="/forum/thread/:id"
           render={(props) => <Thread {...props} />}
         />
 

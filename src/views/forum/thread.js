@@ -26,7 +26,7 @@ function Thread()
                     </Col>
 
                     <Col sm="9">
-                        <h4 className="thread-title">Section: Section Title</h4>
+                        <h4 className="thread-title">/</h4>
                     </Col>
                 </Row>
 

@@ -7,8 +7,8 @@ function SectionThreadsContent({ items })
 {
     var thr = [];
     
-        thr= items.map(() => { return(
-            <SectionThreadsCard></SectionThreadsCard>)
+        thr= items.map((item) => { return(
+            <SectionThreadsCard thread={item}></SectionThreadsCard>)
         });
 
     return (
