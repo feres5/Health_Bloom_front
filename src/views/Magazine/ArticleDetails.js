@@ -3,6 +3,7 @@ import ArticleHeader from "components/Headers/ArticleHeader";
 import IndexNavbar from "components/Navbars/IndexNavbar";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 
 // reactstrap components
@@ -43,6 +44,26 @@ function ArticleDetails(props) {
       document.body.classList.remove("sidebar-collapse");
     };
   }, []);
+
+  const [Author, setAuthor] = useState([])
+
+  var user = localStorage.getItem("user_info");
+  var decodedTOKEN = jwt_decode(user,{payload : true});
+
+  const urlAuthor = "http://localhost:3002/articles/Author/"
+  const fetchAuthor = async () => {
+      const urlId = urlAuthor + decodedTOKEN.user_id
+
+      const reponse = await fetch(urlId)
+      const newAuthor = await reponse.json()
+      setAuthor(newAuthor)
+      console.log(newAuthor)
+      return newAuthor;
+  }
+  useEffect(() => {
+      fetchAuthor()
+  }, [])
+
 
   const refreshPage = () => {
     window.location.reload();
@@ -103,7 +124,7 @@ function ArticleDetails(props) {
       <div className="wrapper">
         <ArticleHeader
           title={ArticleDetails.title}
-          author={ArticleDetails.author}
+          author={"Dr."+Author.FirstName+ " "+Author.LastName}
           image={ArticleDetails.image}
           nbComments={ArticleDetails.nbComments}
           nbLikes={ArticleDetails.nbLikes} />

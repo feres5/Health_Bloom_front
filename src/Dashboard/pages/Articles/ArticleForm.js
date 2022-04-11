@@ -53,12 +53,11 @@ function ArticleForm() {
     const onSubmit = () => {
         var newImage = Image.replace("C:\\fakepath\\", "");
         console.log(newImage)
-        var AuthorName = Author.FirstName + " " + Author.LastName
         fetch(`http://localhost:3002/articles/addArticle`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                title: Title, author: AuthorName,
+                title: Title, author: id,
                 description: Description, image: newImage
             })
         }).then(

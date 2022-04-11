@@ -18,8 +18,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import ArticleDetails from "./ArticleDetails";
-import { getAutoHeightDuration } from "@mui/material/styles/createTransitions";
+
 
 function ArticleComments(props) {
   const idArticle = props.id;
@@ -81,15 +80,16 @@ function ArticleComments(props) {
         var current= item.dateTime
 
         return(
-          <MDBCard background='info' className='text-white mb-3' style={{ maxWidth: '20rem' }}>
-          <MDBCardHeader> {item.emailUser}</MDBCardHeader>
-          <MDBCardBody>
-            <h4>{item.emailUser}</h4>
-            <MDBCardTitle>{item.content}</MDBCardTitle>
-            <MDBCardText>
+          <MDBCard background='info' className='text-white mb-3' style={{ maxWidth: '60rem' }}>
+          <MDBCardHeader padding={200} > Written by  {item.emailUser}</MDBCardHeader>
+          <MDBCardText>
              {current}
             </MDBCardText>
-            <Button onClick={() => {deleteComment(item._id)} } class="btn-round btn btn-warning">Delete</Button>
+          <MDBCardBody  frameBorder={10}>
+            
+            <MDBCardTitle ><h5>{item.content}</h5></MDBCardTitle>
+            
+            <Button disabled={item.idUser!=decodedTOKEN.user_id} onClick={() => {deleteComment(item._id)} } class="btn-round btn btn-danger">Delete</Button>
           </MDBCardBody>
         </MDBCard>        )
 
