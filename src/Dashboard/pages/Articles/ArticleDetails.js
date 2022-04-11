@@ -31,6 +31,7 @@ import {
     InstagramOutlined,
     VerticalAlignTopOutlined,
 } from "@ant-design/icons";
+import jwt_decode from "jwt-decode";
 
 import BgProfile from "../../assets/images/bg-profile.jpg";
 import profilavatar from "../../assets/images/face-1.jpg";
@@ -62,7 +63,31 @@ function ArticleDetailsDashboard() {
     }
     useEffect(() => {
         fetchArticleDetails()
+       
     }, [])
+
+    const [Author, setAuthor] = useState([])
+
+  var user = localStorage.getItem("user_info");
+  var decodedTOKEN = jwt_decode(user,{payload : true});
+  console.log("author"+ArticleDetails.author)
+  const idAuthor=ArticleDetails.author
+  const urlAuthor = "http://localhost:3002/articles/Author/"
+
+
+  const fetchAuthor = async () => {
+      const urlId = urlAuthor + idAuthor;
+
+      const reponse = await fetch(urlId)
+      const newAuthor = await reponse.json()
+      setAuthor(newAuthor)
+      console.log(newAuthor)
+      return newAuthor;
+  }
+  useEffect(() => {
+      fetchAuthor()
+  }, [])
+
 
     const getBase64 = (img, callback) => {
         const reader = new FileReader();
@@ -84,30 +109,31 @@ function ArticleDetailsDashboard() {
         return isJpgOrPng && isLt2M;
     };
     const onSubmit = () => {
+        if (Title) {
+            var newTitle = Title
+        }
+        else {
+            newTitle = ArticleDetails.title
+        };
+        
         if (Image) {
             var newImage = Image.replace("C:\\fakepath\\", "");
             console.log(newImage)
         }
         else {
             var newImage = ArticleDetails.image
-        }
+        };
         if (Description) {
             var newDescription = Description
         }
         else {
             var newDescription = ArticleDetails.description
-        }
-        if (Title) {
-            var newTitle = Title
-        }
-        else {
-            newTitle = ArticleDetails.title
-        }
+        };
         fetch(`http://localhost:3002/articles/updateArticle`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                id: idArticle, title: Title,
+                id: idArticle, title: newTitle,
                 description: newDescription, image: newImage
             })
         }).then(
@@ -206,7 +232,7 @@ function ArticleDetailsDashboard() {
 
                                 <div className="avatar-info">
                                     <h4 className="font-semibold m-0">{ArticleDetails.title}</h4>
-                                    <p>{ArticleDetails.author}</p>
+                                    <p>Written by Dr. {Author.FirstName+ " " + Author.LastName}</p>
                                 </div>
                             </Avatar.Group>
                         </Col>
@@ -219,7 +245,7 @@ function ArticleDetailsDashboard() {
                                 justifyContent: "flex-end",
                             }}
                         >
-                            <Button variant="danger" onClick={() => { deleteArticle(ArticleDetails._id) }}> Delete Article </Button>
+                            <Button disabled={ArticleDetails.author!=Author._id} variant="danger" onClick={() => { deleteArticle(ArticleDetails._id) }}> Delete Article </Button>
                         </Col>
                     </Row>
                 }
@@ -279,7 +305,7 @@ function ArticleDetailsDashboard() {
                                     placeholder="Enter the title" />
                             </Form.Group>
                             <Form.Group>
-                                <Form.Label><h6>Update your article</h6></Form.Label>
+                                <Form.Label><h6>Content</h6></Form.Label>
 
                                 <div className="form-group">
                                     <textarea

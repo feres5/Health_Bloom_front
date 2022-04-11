@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useEffect, useState } from "react";
 
 // reactstrap components
 import { Button, Container } from "reactstrap";
@@ -27,6 +27,21 @@ function MagazineHeader() {
   const refreshPage = () => {
     window.location.reload();
   }
+  const [Author, setAuthor] = useState([])
+
+  const url = "http://localhost:3002/articles/Author/"
+
+  const fetchAuthor = async () => {
+      const urlId = url + decodedTOKEN.user_id;
+
+      const reponse = await fetch(urlId)
+      const newAuthor = await reponse.json()
+      setAuthor(newAuthor)
+      console.log(newAuthor)
+  }
+  useEffect(() => {
+      fetchAuthor()
+  }, [])
 
   
   const subscribe = async (id) => {
@@ -66,14 +81,23 @@ function MagazineHeader() {
         ></div>
         <div className="content-center">
            <Container>
-            <h1 className="title">Welcome {decodedTOKEN.Email} to your favorite medical magazine.</h1>
+            <h1 className="title">Welcome {Author.FirstName} to your favorite medical magazine.</h1>
             <div className="text-center">
               <Button
+                hidden={Author.newsLetter==true}
                 className="btn btn-success"
                 color="info"
                 href="#pablo"
                 onClick={() =>subscribe(decodedTOKEN.user_id)}
               > Subscribe to our NewsLetter
+              </Button>
+              <Button
+                hidden={Author.newsLetter==false}
+                className="btn btn-success"
+                color="info"
+                href="#pablo"
+                onClick={() =>subscribe(decodedTOKEN.user_id)}
+              > Unsubscribe from our NewsLetter
               </Button>
             </div>
           </Container>

@@ -30,8 +30,7 @@ import { Input } from "reactstrap";
 function Articles() {
     const [articles, setarticles] = useState([])
 
-    const [searchTerm, setsearchTerm] = useState([])
-    
+    const [searchTerm, setsearchTerm] = useState()
     const handleSearchTerm = async (e) => {
         let value = e.target.value;
         setsearchTerm(value);
@@ -44,6 +43,7 @@ function Articles() {
         const newarticles = await reponse.json()
         setarticles(newarticles)
         console.log(newarticles)
+        
     }
     useEffect(() => {
         fetcharticles()
@@ -57,7 +57,6 @@ function Articles() {
                 <Card
                     bordered={true}
                     className="header-solid mb-24"
-                    onChange={handleSearchTerm}
                     title={
                         <>
                             <h6 className="font-semibold">Articles</h6>
@@ -69,7 +68,9 @@ function Articles() {
                     <Row gutter={[24, 24]}>
 
                         <Col>
+                            
                             <Input
+                                onChange={(e) =>{handleSearchTerm(e)}}
                                 className="header-search"
                                 placeholder="Type here..."
                                  />
@@ -83,10 +84,10 @@ function Articles() {
                     <br />
                     <Row gutter={[24, 24]}>
                         {articles.filter((val) => {
-                    return val.title
-                    .toString()
-                    .toLowerCase()
-                    .includes(searchTerm.toString().toLowerCase())
+            return val.title
+            .toString()
+            .toLowerCase()
+            .includes(searchTerm.toString().toLowerCase())
                   }).map((item) => (
                             <Col span={30} md={12} xl={6} >
                                 <Card
@@ -96,7 +97,7 @@ function Articles() {
                                 >
                                     <div className="card-tag" height={170} width={50}>{item.title}</div>
 
-                                    <div className="card-tag" height={170}> Written By: Dr. {item.author}</div>
+                                    <div className="card-tag" height={170}>Published On: {item.dateCreation}</div>
                                     <Row gutter={[6, 0]} className="card-footer">
                                         <Col span={5}>
                                             <Link to={{
