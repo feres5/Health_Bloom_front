@@ -23,12 +23,7 @@
   textarea::placeholder {
     color: var(--gray);
   }
-  
-  label {
-    height: 0;
-    width: 0;
-    visibility: hidden;
-  }
+ 
   
   button {
     cursor: pointer;
