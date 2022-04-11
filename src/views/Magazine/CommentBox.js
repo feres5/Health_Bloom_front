@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import cn from "classnames";
 import "../../assets/css/CommentBox.css";
 import qs from 'querystring';
+import jwt_decode from "jwt-decode";
 
 const INITIAL_HEIGHT = 46;
 
@@ -48,13 +49,16 @@ export default function CommentBox(props) {
         setCommentValue("");
         setIsExpanded(false);
     };
+    var user = localStorage.getItem("user_info");
+    var decodedTOKEN = jwt_decode(user,{payload : true});
 
     const onSubmit = (e) => {
         e.preventDefault();
         fetch(`http://localhost:3002/articles/addComment`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ content: commentValue, idArticle: props.idArticle})
+            body: JSON.stringify({ content: commentValue, idArticle: props.idArticle, idUser:decodedTOKEN.user_id 
+            , emailUser:decodedTOKEN.Email})
             }).then(
                 (result) => {
             result.json().then((resp) => {
@@ -68,7 +72,7 @@ export default function CommentBox(props) {
                             )
 }
 
-    
+
     return (
         <div className="container">
             <form
@@ -89,10 +93,9 @@ export default function CommentBox(props) {
                             src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/df/df7789f313571604c0e4fb82154f7ee93d9989c6.jpg"
                             alt="User avatar"
                         />
-                        <span>Don't worry, This will be anonymous.</span>
+                        <span>{decodedTOKEN.Email}</span>
                     </div>
                 </div>
-                <label htmlFor="comment">What are your thoughts?</label>
                 <textarea
                     ref={textRef}
                     onClick={onExpand}

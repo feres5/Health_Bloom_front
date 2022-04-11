@@ -8,18 +8,13 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import DarkFooter from "components/Footers/DarkFooter.js";
 import MagazineHeader from "components/Headers/MagazineHeader";
 import {
-  Button,
-  Label,
   FormGroup,
   Input,
-  Container,
-  Row,
   Col,
 } from "reactstrap";
-import ArticleDetails from "./ArticleDetails";
 
 function MedicalMagazine() {
- const [searchTerm, setsearchTerm] = useState([])
+  const [searchTerm, setsearchTerm] = useState([])
   const [articles, setarticles] = useState([])
   const fetcharticles = async () => {
     const url = 'http://localhost:3002/articles'
@@ -107,4 +102,3 @@ function MedicalMagazine() {
 }
 
 export default MedicalMagazine;
-
