@@ -44,7 +44,6 @@ function SignUp() {
         console.log("register a new user");
         console.log(formData);
         console.log(ConfirmPassword);
-
         if(formData.Password === ConfirmPassword){
             console.log("password ok");
             let result = await fetch(

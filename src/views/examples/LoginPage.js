@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 
 // reactstrap components
 import {
@@ -55,7 +54,6 @@ function LoginPage() {
     );
     result = await result.json();
     localStorage.setItem("user_info",JSON.stringify(result));
-    var decodedTOKEN = jwt_decode(result,{payload : true});
     history.push("/index");
 
   }

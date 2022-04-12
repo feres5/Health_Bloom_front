@@ -7,16 +7,7 @@ import "../../assets/scss/magazine.scss";
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import DarkFooter from "components/Footers/DarkFooter.js";
 import MagazineHeader from "components/Headers/MagazineHeader";
-import {
-  Button,
-  Label,
-  FormGroup,
-  Input,
-  Container,
-  Row,
-  Col,
-} from "reactstrap";
-import ArticleDetails from "./ArticleDetails";
+import {FormGroup, Input, Col} from "reactstrap";
 
 function MedicalMagazine() {
  const [searchTerm, setsearchTerm] = useState([])
