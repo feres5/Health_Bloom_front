@@ -5,7 +5,8 @@
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@emotion/core": "^10.1.1",
-    "@emotion/react": "^11.8.2",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
     "@mui/material": "^5.5.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -34,6 +35,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "4.0.3",
     "react-textarea-autosize": "^8.3.3",
+    "reactjs-popup": "^2.0.5",
     "reactstrap": "8.9.0",
     "styled-components": "^5.3.3",
     "web-vitals": "^1.1.2"

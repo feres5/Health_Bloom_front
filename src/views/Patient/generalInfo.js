@@ -8,7 +8,7 @@ import moment from "moment";
 import { useNavigate } from 'react-router-dom';
 
 function GeneralInfo(props) {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     // console.log(props.info.user);
     // console.log(props.info.patient);
     const url = "http://localhost:3002/users/";
@@ -52,7 +52,10 @@ function GeneralInfo(props) {
         console.log(result);
         navigate("/PatientProfile");
     }
-    //switching between
+
+
+
+    //switching between the 2 cards
     const [Update,SetUpdate]= useState(false);
     const changeCard = () => {
         SetUpdate(Update => !Update);
@@ -62,6 +65,7 @@ function GeneralInfo(props) {
             <Card className="col col-md-8" style={{margin : "10px"}} >
                 <CardHeader>
                     <Row>
+
                         <h3>General Information :</h3>
                         <Button className="btn-round" onClick={changeCard} style={{marginLeft:"auto", height:"50px" }} color="info" outline type="button">update</Button>
                     </Row>

@@ -2,27 +2,13 @@ import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 // reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Container,
-  Col,
-} from "reactstrap";
+import {Button,Card,CardHeader,CardBody,CardFooter,Form,Input,InputGroupAddon,InputGroupText,InputGroup,Container,Col} from "reactstrap";
 
 // core components
-import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import TransparentFooter from "components/Footers/TransparentFooter.js";
 
 function LoginPage() {
-  const history = useNavigate ()
+  const navigate = useNavigate ()
   const [Email, setEmail]= useState("");
   const [Password, setPassword]= useState("");
   const [firstFocus, setFirstFocus] = React.useState(false);
@@ -52,15 +38,19 @@ function LoginPage() {
           body: JSON.stringify(item)
         }
     );
+    if( result.status === 401 ){
+      console.log("you need to enter all of your credentials");
+    }
     result = await result.json();
+    console.log(result);
     localStorage.setItem("user_info",JSON.stringify(result));
-    history.push("/index");
+    navigate("/index");
 
   }
 
   return (
     <>
-      <ExamplesNavbar />
+      {/*<ExamplesNavbar />*/}
       <div className="page-header clear-filter" filter-color="blue">
         <div
           className="page-header-image"
@@ -78,7 +68,7 @@ function LoginPage() {
                     <div className="logo-container">
                       <img
                         alt="..."
-                        src={require("assets/img/now-logo.png").default}
+                        src={require("assets/img/logoNav.png").default}
                       ></img>
                     </div>
                   </CardHeader>
@@ -127,7 +117,6 @@ function LoginPage() {
                       block
                       className="btn-round"
                       color="info"
-                      href="#pablo"
                       onClick={login}
                       size="lg"
                     >
@@ -137,7 +126,7 @@ function LoginPage() {
                       <h6>
                         <a
                           className="link"
-                          href="#pablo"
+                          href="/signUp"
                           onClick={(e) => e.preventDefault()}
                         >
                           Create Account
@@ -147,9 +136,9 @@ function LoginPage() {
                     <div className="pull-right">
                       <h6>
                         <a
-                          className="link"
-                          href="#pablo"
-                          onClick={(e) => e.preventDefault()}
+                            href="#pablo"
+                            className="link"
+                            onClick={(e) => e.preventDefault()}
                         >
                           Need Help?
                         </a>

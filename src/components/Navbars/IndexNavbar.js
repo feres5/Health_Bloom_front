@@ -1,25 +1,29 @@
-import React from "react";
+import React, {useState} from "react";
 import {useNavigate } from "react-router-dom";
 
 // reactstrap components
 import {
-  Collapse, DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  NavbarBrand,
-  Navbar,
-  NavItem,
-  NavLink,
-  Nav,
-  Container,
-  UncontrolledTooltip,
+  Collapse, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledDropdown, NavbarBrand,
+  Navbar, NavItem, NavLink,Input, Nav, Container, UncontrolledTooltip, Button, InputGroupAddon, InputGroupText
 } from "reactstrap";
 
+//imports for popUp
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import jwt_decode from "jwt-decode";
+import {Dialog, DialogContent, DialogContentText, DialogTitle, DialogActions, Alert} from "@mui/material";
+import {InputGroup} from "react-bootstrap";
+
 function IndexNavbar() {
-  const history = useNavigate ()
+  const navigate = useNavigate()
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
+  const [firstFocus, setFirstFocus] = React.useState(false);
+  const [lastFocus, setLastFocus] = React.useState(false);
+  const url = "http://localhost:3002/users/";
+  //console.log(localStorage.getItem("user_info"))
+  const token = localStorage.getItem("user_info");
+  const decodedTOKEN = jwt_decode(token,{payload : true});
   React.useEffect(() => {
     const updateNavbarColor = () => {
       if (
@@ -39,14 +43,55 @@ function IndexNavbar() {
       window.removeEventListener("scroll", updateNavbarColor);
     };
   });
-  //console.log(localStorage.getItem("user_info"))
-  const token = localStorage.getItem("user_info");
+
 
   async function LogOut(){
     console.log("logging out");
     localStorage.removeItem("user_info");
-    history.push("/login-page");
+
+    navigate("/index");
   }
+
+
+  //change password functions
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const [newPasswordForm,SetNewPasswordForm] = useState({
+    newPassword : "",
+    confirmNewPassword :""
+  })
+  const {newPassword,confirmNewPassword}= newPasswordForm;
+  const onChangePassword = (e) =>
+      SetNewPasswordForm({...newPasswordForm , [e.target.name]: e.target.value});
+  async function changePassword(){
+    console.log(newPasswordForm);
+    if (newPassword===confirmNewPassword){
+      let result = await fetch(
+          url+"changePassword/"+decodedTOKEN.user_id,
+          {
+            method:'POST',
+            headers:{
+              "Content-Type":"application/json",
+              "Accept":'application/json'
+            },
+            body: JSON.stringify(newPasswordForm)
+          }
+      )
+      handleClose();
+      navigate("/PatientProfile");
+    }
+    else
+      alert("password and confirm password needs to be the exact same");
+
+  }
+
 
   return (
       token ?(
@@ -98,7 +143,6 @@ function IndexNavbar() {
               <NavItem>
                 <NavLink
                     href="/medical-magazine"
-                   
                 >
                   <i className="now-ui-icons business_bulb-63 mr-1"></i>
                   <p>Medical Magazine</p>
@@ -226,9 +270,9 @@ function IndexNavbar() {
                   <div className="divider"></div>
                   <DropdownItem
                       href="#pablo"
-                      onClick={(e) => e.preventDefault()}
+                      onClick={handleClickOpen}
                   >
-                    Separated link
+                    change password
                   </DropdownItem>
                   <div className="divider"></div>
                   <DropdownItem
@@ -243,6 +287,54 @@ function IndexNavbar() {
           </Collapse>
         </Container>
       </Navbar>
+      <Dialog open={open} onClose={()=>handleClose()} >
+        <DialogTitle>change your password</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            please fill the fields under in order to change your password
+          </DialogContentText>
+          <form action="" className="form" method="">
+            <InputGroup
+                className={
+                  "no-border" + (firstFocus ? " input-group-focus" : "")
+                }>
+              <InputGroupAddon addonType="prepend">
+                <InputGroupText>
+                  <i className="now-ui-icons objects_key-25"></i>
+                </InputGroupText>
+              </InputGroupAddon>
+              <Input
+                  defaultValue={newPassword}
+                  placeholder="New Password"
+                  type="password"
+                  name="newPassword"
+                  onChange={(e)=>onChangePassword(e)}
+              ></Input>
+            </InputGroup>
+            <InputGroup
+                className={
+                  "no-border" + (firstFocus ? " input-group-focus" : "")
+                }>
+              <InputGroupAddon addonType="prepend">
+                <InputGroupText>
+                  <i className="now-ui-icons objects_key-25"></i>
+                </InputGroupText>
+              </InputGroupAddon>
+              <Input
+                  defaultValue={confirmNewPassword}
+                  placeholder="confirm Password"
+                  type="password"
+                  name="confirmNewPassword"
+                  onChange={(e)=>onChangePassword(e)}
+              ></Input>
+            </InputGroup>
+          </form>
+          <DialogActions>
+            <Button onClick={()=>handleClose}>Cancel</Button>
+            <Button onClick={()=>changePassword()}>Change</Button>
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
     </>
       ):(
           <>

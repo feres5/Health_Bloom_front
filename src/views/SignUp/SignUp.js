@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 // reactstrap components
 import {
     Button,
@@ -20,6 +21,7 @@ import {
 // core components
 
 function SignUp() {
+    const navigate = useNavigate()
     const [firstFocus, setFirstFocus] = React.useState(false);
     const [lastFocus, setLastFocus] = React.useState(false);
     const [emailFocus, setEmailFocus] = React.useState(false);
