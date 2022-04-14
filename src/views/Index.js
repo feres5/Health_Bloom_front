@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 // reactstrap components
 import {
@@ -53,7 +53,7 @@ function Index() {
       document.body.classList.remove("sidebar-collapse");
     };
   });
-
+  
   return (
     <>
       <IndexNavbar />
@@ -61,7 +61,7 @@ function Index() {
         <IndexHeader />
         <div className="main">
           <Search/>
-
+     
           {/*articles section from magazine*/}
           <Magazine/>
           {/*ask a medical question*/}

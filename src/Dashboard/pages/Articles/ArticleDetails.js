@@ -9,9 +9,10 @@
   =========================================================
   * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-import { useEffect, useState } from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon } from "mdbreact";
-
+import { useEffect} from "react";
+import {useState } from "react";
+import 'react-custom-alert/dist/index.css';
+import { AlertContainer, alert } from 'react-custom-alert';
 import {
     Row,
     Col,
@@ -26,20 +27,13 @@ import {
 } from "antd";
 
 import {
-    FacebookOutlined,
-    TwitterOutlined,
-    InstagramOutlined,
     VerticalAlignTopOutlined,
 } from "@ant-design/icons";
 import jwt_decode from "jwt-decode";
 
-import BgProfile from "../../assets/images/bg-profile.jpg";
 import profilavatar from "../../assets/images/face-1.jpg";
 import { useLocation } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
-import articleForm from "./ArticleForm";
-import TextArea from "antd/lib/input/TextArea";
-import { ButtonBase } from "@mui/material";
 import { Button } from "react-bootstrap";
 
 
@@ -64,17 +58,17 @@ function ArticleDetailsDashboard() {
     useEffect(() => {
         fetchArticleDetails()
        
-    }, [])
+    }, ()=>{
+        fetchAuthor()
+    })
 
     const [Author, setAuthor] = useState([])
 
   var user = localStorage.getItem("user_info");
   var decodedTOKEN = jwt_decode(user,{payload : true});
-  console.log("author"+ArticleDetails.author)
+
   const idAuthor=ArticleDetails.author
   const urlAuthor = "http://localhost:3002/articles/Author/"
-
-
   const fetchAuthor = async () => {
       const urlId = urlAuthor + idAuthor;
 
@@ -108,7 +102,19 @@ function ArticleDetailsDashboard() {
         }
         return isJpgOrPng && isLt2M;
     };
+
+
     const onSubmit = () => {
+
+        if (((Description===ArticleDetails.description)||(Description===null))
+         && ((Title===ArticleDetails.title)||(Title===null)) &&
+          ((Image===ArticleDetails.image)||(Image===null) ))
+        {
+            alert({ message: 'You did not make any changes!', type: 'warning' })
+            refreshPage()
+
+        }
+
         if (Title) {
             var newTitle = Title
         }
@@ -129,6 +135,8 @@ function ArticleDetailsDashboard() {
         else {
             var newDescription = ArticleDetails.description
         };
+        
+        
         fetch(`http://localhost:3002/articles/updateArticle`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -142,11 +150,14 @@ function ArticleDetailsDashboard() {
                     console.warn(resp)
                     console.log(resp.success)
                     const message = resp.message;
+                    alert({ message: 'Updated Successfully!', type: 'success' })
+
                     refreshPage();
                 })
             }
 
         )
+    
     }
 
     const deleteArticle = async (id) => {
@@ -169,6 +180,8 @@ function ArticleDetailsDashboard() {
             .catch(error => {
                 console.error('There was an error!', error);
             });
+            alert({ message: 'This article has been deleted', type: 'success' })
+
         window.location.href = '/articles'
 
     }
@@ -220,7 +233,9 @@ function ArticleDetailsDashboard() {
                 className="profile-nav-bg"
                 style={{ backgroundImage: "url(" + ArticleDetails.image + ")" }}
             ></div>
-
+             <div>
+              <AlertContainer floatingTime={100000} />
+            </div>
             <Card
                 className="card-profile-head"
                 bodyStyle={{ display: "none" }}
@@ -245,7 +260,7 @@ function ArticleDetailsDashboard() {
                                 justifyContent: "flex-end",
                             }}
                         >
-                            <Button disabled={ArticleDetails.author!=Author._id} variant="danger" onClick={() => { deleteArticle(ArticleDetails._id) }}> Delete Article </Button>
+                            <Button alt="jj" disabled={ArticleDetails.author!==decodedTOKEN.user_id} variant="danger" onClick={() => { deleteArticle(ArticleDetails._id) }}> Delete Article </Button>
                         </Col>
                     </Row>
                 }
@@ -275,6 +290,9 @@ function ArticleDetailsDashboard() {
                     >
                 <hr className="my-25" />
                         <Descriptions title="More details..">
+                        <Descriptions.Item label="Author" span={3}>
+                                {"Dr. "+Author.FirstName+ " "+Author.LastName}
+                            </Descriptions.Item>
                             <Descriptions.Item label="Created at" span={3}>
                                 {ArticleDetails.dateCreation}
                             </Descriptions.Item>
@@ -284,13 +302,11 @@ function ArticleDetailsDashboard() {
                             <Descriptions.Item label="Comments" span={3}>
                                 {ArticleDetails.nbComments}
                             </Descriptions.Item>
-
-                           
                         </Descriptions>
                         </Card>
                 </Col>
                 <Col span={24} md={8} className="mb-24">
-                <Card
+                <Card   hidden={ArticleDetails.author!==decodedTOKEN.user_id}
                         bordered={false}
                         className="header-solid h-full"
                         title={<h6 className="font-semibold m-0">Update this article</h6>}
