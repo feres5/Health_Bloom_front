@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 // @mui material components
 import Switch from "@mui/material/Switch";
 import axios from 'axios';
-
+import 'react-custom-alert/dist/index.css';
+import { AlertContainer, alert } from 'react-custom-alert';
 // Soft UI Dashboard React components
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -15,13 +16,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import jwt_decode from "jwt-decode";
 import { useEffect } from "react";
-import { Redirect } from "react-router-dom";
-
-
-
-
-
-
 
 function ArticleForm() {
 
@@ -67,8 +61,7 @@ function ArticleForm() {
                     console.log(resp.success)
                     const message = resp.message;
 
-                    window.location.href = '/articles'
-
+                   alert({ message: 'This article has been added Successfully', type: 'success' })
                 })
             }
 
@@ -84,6 +77,10 @@ function ArticleForm() {
             <h4> Welcome Back Dr.{Author.FirstName} </h4>
             <br />
             <br />
+            <div>
+              <AlertContainer floatingTime={100000} />
+            </div>
+            <br/>
             <h6> Add a new article</h6>
             <Form>
                 <Form.Group>

@@ -4,15 +4,14 @@ import IndexNavbar from "components/Navbars/IndexNavbar";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-
-
-// reactstrap components
 import {
   Button,
   Container
 } from "reactstrap";
 import ArticleComments from "./ArticleComments";
 import CommentBox from "./CommentBox";
+
+
 
 function ArticleDetails(props) {
 
@@ -44,7 +43,7 @@ function ArticleDetails(props) {
       document.body.classList.remove("sidebar-collapse");
     };
   }, []);
-
+ 
   const [Author, setAuthor] = useState([])
 
   var user = localStorage.getItem("user_info");
@@ -141,14 +140,14 @@ function ArticleDetails(props) {
               </Button>
 
             </div>
-          
             <h4 className="title">{ArticleDetails.description}</h4>
          
           <div align="right">
             <CommentBox idArticle={idArticle} />
             </div>  
+         
             <div align="left">
-
+        
             <ArticleComments id={idArticle}/>
             </div>
             </Container>

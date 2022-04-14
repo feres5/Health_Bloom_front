@@ -43,7 +43,30 @@ function MagazineHeader() {
       fetchAuthor()
   }, [])
 
-  
+  const unsubscribe = async (id) => {
+
+    fetch(`http://localhost:3002/articles/unsubscribe/${id}`, {
+      method: 'PUT'
+    })
+      .then(async response => {
+
+        const data = await response.json();
+
+        // check for error response
+        if (!response.ok) {
+          // get error message from body or default to response status
+          const error = (data && data.message) || response.status;
+          return Promise.reject(error);
+        }
+
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+      });
+       refreshPage()
+
+  }
+
   const subscribe = async (id) => {
 
     fetch(`http://localhost:3002/articles/subscribe/${id}`, {
@@ -96,7 +119,7 @@ function MagazineHeader() {
                 className="btn btn-success"
                 color="info"
                 href="#pablo"
-                onClick={() =>subscribe(decodedTOKEN.user_id)}
+                onClick={() =>unsubscribe(decodedTOKEN.user_id)}
               > Unsubscribe from our NewsLetter
               </Button>
             </div>
