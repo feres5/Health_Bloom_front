@@ -2,10 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import {
-    Container,
-    Row,
+    Card,
     Col,
-  } from "reactstrap";
+    Row,
+    Typography,
+    Tooltip,
+    Progress,
+    Upload,
+    message,
+    Button,
+    Timeline,
+    Radio,
+  } from "antd";
 
 import ForumSectionTopic from "./ForumSectionTopic";
 
@@ -17,7 +25,7 @@ const ForumSection  = (props) =>
         const sub_arr = props.topics.slice(i*2,i*2+2);
 
         const cols = sub_arr.map((item) => 
-            <Col> <ForumSectionTopic section={item} ></ForumSectionTopic> </Col>
+            <Col span={24/2}> <ForumSectionTopic section={item} ></ForumSectionTopic> </Col>
         )
 
         tops.push(
@@ -28,12 +36,12 @@ const ForumSection  = (props) =>
 
     return (
         <>
-            <Container className="forum-section">
-                <h4 className="forum-section-title">_______________________________________________________________________________</h4>
-                    <Container className="forum-section-content">
+            <div className="forum-section">
+                 
+                    <Card title='  ' size='small' headStyle={{ backgroundColor:'skyblue',minHeight:0 }} className="forum-section-content">
                         {tops}
-                    </Container>
-            </Container>
+                    </Card>
+            </div>
         </>
     );
 }

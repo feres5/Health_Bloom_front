@@ -13,6 +13,17 @@
     margin-bottom: 25px;
 }
 
+.forum-section-content > .ant-card-head > .ant-card-head-wrapper
+{
+  min-height: 50px;
+}
+.forum-section-content > .ant-card-head
+{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
+
 .forum-section-title
 {
     background-color: $color-pistachio;
@@ -54,7 +65,8 @@
     display: flex;
     justify-content: flex-end;
     justify-items: flex-end;
-    margin-bottom: 10px;
+    margin-bottom: 15px !important;
+
 }
 
 .forum-link
@@ -91,13 +103,21 @@
     border-top: 0;
     padding: 15px 0 ;
     margin-bottom: 25px;
+    padding-top: 0;
+
 }
 
-.section-thread-content th
+.section-threads-table th
 {
     background-color: $color-g56;
     color: $color-g4;
     padding-left: 10px;
+    height: 25px;
+}
+
+.section-threads-table th
+{
+    height: 40px;
 }
 
 .section-threads-table
@@ -105,13 +125,25 @@
     height: 30px;
     width: 100%;
     margin-top: 0;
+    border-radius: 15px  !important;
+    border-collapse:collapse !important;
 }
 
+.section-threads-table tr:first-child th:first-child{
+    border-top-left-radius: 10px;
+  }
 
-.section-thread-content
-{
-    padding-top: 0;
-}
+.section-threads-table tr:last-child td:first-child{
+    border-bottom-left-radius: 10px;
+  }
+
+.section-threads-table tr:first-child th:last-child{
+    border-top-right-radius: 10px;
+  }
+
+.section-threads-table tr:last-child td:last-child{
+    border-bottom-right-radius: 10px;
+  }
 
 .section-threads-table td
 {
@@ -120,7 +152,6 @@
 .section-threads-title-table-header
 {
     width: 70%;
-    
 }
 
 .section-threads-activity-table-header
@@ -209,7 +240,8 @@
 .thread-title-row
 {
     background-color: $color-pistachio;
-    margin: 0;
+    
+    margin: 0 !important;
 }
 
 .thread-title-row > div
@@ -274,6 +306,9 @@
 
 .section-threads-links-container
 {
-    margin-bottom: 5px;
+    margin-bottom: 15px !important;
     font-weight: 700;
+
 }
+
+

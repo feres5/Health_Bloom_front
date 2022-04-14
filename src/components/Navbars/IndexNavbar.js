@@ -64,17 +64,9 @@ function IndexNavbar() {
       <Navbar expand="lg" color="info">
         <Container>
           <div className="navbar-translate">
-<<<<<<< HEAD
-            <NavbarBrand href="/" id="navbar-brand">
-              <img src = {require("assets/img/hb_logo.png").default}
-                  alt=""
-                   width="30"
-                   height="30"
-=======
             <NavbarBrand href="/index" id="navbar-brand">
               <img src={require("assets/img/logoNav1.png").default}
                    width="70"
->>>>>>> main
                    className="d-inline-block align-top"
               />
             </NavbarBrand>

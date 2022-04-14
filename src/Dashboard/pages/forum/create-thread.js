@@ -5,9 +5,6 @@ import Switch from "react-bootstrap-switch";
 // plugin that creates slider
 import Slider from "nouislider";
 
-import IndexNavbar from "components/Navbars/IndexNavbar.js";
-import IndexHeader from "components/Headers/IndexHeader.js";
-import DarkFooter from "components/Footers/DarkFooter.js";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro' 
@@ -19,24 +16,18 @@ import {
   Label,
   FormGroup,
   Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Container,
-  Row,
-  Col,
-  Form,
-  FormText,
+  Form
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import ForumSection from "components/Forum/ForumSection";
+import ForumSection from './../../components/Forum/ForumSection'
 
 const axios = require('axios');
 
 
 function CreateThread() {
 
-    React.useEffect(() => {
+    useEffect(() => {
       document.body.classList.add("index-page");
       document.body.classList.add("sidebar-collapse");
       document.documentElement.classList.remove("nav-open");
@@ -66,7 +57,7 @@ function CreateThread() {
 
     return (
       <>
-        <IndexNavbar /> 
+
         <div className="wrapper">
             <Container className="forum-create-thread">
                 <Form onSubmit={handleSubmit}>
@@ -84,7 +75,7 @@ function CreateThread() {
                 </Form>
 
             </Container>
-          <DarkFooter />
+
         </div>
       </>
     );

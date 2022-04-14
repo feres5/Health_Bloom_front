@@ -4,15 +4,11 @@ import Switch from "react-bootstrap-switch";
 // plugin that creates slider
 import Slider from "nouislider";
 
-import IndexNavbar from "components/Navbars/IndexNavbar.js";
-import IndexHeader from "components/Headers/IndexHeader.js";
-import DarkFooter from "components/Footers/DarkFooter.js";
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro' 
 
 // reactstrap components
-import {
+/*import {
   Button,
   Label,
   FormGroup,
@@ -23,9 +19,24 @@ import {
   Container,
   Row,
   Col,
-} from "reactstrap";
+} from "reactstrap";*/
+
+import {
+  Card,
+  Col,
+  Row,
+  Typography,
+  Tooltip,
+  Progress,
+  Upload,
+  message,
+  Button,
+  Timeline,
+  Radio,
+} from "antd";
+
 import { Link } from "react-router-dom";
-import ForumSection from "components/Forum/ForumSection";
+import ForumSection from './../../components/Forum/ForumSection'
 
 
 function ForumWelcome() {
@@ -57,11 +68,10 @@ function ForumWelcome() {
     });*/
     return (
       <>
-        <IndexNavbar /> 
         <div className="wrapper">
-            <Container className="forum-welcome">
+            <Card className="forum-welcome">
               
-              <Container className="forum-links-container">
+              <Card className="criclebox h-full forum-links-container">
                
                 <Link className="forum-link" to={"#"}>
                   <FontAwesomeIcon icon={solid('user')} size="lg" />Profile
@@ -70,12 +80,10 @@ function ForumWelcome() {
                 <Link className="forum-link" to={"#"}>
                   <FontAwesomeIcon icon={solid('bell')} size="lg" />Notifications
                 </Link>
-              </Container>
+              </Card>
 
               <ForumSection topics={sections}></ForumSection>
-
-            </Container>
-          <DarkFooter />
+            </Card>
         </div>
       </>
     );

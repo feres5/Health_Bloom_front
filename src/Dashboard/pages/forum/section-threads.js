@@ -1,23 +1,29 @@
 import {React , useEffect, useState} from 'react';
 
 import {
-    Container,
-    Row,
-    Col,
-  } from "reactstrap";
+  Card,
+  Col,
+  Row,
+  Typography,
+  Tooltip,
+  Progress,
+  Upload,
+  message,
+  Button,
+  Timeline,
+  Radio,
+} from "antd";
 
 import ReactPaginate from 'react-paginate';
-import IndexNavbar from 'components/Navbars/IndexNavbar';
-import DarkFooter from 'components/Footers/DarkFooter';
+
 import { Link } from 'react-router-dom';
-import HBFooter from 'components/Footers/HBFooter';
-import HBNavbar from 'components/Navbars/HBNavbar';
-import SectionThreadsContent from 'components/Forum/SectionThreadsContent';
+
+import SectionThreadsContent from './../../components/Forum/SectionThreadsContent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro' 
 
 
-const items = [...Array(33).keys()];
+//const items = [...Array(33).keys()];
 
 
 const SectionThreads = () =>
@@ -28,7 +34,7 @@ const SectionThreads = () =>
     // following the API or data you're working with.
     const [itemOffset, setItemOffset] = useState(0);
 
-    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [itemsPerPage, setItemsPerPage] = useState(4);
 
     const [allThreads, setAllThreads] = useState([])
     const [threads, setThreads] = useState(null)
@@ -56,13 +62,13 @@ const SectionThreads = () =>
       console.log(`Loading items from ${itemOffset} to ${endOffset}`);
       
       setThreads(allThreads.slice(itemOffset, endOffset));
-      setPageCount(Math.ceil(items.length / itemsPerPage));
+      setPageCount(Math.ceil(allThreads.length / itemsPerPage));
       
-    }, [itemOffset, itemsPerPage]);
+    }, [itemOffset, itemsPerPage,allThreads]);
   
     // Invoke when user click to request another page.
     const handlePageClick = (event) => {
-      const newOffset = event.selected * itemsPerPage % items.length;
+      const newOffset = event.selected * itemsPerPage % allThreads.length;
       console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
       setItemOffset(newOffset);
     };
@@ -70,20 +76,20 @@ const SectionThreads = () =>
 
     return (
         <>
-        <HBNavbar /> 
         <div className="wrapper">
-            <Container className="section-threads">
+            <div className="section-threads">
                               
-              <Container className="section-threads-links-container">
+              <Card className="section-threads-links-container">
                
-               <Link className="section-threads-create-thread" to={"/forum/create-thread"}>
+               <Link className="section-threads-create-thread" to={"/dashboard/forum/create-thread"}>
                  <FontAwesomeIcon icon={solid('plus')} size="lg" />&nbsp; New Thread
                </Link>
 
-                </Container>
+                </Card>
 
-                <h4 className="section-threads-title">Section: Section Title</h4>
-                    <Container className="section-thread-content">
+                
+                    <Card title='Section Title' className="section-thread-content">
+
 
                         <table className="section-threads-table">
                             <thead>
@@ -106,7 +112,8 @@ const SectionThreads = () =>
                             
                             </tbody>
                         </table>
-                        <Container className='section-threads-pagination'>
+
+                        <div className='section-threads-pagination'>
                         <ReactPaginate 
                             
                             nextLabel=">>"
@@ -128,10 +135,9 @@ const SectionThreads = () =>
                             activeClassName="active"
                             renderOnZeroPageCount={null}
                             />
-                          </Container>
-                    </Container>
-            </Container>
-            <HBFooter />
+                          </div>
+                    </Card>
+            </div>
         </div>
         </>
     );

@@ -18,7 +18,7 @@ const SectionThreadsCard = (props) =>
         <tr className='section-thread-table-row'> 
             <td>
                 <Container className='section-thread-card'>
-                    <Link className='section-thread-card-title' to={"/forum/threads/"+thread._id}>{thread.title}</Link>
+                    <Link className='section-thread-card-title' to={"/dashboard/forum/thread/"+thread._id}>{thread.title}</Link>
                     <Container  className='section-thread-card-infos'>
                         <span>By:</span> <Link to={"#"}>Foulen</Link>
                         &nbsp;&nbsp;&nbsp;&nbsp;
