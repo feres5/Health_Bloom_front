@@ -1,4 +1,7 @@
 import {React , useEffect, useState} from 'react';
+import { Link, useParams} from 'react-router-dom';
+
+import axios from 'axios';
 
 import {
     Row,
@@ -11,7 +14,6 @@ import {
 
 import ReactPaginate from 'react-paginate';
 
-import { Link } from 'react-router-dom';
 
 import ThreadContentCard from './../../components/Forum/ThreadContentCard'
 
@@ -19,8 +21,42 @@ const { TextArea } = Input;
 
 function Thread()
 {
+    const [thread, setThread] = useState({})
+    const [initContent, setInitContent] = useState({})
+    const [comments, setComments] = useState([])
+    const { id } = useParams();
+
+        const fetchThread = async () => {
+        const url = "http://localhost:3002/forum/get-thread/";
+        
+        const urlId= url+id;
+        const reponse = await fetch(urlId);
+        const newThread = await reponse.json();
+        
+        
+        setThread(newThread);
+        setInitContent(newThread.initContent)
+        setComments(newThread.comments)
+      }
+
+      useEffect(() => {
+          fetchThread()
+
+      },[]);
+
+      
     const onFinish = (values) => {
-        console.log('Success:', values);
+
+        console.log(values)
+
+        const comment =  values.comment;
+        axios.post("http://localhost:3002/forum/add-comment-to-thread", { body: comment , threadId: id}).then((res) => {
+            console.log(res.data)
+            fetchThread()
+            //history.push("/forum/section/1");
+        }).catch((error) => {
+            console.log(error)
+        });
       };
 
       
@@ -38,8 +74,10 @@ function Thread()
                 </Row>
                 
                 <div className="thread-content container">
-                    <ThreadContentCard></ThreadContentCard>
+                    <ThreadContentCard thread={thread} initContent={initContent} comments={comments}></ThreadContentCard>
                 </div>
+
+
                 <Form
                 name="basic"
                 labelCol={{ span: 8 }}
