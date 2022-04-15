@@ -10,9 +10,11 @@ import "assets/demo/nucleo-icons-page-styles.css?v=1.5.0";
 // pages for this kit
 import Index from "views/Index.js";
 import NucleoIcons from "views/NucleoIcons.js";
+
 import LoginPage from "views/examples/LoginPage.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
+
 import SignUp from "./views/SignUp/SignUp";
 import MedicalSignUp from "./views/index-sections/MedicalSignUp";
 import MedicalMagazine from "views/Magazine/MedicalMagazine";
@@ -30,6 +32,11 @@ import "antd/dist/antd.css";
 import "./Dashboard/assets/styles/main.css";
 import "./Dashboard/assets/styles/responsive.css";
 
+import SectionThreads from "./Dashboard/pages/forum/section-threads.js"
+import Thread from "./Dashboard/pages/forum/thread";
+import CreateThread from "./Dashboard/pages/forum/create-thread";
+import ForumWelcome from "./Dashboard/pages/forum/forum-welcome.js";
+
 //protection of routes
 import ProtectedRoute from "./protectedRoute";
 
@@ -38,6 +45,8 @@ ReactDOM.render(
       <Switch>
         <Switch>
         <Route path="/index" render={(props) => <Index {...props} />} />
+        <Route path="/" exact render={(props) => <Index {...props} />} />
+
         <Route
           path="/nucleo-icons"
           render={(props) => <NucleoIcons {...props} />}
@@ -60,6 +69,9 @@ ReactDOM.render(
           path="/login-page"
           render={(props) => <LoginPage {...props} />}
         />
+
+
+
         <Route
             path="/signUp"
             render={(props) => <SignUp {...props} />}
@@ -68,17 +80,39 @@ ReactDOM.render(
             path="/medical-signUp"
             render={(props) => <MedicalSignUp {...props} />}
         />
-
+          
         {/*this section is for dashboard routes*/}
         <Main>
+
+          <Route exact
+            path="/dashboard/forum/section/:id"
+            render={(props) => <SectionThreads {...props} />}
+            />
+
+          <Route exact
+            path="/dashboard/forum/thread/:id"
+            render={(props) => <Thread {...props} />}
+            />
+
+          <Route exact
+            path="/dashboard/forum"
+            render={(props) => <ForumWelcome {...props} />}
+            />
+
+          <Route exact
+            path="/dashboard/forum/create-thread"
+            render={(props) => <CreateThread {...props} />}
+            />
+
           <Route exact path="/dashboard" component={Home} />
+
           <Route exact path="/tables" component={Tables} />
           <Route exact path="/billing" component={Billing} />
           <Route exact path="/rtl" component={Rtl} />
           <Route exact path="/profile" component={Profile} />
+ 
         </Main>
-          <Redirect to="/index" />
-          <Redirect from="/" to="/index" />
+
         </Switch>
       </Switch>
   </BrowserRouter>,
