@@ -39,6 +39,9 @@ import ForumWelcome from "./Dashboard/pages/forum/forum-welcome.js";
 
 //protection of routes
 import ProtectedRoute from "./protectedRoute";
+import Articles from "Dashboard/pages/Articles/Articles";
+import ArticleDetailsDashboard from "Dashboard/pages/Articles/ArticleDetails";
+import ArticleForm from "Dashboard/pages/Articles/ArticleForm";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -60,7 +63,7 @@ ReactDOM.render(
               render={(props) => <ArticleDetails {...props} />}
           />
         <Route
-          path="/landing-page"
+          path="/landarticleForming-page"
           render={(props) => <LandingPage {...props} />}
         />
           {/*this route is protected, only access when logged in*/}
@@ -105,7 +108,9 @@ ReactDOM.render(
             />
 
           <Route exact path="/dashboard" component={Home} />
-
+          <Route exact path="/articles" component={Articles} />
+          <Route exact path="/articleDetails" component={ArticleDetailsDashboard} />
+          <Route exact path="/articleForm" component={ArticleForm} />
           <Route exact path="/tables" component={Tables} />
           <Route exact path="/billing" component={Billing} />
           <Route exact path="/rtl" component={Rtl} />

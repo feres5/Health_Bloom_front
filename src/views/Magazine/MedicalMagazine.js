@@ -8,19 +8,17 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import DarkFooter from "components/Footers/DarkFooter.js";
 import MagazineHeader from "components/Headers/MagazineHeader";
 import {
-  Button,
-  Label,
   FormGroup,
   Input,
-  Container,
-  Row,
   Col,
+  NavbarText,
 } from "reactstrap";
-import ArticleDetails from "./ArticleDetails";
+import jwt_decode from "jwt-decode";
 
 function MedicalMagazine() {
- const [searchTerm, setsearchTerm] = useState([])
+
   const [articles, setarticles] = useState([])
+  const [searchTerm, setsearchTerm] = useState("")
   const fetcharticles = async () => {
     const url = 'http://localhost:3002/articles'
     const reponse = await fetch(url)
@@ -32,9 +30,13 @@ function MedicalMagazine() {
     fetcharticles()
   }, [])
   
+  
+  
   const handleSearchTerm = async (e) => {
     let value = e.target.value;
-    setsearchTerm(value);
+   
+      setsearchTerm(value);
+
     console.log(value)
   }  
 
@@ -60,9 +62,9 @@ function MedicalMagazine() {
        
               <Col md="6" sm="6">
                 <FormGroup>
+                  <h6>Search for a specific article</h6>
                   <Input
-                    onChange={handleSearchTerm}
-                    defaultValue=""
+                    onChange={(e) =>{handleSearchTerm(e)}}
                     placeholder="Search articles"
                     type="text"
                     
@@ -72,18 +74,18 @@ function MedicalMagazine() {
         <div className="wrapperArticles">
               
         {articles.filter((val) => {
-                    return val.title
-                    .toString()
-                    .toLowerCase()
-                    .includes(searchTerm.toString().toLowerCase())
-                  })
-        .map((item) => {
+            return val.title
+            .toString()
+            .toLowerCase()
+            .includes(searchTerm.toString().toLowerCase())
+                  }).map((item) => {
+                     
           return(
             <div className="card">
             <div className="card__body">
               <img src={process.env.PUBLIC_URL+ item.image}  class="card__image" />
               <h4 className="card__title">{item.title}</h4>
-              <p className="card__description">{item.author}</p>
+              {/* <p className="card__description">{item.author}</p> */}
             </div>
             <Link to={{
                             pathname: "/article",
@@ -107,4 +109,3 @@ function MedicalMagazine() {
 }
 
 export default MedicalMagazine;
-
