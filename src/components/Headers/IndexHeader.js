@@ -40,8 +40,8 @@ function IndexHeader() {
               className="n-logo"
               src={require("assets/img/logoNav.png").default}
             ></img>
-            <h1 className="h1-seo">Welcome to Health Bloom</h1>
-            <h3>Here we can help you find the right doctor in a heartbeat</h3>
+            <h1 className="h1-seo" style={{color: "white",fontFamily: "helvetica"}}>Welcome to Health Bloom</h1>
+            <h3 style={{color: "white",fontFamily: "helvetica"}}>Here we can help you find the right doctor in a heartbeat</h3>
           </div>
 
         </Container>

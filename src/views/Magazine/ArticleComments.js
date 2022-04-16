@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
 import "../../assets/scss/magazine.scss";
-import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardHeader, MDBCardSubTitle } from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardHeader, MDBCardSubTitle, MDBCardFooter } from 'mdb-react-ui-kit';
+import jwt_decode from "jwt-decode";
 
 // core components
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
@@ -17,53 +18,86 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import ArticleDetails from "./ArticleDetails";
+
 
 function ArticleComments(props) {
- const idArticle= props.id;
- const [searchTerm, setsearchTerm] = useState([])
+  const idArticle = props.id;
+  console.log(idArticle)
+  
+  const refreshPage = () => {
+    window.location.reload();
+  }
+ 
   const [comments, setcomments] = useState([])
   const fetchcomments = async () => {
     const url = "http://localhost:3002/articles/comments/"
-    const urlId= url+idArticle
+    const urlId = url + idArticle
     const reponse = await fetch(urlId)
     const newcomments = await reponse.json()
     setcomments(newcomments)
-    console.log(newcomments)
   }
   useEffect(() => {
     fetchcomments()
-  }, [])
-  
-  const handleSearchTerm = async (e) => {
-    let value = e.target.value;
-    setsearchTerm(value);
-    console.log(value)
-  }  
+    console.log(comments)
 
-  React.useEffect(() => {
-    document.body.classList.add("index-page");
-    document.body.classList.add("sidebar-collapse");
-    document.documentElement.classList.remove("nav-open");
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
-    return function cleanup() {
-      document.body.classList.remove("index-page");
-      document.body.classList.remove("sidebar-collapse");
-    };
-  });
+  }, [])
+
+
+  const deleteComment = async (id) => {
+
+    fetch(`http://localhost:3002/articles/deleteComment/${id}`, {
+      method: 'GET'
+    })
+      .then(async response => {
+
+        const data = await response.json();
+
+        // check for error response
+        if (!response.ok) {
+          // get error message from body or default to response status
+          const error = (data && data.message) || response.status;
+          return Promise.reject(error);
+        }
+
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+      });
+       refreshPage()
+
+  }
+
+
+  var user = localStorage.getItem("user_info");
+  var decodedTOKEN = jwt_decode(user,{payload : true});
+
+     
+
+
   return (
-      <div >
-    <MDBCard background='primary' className='text-white mb-3' style={{ minWidth: '100rem' }}>
-    <MDBCardHeader>Header</MDBCardHeader>
-    <MDBCardBody>
-      <MDBCardTitle>Primary card title</MDBCardTitle>
-      <MDBCardText>
-        Some quick example text to build on the card title and make up the bulk of the card's content.
-      </MDBCardText>
-    </MDBCardBody>
-  </MDBCard>
-  </div>
+    <div>
+      { comments.map((item)=>{
+        var current= item.dateTime
+
+        return(
+          <MDBCard background='info' className='text-white mb-3' style={{ maxWidth: '60rem' }}>
+          <MDBCardHeader padding={200} > Written by  {item.emailUser}</MDBCardHeader>
+          <MDBCardText>
+             {current}
+            </MDBCardText>
+          <MDBCardBody  frameBorder={10}>
+            
+            <MDBCardTitle ><h5>{item.content}</h5></MDBCardTitle>
+            
+            <Button disabled={item.idUser!=decodedTOKEN.user_id} onClick={() => {deleteComment(item._id)} } class="btn-round btn btn-danger">Delete</Button>
+          </MDBCardBody>
+        </MDBCard>        )
+
+      })}
+
+
+     {/*    */}
+    </div>
   );
 }
 

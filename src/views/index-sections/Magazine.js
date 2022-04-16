@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -76,7 +77,12 @@ function Magazine() {
                     >
                       <img src={process.env.PUBLIC_URL+ item.image} alt={item.title} />
                       <div className="carousel-caption d-none d-md-block">
-                        <h5>{item.title}</h5>
+                      <Link to={{
+                            pathname: "/article",
+                            state: {
+                              idArticle: item._id
+                            }
+                          }} ><h5>{item.title}</h5></Link>   
                       </div>
                     </CarouselItem>
                   );
