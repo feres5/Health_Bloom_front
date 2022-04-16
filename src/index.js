@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 
 // styles for this kit
 import "assets/css/bootstrap.min.css";
@@ -42,84 +42,90 @@ import ProtectedRoute from "./protectedRoute";
 import Articles from "Dashboard/pages/Articles/Articles";
 import ArticleDetailsDashboard from "Dashboard/pages/Articles/ArticleDetails";
 import ArticleForm from "Dashboard/pages/Articles/ArticleForm";
+import HomeShop from "./Shop/Home";
 
 ReactDOM.render(
-  <BrowserRouter>
-      <Switch>
+    <BrowserRouter>
         <Switch>
-        <Route path="/index" render={(props) => <Index {...props} />} />
-        <Route path="/" exact render={(props) => <Index {...props} />} />
-
-        <Route
-          path="/nucleo-icons"
-          render={(props) => <NucleoIcons {...props} />}
-        />
-          <Route
-              path="/medical-magazine"
-              render={(props) => <MedicalMagazine {...props} />}
-          />
-          <Route
-              path="/article"
-              render={(props) => <ArticleDetails {...props} />}
-          />
-        <Route
-          path="/landarticleForming-page"
-          render={(props) => <LandingPage {...props} />}
-        />
-          {/*this route is protected, only access when logged in*/}
-        <ProtectedRoute exact path="/profile-page" component={ProfilePage} />
-        <Route
-          path="/login-page"
-          render={(props) => <LoginPage {...props} />}
-        />
+            <Switch>
+                <Route path="/index" render={(props) => <Index {...props} />}/>
+                <Route path="/" exact render={(props) => <Index {...props} />}/>
+                <Route path="/shop"
+                       render={(props) => <HomeShop {...props} />}/>
 
 
+                <Route
+                    path="/nucleo-icons"
+                    render={(props) => <NucleoIcons {...props} />}
+                />
+                <Route
+                    path="/medical-magazine"
+                    render={(props) => <MedicalMagazine {...props} />}
+                />
+                <Route
+                    path="/article"
+                    render={(props) => <ArticleDetails {...props} />}
+                />
+                <Route
+                    path="/landarticleForming-page"
+                    render={(props) => <LandingPage {...props} />}
+                />
+                {/*this route is protected, only access when logged in*/}
+                <ProtectedRoute exact path="/profile-page"
+                                component={ProfilePage}/>
+                <Route
+                    path="/login-page"
+                    render={(props) => <LoginPage {...props} />}
+                />
 
-        <Route
-            path="/signUp"
-            render={(props) => <SignUp {...props} />}
-        />
-        <Route
-            path="/medical-signUp"
-            render={(props) => <MedicalSignUp {...props} />}
-        />
-          
-        {/*this section is for dashboard routes*/}
-        <Main>
 
-          <Route exact
-            path="/dashboard/forum/section/:id"
-            render={(props) => <SectionThreads {...props} />}
-            />
+                <Route
+                    path="/signUp"
+                    render={(props) => <SignUp {...props} />}
+                />
+                <Route
+                    path="/medical-signUp"
+                    render={(props) => <MedicalSignUp {...props} />}
+                />
 
-          <Route exact
-            path="/dashboard/forum/thread/:id"
-            render={(props) => <Thread {...props} />}
-            />
+                {/*this section is for dashboard routes*/}
+                <Main>
 
-          <Route exact
-            path="/dashboard/forum"
-            render={(props) => <ForumWelcome {...props} />}
-            />
+                    <Route exact
+                           path="/dashboard/forum/section/:id"
+                           render={(props) => <SectionThreads {...props} />}
+                    />
 
-          <Route exact
-            path="/dashboard/forum/create-thread"
-            render={(props) => <CreateThread {...props} />}
-            />
+                    <Route exact
+                           path="/dashboard/forum/thread/:id"
+                           render={(props) => <Thread {...props} />}
+                    />
 
-          <Route exact path="/dashboard" component={Home} />
-          <Route exact path="/articles" component={Articles} />
-          <Route exact path="/articleDetails" component={ArticleDetailsDashboard} />
-          <Route exact path="/articleForm" component={ArticleForm} />
-          <Route exact path="/tables" component={Tables} />
-          <Route exact path="/billing" component={Billing} />
-          <Route exact path="/rtl" component={Rtl} />
-          <Route exact path="/profile" component={Profile} />
- 
-        </Main>
+                    <Route exact
+                           path="/dashboard/forum"
+                           render={(props) => <ForumWelcome {...props} />}
+                    />
 
+                    <Route exact
+                           path="/dashboard/forum/create-thread"
+                           render={(props) => <CreateThread {...props} />}
+                    />
+
+                    <Route exact path="/dashboard" component={Home}/>
+                    <Route exact path="/dashboard" component={Home}/>
+                    <Route exact path="/articles" component={Articles}/>
+                    <Route exact path="/articleDetails"
+                           component={ArticleDetailsDashboard}/>
+                    <Route exact path="/articleForm" component={ArticleForm}/>
+                    <Route exact path="/tables" component={Tables}/>
+                    <Route exact path="/billing" component={Billing}/>
+                    <Route exact path="/rtl" component={Rtl}/>
+                    <Route exact path="/profile" component={Profile}/>
+
+                </Main>
+
+            </Switch>
         </Switch>
-      </Switch>
-  </BrowserRouter>,
-  document.getElementById("root")
+    </BrowserRouter>,
+    document.getElementById("root")
 );
