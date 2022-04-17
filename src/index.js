@@ -18,7 +18,8 @@ import MedicalSignUp from "./views/index-sections/MedicalSignUp";
 import MedicalMagazine from "views/Magazine/MedicalMagazine";
 import ArticleDetails from "views/Magazine/ArticleDetails";
 import ProfilePatient from "views/Patient/Profile";
-
+import ForgottenPassword from "views/SignUp/forgottenPassword";
+import ResetPassword from "views/SignUp/resetPassword";
 // pages for dashbord
 
 import Home from "./Dashboard/pages/Home"
@@ -47,6 +48,8 @@ ReactDOM.render(
         <Route path="/profile-page" element={<ProfilePage/>} />
         <Route path="/PatientProfile" element={<ProfilePatient/>} />
         <Route path="/login-page" element={<LoginPage/>} />
+        <Route path="/forgotPassword" element={<ForgottenPassword/>} />
+        <Route path="/resetPassword/:userId/:resetString" element={<ResetPassword/>} />
         <Route path="/signUp" element={<SignUp/>} />
         <Route path="/medical-signUp" element={<MedicalSignUp/>} />
         <Route path=""  element={<Navigate replace to="index"/>} />

@@ -42,8 +42,7 @@ function LoginPage() {
       console.log("you need to enter all of your credentials");
     }
     result = await result.json();
-    console.log(result);
-    localStorage.setItem("user_info",JSON.stringify(result));
+    await localStorage.setItem("user_info",JSON.stringify(result));
     navigate("/index");
 
   }
@@ -113,35 +112,15 @@ function LoginPage() {
                     </InputGroup>
                   </CardBody>
                   <CardFooter className="text-center">
-                    <Button
-                      block
-                      className="btn-round"
-                      color="info"
-                      onClick={login}
-                      size="lg"
-                    >
-                      Login
-                    </Button>
+                    <Button block className="btn-round" color="info" onClick={login} size="lg">Login</Button>
                     <div className="pull-left">
                       <h6>
-                        <a
-                          className="link"
-                          href="/signUp"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          Create Account
-                        </a>
+                        <a className="link" href="/signUp">Create Account</a>
                       </h6>
                     </div>
                     <div className="pull-right">
                       <h6>
-                        <a
-                            href="#pablo"
-                            className="link"
-                            onClick={(e) => e.preventDefault()}
-                        >
-                          Need Help?
-                        </a>
+                        <a href="/forgotPassword" className="link">Forgot your password ?</a>
                       </h6>
                     </div>
                   </CardFooter>

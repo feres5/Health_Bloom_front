@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate } from "react-router-dom";
 
 // reactstrap components
@@ -22,8 +22,14 @@ function IndexNavbar() {
   const [lastFocus, setLastFocus] = React.useState(false);
   const url = "http://localhost:3002/users/";
   //console.log(localStorage.getItem("user_info"))
-  const token = localStorage.getItem("user_info");
-  const decodedTOKEN = jwt_decode(token,{payload : true});
+  let token = null;
+  let decodedTOKEN = null;
+  useEffect(()=>{
+    token = localStorage.getItem("user_info");
+    if(token){
+      decodedTOKEN = jwt_decode(token,{payload : true});
+    }
+  })
   React.useEffect(() => {
     const updateNavbarColor = () => {
       if (
@@ -91,7 +97,6 @@ function IndexNavbar() {
       alert("password and confirm password needs to be the exact same");
 
   }
-
 
   return (
       token ?(
