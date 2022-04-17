@@ -22,14 +22,16 @@ function IndexNavbar() {
   const [lastFocus, setLastFocus] = React.useState(false);
   const url = "http://localhost:3002/users/";
   //console.log(localStorage.getItem("user_info"))
-  let token = null;
-  let decodedTOKEN = null;
+  var token = localStorage.getItem("user_info");
+  var decodedTOKEN = null;
+
   useEffect(()=>{
-    token = localStorage.getItem("user_info");
     if(token){
       decodedTOKEN = jwt_decode(token,{payload : true});
+      console.log(decodedTOKEN);
     }
   })
+
   React.useEffect(() => {
     const updateNavbarColor = () => {
       if (
@@ -50,14 +52,11 @@ function IndexNavbar() {
     };
   });
 
-
   async function LogOut(){
     console.log("logging out");
     localStorage.removeItem("user_info");
-
     navigate("/index");
   }
-
 
   //change password functions
   const [open, setOpen] = React.useState(false);
@@ -97,7 +96,6 @@ function IndexNavbar() {
       alert("password and confirm password needs to be the exact same");
 
   }
-
   return (
       token ?(
     <>
