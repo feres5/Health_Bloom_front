@@ -4,6 +4,8 @@ import IndexNavbar from "components/Navbars/IndexNavbar";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardHeader, MDBCardSubTitle, MDBCardFooter } from 'mdb-react-ui-kit';
+
 import {
   Button,
   Container
@@ -14,6 +16,10 @@ import CommentBox from "./CommentBox";
 
 
 function ArticleDetails(props) {
+  const [Author, setAuthor] = useState([])
+  const [Like, setLike] = useState()
+  const[nbLikes,setNblikes] =useState()
+  const[nbComments,setnbComments] =useState()
 
   const location = useLocation();
   const idArticle = location.state.idArticle
@@ -27,6 +33,8 @@ function ArticleDetails(props) {
     const reponse = await fetch(urlId)
     const newArticleDetails = await reponse.json()
     setArticleDetails(newArticleDetails)
+    setNblikes(newArticleDetails.nbLikes)
+    setnbComments(newArticleDetails.nbComments)
   }
   useEffect(() => {
     fetchArticleDetails()
@@ -44,7 +52,7 @@ function ArticleDetails(props) {
     };
   }, []);
  
-  const [Author, setAuthor] = useState([])
+
 
   var user = localStorage.getItem("user_info");
   var decodedTOKEN = jwt_decode(user,{payload : true});
@@ -64,14 +72,28 @@ function ArticleDetails(props) {
   }, [])
 
 
-  const refreshPage = () => {
-    window.location.reload();
+
+
+  const urlLike = "http://localhost:3002/articles/getLike/"
+
+  const fetchLike = async () => {
+      const urlId = urlLike + idArticle+"/"+ decodedTOKEN.user_id
+      const reponse = await fetch(urlId)
+      const newLike = await reponse.json()
+      setLike(newLike)
+      console.log(" does the like exist.? "+newLike)
+      return newLike;
   }
+  useEffect(() => {
+      fetchLike()
+  }, [])
 
-  const like = async (id) => {
+ 
 
-    fetch(`http://localhost:3002/articles/likeArticle/${id}`, {
-      method: 'PUT'
+  const like = async (article,user) => {
+
+    fetch(`http://localhost:3002/articles/likeArticle/${article}/${user}`, {
+      method: 'POST'
     })
       .then(async response => {
 
@@ -88,14 +110,15 @@ function ArticleDetails(props) {
       .catch(error => {
         console.error('There was an error!', error);
       });
-       refreshPage()
+      setNblikes(nbLikes+1)
+      setLike(true)
 
   }
 
-  const unlike = async (id) => {
+  const unlike = async (article,user) => {
 
-    fetch(`http://localhost:3002/articles/unlikeArticle/${id}`, {
-      method: 'PUT'
+    fetch(`http://localhost:3002/articles/unlikeArticle/${article}/${user}`, {
+      method: 'DELETE'
     })
       .then(async response => {
 
@@ -112,9 +135,12 @@ function ArticleDetails(props) {
       .catch(error => {
         console.error('There was an error!', error);
       });
-       refreshPage()
+      setNblikes(nbLikes-1)
+      setLike(false)
 
   }
+
+  
 
   return (
 
@@ -125,20 +151,20 @@ function ArticleDetails(props) {
           title={ArticleDetails.title}
           author={"Dr."+Author.FirstName+ " "+Author.LastName}
           image={ArticleDetails.image}
-          nbComments={ArticleDetails.nbComments}
-          nbLikes={ArticleDetails.nbLikes} />
+          nbComments={nbComments}
+          nbLikes={nbLikes} />
         <div className="section">
           <Container>
+            
             <div className="button-container">
-              <Button onClick={() => { like(ArticleDetails._id) }} className="btn-round" color="info" size="lg">
+              <Button hidden={Like}  onClick={() => { like(ArticleDetails._id,decodedTOKEN.user_id) }} className="btn-round" color="info" size="lg">
                 <i class="now-ui-icons ui-2_favourite-28"></i>
                 Like
               </Button>
-              <Button onClick={() => { unlike(ArticleDetails._id) }} className="btn-round" color="info" size="lg">
+              <Button hidden={!Like} onClick={() => { unlike(ArticleDetails._id,decodedTOKEN.user_id) }} className="btn-round" color="info" size="lg">
                 <i class="now-ui-icons ui-2_favourite-28"></i>
-                Dislike
+                Unlike
               </Button>
-
             </div>
             <h4 className="title">{ArticleDetails.description}</h4>
          
@@ -147,8 +173,7 @@ function ArticleDetails(props) {
             </div>  
          
             <div align="left">
-        
-            <ArticleComments id={idArticle}/>
+              <ArticleComments id={idArticle}/>
             </div>
             </Container>
           </div>
