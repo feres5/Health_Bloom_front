@@ -43,6 +43,7 @@ import Articles from "Dashboard/pages/Articles/Articles";
 import ArticleDetailsDashboard from "Dashboard/pages/Articles/ArticleDetails";
 import ArticleForm from "Dashboard/pages/Articles/ArticleForm";
 import HomeShop from "./Shop/Home";
+import ArticleComments from "views/Magazine/ArticleComments";
 
 ReactDOM.render(
     <BrowserRouter>
@@ -65,6 +66,10 @@ ReactDOM.render(
                 <Route
                     path="/article"
                     render={(props) => <ArticleDetails {...props} />}
+                />
+                 <Route
+                    path="/comments"
+                    render={(props) => <ArticleComments {...props} />}
                 />
                 <Route
                     path="/landarticleForming-page"

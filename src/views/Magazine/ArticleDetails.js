@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import ArticleComments from "./ArticleComments";
 import CommentBox from "./CommentBox";
+import { red } from "@mui/material/colors";
 
 
 
@@ -172,7 +173,7 @@ function ArticleDetails(props) {
             <CommentBox idArticle={idArticle} />
             </div>  
          
-            <div align="left">
+            <div   align="center">
               <ArticleComments id={idArticle}/>
             </div>
             </Container>
