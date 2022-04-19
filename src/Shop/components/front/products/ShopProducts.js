@@ -1,3 +1,5 @@
+import "../../../assets/css/plugins/animate.min.css";
+import "../../../assets/css/main.scoped.css";
 import ShopProductsItem from "./ShopProductsItem";
 import ShopDealsOfTheDay from "./ShopDealsOfTheDay";
 import ProductFilters from "./ProductFilters/ProductFilters";

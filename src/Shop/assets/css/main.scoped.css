@@ -26,6 +26,7 @@ TABLE CONTENT
  WP STYPE
  Custom amine
 ***/
+
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Quicksand:wght@400;500;600;700&display=swap");
 /*import vendors*/
 @import url(vendors/normalize.css);
@@ -598,7 +599,7 @@ h4 {
   display: inline-block;
   -webkit-animation: spinner 1.2s infinite ease-in-out;
   animation: spinner 1.2s infinite ease-in-out;
-  /*background: url(../imgs/favicon.svg);*/
+  background: url(../imgs/favicon.svg);
   -webkit-box-shadow: 0 0 10px #fff;
           box-shadow: 0 0 10px #fff;
 }
@@ -12360,4 +12361,4 @@ footer .hotline img {
     font-size: 35px;
   }
 }
-/*# sourceMappingURL=main.css.map */
+/*# sourceMappingURL=main.scoped.css.map */

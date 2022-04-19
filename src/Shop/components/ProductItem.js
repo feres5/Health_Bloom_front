@@ -6,7 +6,7 @@ const UserItem = props => {
     return (
         <Col>
             <Card style={{width: '18rem'}}>
-                <Card.Img variant="top" src={`http://localhost:5000/${props.image}`} alt={props.name} style={{height: '250px'}} />
+                <Card.Img variant="top" src={`http://localhost:3002/${props.image}`} alt={props.name} style={{height: '250px'}} />
                 <Card.Body>
                     <Card.Title>{props.name}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{props.price}</Card.Subtitle>

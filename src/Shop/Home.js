@@ -5,7 +5,7 @@ import useScript from "../hooks/useScript";
 
 
 import "./assets/css/plugins/animate.min.css";
-import "./assets/css/main.css";
+import "./assets/css/main.scoped.css";
 import "./home.css";
 
 import ShopModal from "./components/front/models/ShopModal";

@@ -1,3 +1,5 @@
+import "../../../assets/css/plugins/animate.min.css";
+import "../../../assets/css/main.scoped.css";
 import HomeProductItem from "./HomeProductItem";
 import React from "react";
 

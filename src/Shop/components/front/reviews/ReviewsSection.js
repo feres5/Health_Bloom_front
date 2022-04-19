@@ -1,3 +1,5 @@
+import "../../../assets/css/plugins/animate.min.css";
+import "../../../assets/css/main.scoped.css";
 import OverallRating from "./OverallRating";
 import AddReview from "./AddReview";
 import ReviewItem from "./ReviewItem";

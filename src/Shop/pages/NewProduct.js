@@ -58,7 +58,7 @@ const NewProduct = () => {
             for (var pair of formData.entries()) {
                 console.log(pair[0]+ ', ' + pair[1]);
             }
-            await sendRequest('http://localhost:5000/api/products',
+            await sendRequest('http://localhost:3002/api/products',
                 'POST',
                 formData
             );

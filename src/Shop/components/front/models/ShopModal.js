@@ -1,3 +1,5 @@
+import "../../../assets/css/plugins/animate.min.css";
+import "../../../assets/css/main.scoped.css";
 import React from "react";
 
 const ShopModal = () => {
@@ -21,9 +23,7 @@ const ShopModal = () => {
                             <div className="deal-content detail-info">
                                 <h4 className="product-title"><a
                                     href="shop-product-right.html"
-                                    className="text-heading">Organic fruit
-                                    for your
-                                    family's health</a></h4>
+                                    className="text-heading">Supplements for Holistic Health</a></h4>
                                 <div
                                     className="clearfix product-price-cover">
                                     <div

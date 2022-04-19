@@ -112,7 +112,6 @@ ReactDOM.render(
                     />
 
                     <Route exact path="/dashboard" component={Home}/>
-                    <Route exact path="/dashboard" component={Home}/>
                     <Route exact path="/articles" component={Articles}/>
                     <Route exact path="/articleDetails"
                            component={ArticleDetailsDashboard}/>

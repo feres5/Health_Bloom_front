@@ -15,7 +15,7 @@ const Products = () => {
         const fecthProducts = async () => {
 
             try {
-                const responseData = await sendRequest('http://localhost:5000/api/products');
+                const responseData = await sendRequest('http://localhost:3002/api/products');
 
                 setLoadedProducts(responseData.products);
             } catch (e) {

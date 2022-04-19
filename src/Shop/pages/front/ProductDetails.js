@@ -1,3 +1,6 @@
+
+import "../../assets/css/plugins/animate.min.css";
+import "../../assets/css/main.scoped.css";
 import RelatedProducts from "../../components/front/products/RelatedProducts";
 import ReviewsSection from "../../components/front/reviews/ReviewsSection";
 

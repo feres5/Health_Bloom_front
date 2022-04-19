@@ -1,3 +1,5 @@
+import "../../assets/css/plugins/animate.min.css";
+import "../../assets/css/main.scoped.css";
 import React from "react";
 
 const ShopBanner = () => {
@@ -14,7 +16,7 @@ const ShopBanner = () => {
                             <div className="slider-content">
                                 <h1 className="display-2 mb-40">
                                     Don’t miss amazing<br/>
-                                    grocery deals
+                                    Offer deals
                                 </h1>
                                 <p className="mb-65">Sign up for the
                                     daily
@@ -32,8 +34,8 @@ const ShopBanner = () => {
                             className="single-hero-slider single-animation-wrap"
                             style={{backgroundImage: "url(assets/imgs/slider/slider-2.png)"}}>
                             <div className="slider-content">
-                                <h1 className="display-2 mb-40">
-                                    Fresh Vegetables<br/>
+                                <h1 className="display-2 mb-40">New
+                                     Products<br/>
                                     Big discount
                                 </h1>
                                 <p className="mb-65">Save up to 50% off

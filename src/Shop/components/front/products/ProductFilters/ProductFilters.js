@@ -1,3 +1,5 @@
+import "../../../../assets/css/plugins/animate.min.css";
+import "../../../../assets/css/main.scoped.css";
 import CategoriesFilter from "./CategoriesFilter";
 import PriceFilter from "./PriceFilter";
 import NewProductsFilter from "./NewProductsFilter";
