@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {Button, Card, Col} from "react-bootstrap";
+import {AiFillDelete, AiFillEdit} from "react-icons/all";
 
 const UserItem = props => {
     return (
@@ -13,7 +14,9 @@ const UserItem = props => {
                     <Card.Text>
                         {props.description}
                     </Card.Text>
-                    <Button variant="primary">Details</Button>
+                    <Button variant="primary">Edit <AiFillEdit/></Button>
+                    <Button style={{marginLeft:'102px'}} variant="danger"> <AiFillDelete/></Button>
+
                 </Card.Body>
             </Card>
         </Col>

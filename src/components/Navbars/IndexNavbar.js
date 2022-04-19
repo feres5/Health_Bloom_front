@@ -123,33 +123,14 @@ function IndexNavbar() {
 
               <NavItem>
                 <NavLink
-                    href="#pablo"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document
-                          .getElementById("download-section")
-                          .scrollIntoView();
-                    }}
+                    href="/shop"
                 >
                   <i className="now-ui-icons shopping_basket mr-1"></i>
                   <p>Shop</p>
                 </NavLink>
               </NavItem>
 
-              <NavItem>
-                <NavLink
-                    href="#pablo"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document
-                          .getElementById("download-section")
-                          .scrollIntoView();
-                    }}
-                >
-                  <i className="now-ui-icons shopping_cart-simple mr-1"></i>
-                  <p>Cart</p>
-                </NavLink>
-              </NavItem>
+
 
               <NavItem>
                 <NavLink
@@ -317,33 +298,15 @@ function IndexNavbar() {
 
                     <NavItem>
                       <NavLink
-                          href="#pablo"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            document
-                                .getElementById("download-section")
-                                .scrollIntoView();
-                          }}
+                          href="/shop"
+
                       >
                         <i className="now-ui-icons shopping_basket mr-1"></i>
                         <p>Shop</p>
                       </NavLink>
                     </NavItem>
 
-                    <NavItem>
-                      <NavLink
-                          href="#pablo"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            document
-                                .getElementById("download-section")
-                                .scrollIntoView();
-                          }}
-                      >
-                        <i className="now-ui-icons shopping_cart-simple mr-1"></i>
-                        <p>Cart</p>
-                      </NavLink>
-                    </NavItem>
+
 
                     <NavItem>
                       <NavLink

@@ -1,31 +1,34 @@
 import "../../../assets/css/plugins/animate.min.css";
 import "../../../assets/css/main.scoped.css";
-const shopProductsItem = () => {
+import {Link, useRouteMatch} from "react-router-dom";
+const ShopProductsItem = props => {
+
+    const {path, url} = useRouteMatch();
 
     return (
         <div
-            className="col-lg-1-5 col-md-4 col-12 col-sm-6">
+            className="col-lg-1-5 col-md-4 col-12 col-sm-6" style={{padding: "20px 10px" }}>
             <div className="product-cart-wrap mb-30">
                 <div className="product-img-action-wrap">
                     <div
                         className="product-img product-img-zoom">
-                        <a href="shop-product-right.html">
+                        <Link exact="true" to={`${path}/${props.id}`}>
                             <img className="default-img"
-                                 src="assets/imgs/shop/product-1-1.jpg"
+                                 src={`http://localhost:3002/${props.image}`}
                                  alt=""/>
                             <img className="hover-img"
-                                 src="assets/imgs/shop/product-1-2.jpg"
+                                 src={`http://localhost:3002/${props.image}`}
                                  alt=""/>
-                        </a>
+                        </Link>
                     </div>
                     <div className="product-action-1">
                         <a aria-label="Add To Wishlist"
                            className="action-btn"
-                           href="shop-wishlist.html"><i
+                           href="#"><i
                             className="fi-rs-heart"></i></a>
                         <a aria-label="Compare"
                            className="action-btn"
-                           href="shop-compare.html"><i
+                           href="#"><i
                             className="fi-rs-shuffle"></i></a>
                         <a aria-label="Quick view"
                            className="action-btn"
@@ -35,16 +38,14 @@ const shopProductsItem = () => {
                     </div>
                     <div
                         className="product-badges product-badges-position product-badges-mrg">
-                        <span className="hot">Hot</span>
+                        <span className="hot">New</span>
                     </div>
                 </div>
                 <div className="product-content-wrap">
                     <div className="product-category">
-                        <a href="shop-grid-right.html">Snack</a>
+                        <a href="#">Snack</a>
                     </div>
-                    <h2><a href="shop-product-right.html">Seeds
-                        of
-                        Change Organic Quinoe</a></h2>
+                    <h2><a href="shop-product-right.html">{props.name}</a></h2>
                     <div className="product-rate-cover">
                         <div
                             className="product-rate d-inline-block">
@@ -61,9 +62,9 @@ const shopProductsItem = () => {
                     </div>
                     <div className="product-card-bottom">
                         <div className="product-price">
-                            <span>$28.85</span>
-                            <span
-                                className="old-price">$32.8</span>
+                            <span>${props.price}.00</span>
+                            {/*<span*/}
+                            {/*    className="old-price">$32.8</span>*/}
                         </div>
                         <div className="add-cart">
                             <a className="add"
@@ -78,4 +79,4 @@ const shopProductsItem = () => {
     );
 };
 
-export default shopProductsItem;
+export default ShopProductsItem;

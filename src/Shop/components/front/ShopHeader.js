@@ -1,8 +1,11 @@
 import "../../assets/css/plugins/animate.min.css";
 import "../../assets/css/main.scoped.css";
 import React from "react";
+import {useRouteMatch} from "react-router-dom";
 
 const ShopHeader = () => {
+
+    const {path, url} = useRouteMatch();
 
     return (
         <header className="header-area header-style-1 header-height-2">
@@ -49,7 +52,7 @@ const ShopHeader = () => {
                 <div className="container">
                     <div className="header-wrap">
                         <div className="d-inline-block">
-                            <a href="index.html"><img
+                            <a href="/index"><img
                                 style={{marginRight: '40px'}}
                                 src={require("assets/img/logoNav1.png").default}
                                 width="70"
@@ -188,13 +191,13 @@ const ShopHeader = () => {
                                         </div>
                                     </div>
                                     <div className="header-action-icon-2">
-                                        {/*<a href="page-account.html">*/}
-                                        {/*    <img className="svgInject"*/}
-                                        {/*         alt="Nest"*/}
-                                        {/*         src="assets/imgs/theme/icons/icon-user.svg"/>*/}
-                                        {/*</a>*/}
-                                        {/*<a href="page-account.html"><span*/}
-                                        {/*    className="lable ml-0">Account</span></a>*/}
+                                        <a href="page-account.html">
+                                            <img className="svgInject"
+                                                 alt="Nest"
+                                                 src="assets/imgs/theme/icons/icon-user.svg"/>
+                                        </a>
+                                        <a href="page-account.html"><span
+                                            className="lable ml-0">Account</span></a>
                                         <div
                                             className="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                             <ul>
@@ -391,7 +394,10 @@ const ShopHeader = () => {
                                             href="shop-grid-right.html">Hot
                                             Deals</a></li>
                                         <li>
-                                            <a href="page-about.html">Home</a>
+                                            <a href="/shop">Home</a>
+                                        </li>
+                                        <li>
+                                            <a href="/shop/products">Products</a>
                                         </li>
 
                                     </ul>
