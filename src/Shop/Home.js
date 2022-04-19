@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import jquery from 'jquery';
 import useScript from "../hooks/useScript";
@@ -33,11 +33,7 @@ const HomeShop = () => {
 
 
     useScript('assets/js/vendor/modernizr-3.6.0.min.js')
-    useScript('assets/js/vendor/jquery-3.6.0.min.js')
-    useScript('assets/js/vendor/jquery-migrate-3.3.0.min.js')
-    useScript('assets/js/vendor/bootstrap.bundle.min.js')
     useScript('assets/js/plugins/slick.js')
-    useScript('assets/js/plugins/jquery.syotimer.min.js')
     useScript('assets/js/plugins/waypoints.js')
     useScript('assets/js/plugins/wow.js')
     useScript('assets/js/plugins/perfect-scrollbar.js')
@@ -54,10 +50,14 @@ const HomeShop = () => {
     useScript('assets/js/plugins/jquery.elevatezoom.js')
     useScript('assets/js/main.js?v=4.0')
     useScript('assets/js/shop.js?v=4.0')
+    useScript('assets/js/vendor/jquery-3.6.0.min.js')
+    useScript('assets/js/vendor/jquery-migrate-3.3.0.min.js')
+    useScript('assets/js/vendor/bootstrap.bundle.min.js')
 
-
+    console.log(path);
     return (
         <React.Fragment>
+            <div style={{paddingLeft: "15px"}}>
 
             <ShopHeader/>
 
@@ -72,8 +72,11 @@ const HomeShop = () => {
                     <Route exact path={`${path}/products`}>
                         <ShopProducts/>
                     </Route>
+                    <Route exact path={`${path}/products/:productId`}>
+                        <ProductDetails/>
+                    </Route>
                     <Route exact path={`${path}/home`}>
-                        <ShopModal/>
+                        {/*<ShopModal/>*/}
                         <ProductModalView/>
 
                         <ShopBanner/>
@@ -94,9 +97,7 @@ const HomeShop = () => {
 
                         <ShopTopProducts/>
                     </Route>
-                    <Route exact path={`${path}/product`}>
-                        <ProductDetails/>
-                    </Route>
+
                     <Route path={`${path}/*`}>
                         <Shop404Page/>
                     </Route>
@@ -107,6 +108,7 @@ const HomeShop = () => {
 
 
             <ShopFooter/>
+            </div>
 
 
         </React.Fragment>

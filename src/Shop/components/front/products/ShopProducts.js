@@ -1,15 +1,47 @@
 import "../../../assets/css/plugins/animate.min.css";
 import "../../../assets/css/main.scoped.css";
-import ShopProductsItem from "./ShopProductsItem";
 import ShopDealsOfTheDay from "./ShopDealsOfTheDay";
 import ProductFilters from "./ProductFilters/ProductFilters";
+import ShopProductsList from "./ShopProductsList";
+import {useHttpClient} from "../../../../shared/hooks/http-hook";
+import {useEffect, useState} from "react";
 
-const shopProducts = () => {
+
+const ShopProducts = () => {
+
+    const {isLoading, error, sendRequest, clearError} = useHttpClient();
+    const [loadedProducts, setLoadedProducts] = useState();
+    const [gridView, setGridView] = useState(true);
+
+    const gridViewHandler = () => setGridView(prevState => {
+            console.log(prevState);
+            return !prevState;
+        }
+    );
+
+
+    useEffect(() => {
+        const fecthProducts = async () => {
+
+            try {
+                const responseData = await sendRequest('http://localhost:3002/api/products');
+
+                setLoadedProducts(responseData.products);
+                console.log(responseData);
+            } catch (e) {
+                console.log(e);
+            }
+
+        };
+        fecthProducts();
+
+    }, [sendRequest]);
+
 
     return (
-        <>
-            <div >
-                <div className="container">
+        <div style={{paddingLeft: "5px"}}>
+            <div>
+                <div className="container" style={{padding: "30px 10px"}}>
                     <div className="archive-header">
                         <div className="row align-items-center">
                             <div className="col-xl-3">
@@ -26,7 +58,7 @@ const shopProducts = () => {
             </div>
             <div className="container mb-30">
                 <div className="row flex-row-reverse">
-                    <div className="col-lg-4-5">
+                    <div className="col-lg-4-5" style={{paddingLeft: "15px"}}>
                         <div className="shop-product-fillter">
                             <div className="totall-product">
                                 <p>We found <strong
@@ -36,29 +68,25 @@ const shopProducts = () => {
                             </div>
                             <div className="sort-by-product-area">
                                 <div className="sort-by-cover mr-10">
-                                    <div className="sort-by-product-wrap">
+                                    <div onClick={gridViewHandler}
+                                         className="sort-by-product-wrap">
                                         <div className="sort-by">
                                     <span><i
-                                        className="fi-rs-apps"></i>Show:</span>
-                                        </div>
-                                        <div className="sort-by-dropdown-wrap">
-                                    <span> 50 <i
-                                        className="fi-rs-angle-small-down"></i></span>
+                                        className="fi-rs-apps"></i>View</span>
                                         </div>
                                     </div>
-                                    <div className="sort-by-dropdown">
-                                        <ul>
-                                            <li><a className="active"
-                                                   href="#">50</a>
-                                            </li>
-                                            <li><a href="#">100</a></li>
-                                            <li><a href="#">150</a></li>
-                                            <li><a href="#">200</a></li>
-                                            <li><a href="#">All</a></li>
-                                        </ul>
-                                    </div>
+
                                 </div>
+                                <select name="productsSelect"
+                                        className="sort-by-dropdown">
+                                    <option value="volvo">Volvo</option>
+                                    <option value="volvo">Volvo</option>
+                                    <option value="volvo">Volvo</option>
+
+                                </select>
                                 <div className="sort-by-cover">
+
+
                                     <div className="sort-by-product-wrap">
                                         <div className="sort-by">
                                             <span><i
@@ -69,25 +97,20 @@ const shopProducts = () => {
                                         className="fi-rs-angle-small-down"></i></span>
                                         </div>
                                     </div>
-                                    <div className="sort-by-dropdown">
-                                        <ul>
-                                            <li><a className="active"
-                                                   href="#">Featured</a></li>
-                                            <li><a href="#">Price: Low to
-                                                High</a></li>
-                                            <li><a href="#">Price: High to
-                                                Low</a></li>
-                                            <li><a href="#">Release Date</a>
-                                            </li>
-                                            <li><a href="#">Avg. Rating</a></li>
-                                        </ul>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
-                        <div className="row product-grid">
-                            <ShopProductsItem/>
-                        </div>
+                        {gridView &&
+                            <div className="row product-grid">
+                                {!isLoading && loadedProducts &&
+                                    <ShopProductsList items={loadedProducts} grid={gridView}/>}
+                            </div>}
+                        {!gridView &&
+                            <div className="product-list mb-50">
+                                {!isLoading && loadedProducts &&
+                                    <ShopProductsList items={loadedProducts} grid={gridView} />}
+                            </div>}
 
                         <div className="pagination-area mt-20 mb-20">
                             <nav aria-label="Page navigation example">
@@ -118,14 +141,14 @@ const shopProducts = () => {
                                 </ul>
                             </nav>
                         </div>
-                        <ShopDealsOfTheDay />
+                        <ShopDealsOfTheDay/>
 
                     </div>
-                <ProductFilters/>
+                    <ProductFilters/>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
-export default shopProducts;
+export default ShopProducts;
