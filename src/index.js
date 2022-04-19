@@ -43,6 +43,7 @@ import Articles from "Dashboard/pages/Articles/Articles";
 import ArticleDetailsDashboard from "Dashboard/pages/Articles/ArticleDetails";
 import ArticleForm from "Dashboard/pages/Articles/ArticleForm";
 import HomeShop from "./Shop/Home";
+import Shop from "./Shop/Shop";
 
 ReactDOM.render(
     <BrowserRouter>
@@ -52,6 +53,7 @@ ReactDOM.render(
                 <Route path="/" exact render={(props) => <Index {...props} />}/>
                 <Route path="/shop"
                        render={(props) => <HomeShop {...props} />}/>
+
 
 
                 <Route
@@ -91,6 +93,8 @@ ReactDOM.render(
                 {/*this section is for dashboard routes*/}
                 <Main>
 
+                    <Route path="/admin/shop"
+                           render={(props) => <Shop {...props} />}/>
                     <Route exact
                            path="/dashboard/forum/section/:id"
                            render={(props) => <SectionThreads {...props} />}

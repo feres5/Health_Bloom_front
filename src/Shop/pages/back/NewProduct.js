@@ -1,17 +1,17 @@
-import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
-import Input from "../../shared/components/FormElements/Input";
-import ImageUpload from "../../shared/components/FormElements/ImageUpload";
-import {useHttpClient} from "../../shared/hooks/http-hook";
-import {useForm} from "../../shared/hooks/form-hook";
+import ErrorModal from "../../../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../../../shared/components/UIElements/LoadingSpinner";
+import Input from "../../../shared/components/FormElements/Input";
+import ImageUpload from "../../../shared/components/FormElements/ImageUpload";
+import {useHttpClient} from "../../../shared/hooks/http-hook";
+import {useForm} from "../../../shared/hooks/form-hook";
 
 import {
     VALIDATOR_MIN,
     VALIDATOR_MINLENGTH,
     VALIDATOR_REQUIRE
-} from "../../shared/util/validators";
+} from "../../../shared/util/validators";
 import {useHistory} from "react-router-dom";
-import Button from "../../shared/components/FormElements/Button";
+import Button from "../../../shared/components/FormElements/Button";
 
 const NewProduct = () => {
 
@@ -62,7 +62,7 @@ const NewProduct = () => {
                 'POST',
                 formData
             );
-            history.push('/shop');
+            history.push('/admin/shop');
         } catch (e) {
             console.log(e);
         }
@@ -73,7 +73,7 @@ const NewProduct = () => {
         <>
 
             <ErrorModal error={error} onClear={clearError}/>
-            <form className="place-form" onSubmit={placeSubmitHandler} enctype="multipart/form-data">
+            <form className="place-form" onSubmit={placeSubmitHandler} encType="multipart/form-data">
 
                 {isLoading && <LoadingSpinner/>}
                 <Input id="name"
