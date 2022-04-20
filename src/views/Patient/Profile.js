@@ -2,14 +2,18 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 // reactstrap components
-import {Button,Container,Row,UncontrolledTooltip, CardHeader, Card} from "reactstrap";
+import {Button,Container,Row,UncontrolledTooltip, CardHeader, Card,
+    Input,InputGroupAddon,InputGroupText,FormGroup} from "reactstrap";
 
 import {Descriptions} from "antd";
 
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import DarkFooter from "components/Footers/DarkFooter.js";
 import GeneralInfo from "./generalInfo";
-
+//imports for popup
+import 'reactjs-popup/dist/index.css';
+import {Dialog, DialogContent, DialogContentText, DialogTitle, DialogActions, Alert} from "@mui/material";
+import {InputGroup} from "react-bootstrap";
 
 function Profile()  {
     const token = localStorage.getItem("user_info");
@@ -37,6 +41,18 @@ function Profile()  {
                 console.log(err)
             })
     },[]);
+
+    //for medical file popup
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     if(data===null)
     {
         return (
@@ -123,7 +139,7 @@ function Profile()  {
                             <div>
                                 here goes medical file section
                                 <Row>
-                                    <Button className="btn-round" color="info" outline type="button">Upload</Button>
+                                    <Button className="btn-round" color="info" onClick={handleClickOpen} outline type="button">Upload</Button>
                                     <Button className="btn-round" color="info" outline type="button">View</Button>
                                     <Button className="btn-round" color="info" outline type="button">Download</Button>
                                 </Row>
@@ -145,6 +161,173 @@ function Profile()  {
                     </div>
                     <DarkFooter />
                 </div>
+                <Dialog open={open} onClose={()=>handleClose()}>
+                    <DialogTitle>medical file info</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            please fill the fields under in order to provide the medical staff with useful information
+                        </DialogContentText>
+                        <form>
+                            <h6 className="title" style={{ "text-align": "left"}}>surgical :</h6>
+                            <Row>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="title"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="motif"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="outcomes"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                            </Row>
+                            <h6 className="title" style={{ "text-align": "left"}}>Obstetric :</h6>
+                            <Row>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="outcomes"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="pregnancy Date"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="child Birth Date"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="baby Gender"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                            </Row>
+                            <h6 className="title" style={{ "text-align": "left"}}>Medications :</h6>
+                            <Row>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="name"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="dose"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="from"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="until"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                            </Row>
+                            <h6 className="title" style={{ "text-align": "left"}}>Family History :</h6>
+                            <Row>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="family Member"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="disease"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="treatments"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="outcomes"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                            </Row>
+                            <h6 className="title" style={{ "text-align": "left"}}>Social History :</h6>
+                            <Row>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="title"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="info"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                            </Row>
+                            <h6 className="title" style={{ "text-align": "left"}}>Habits :</h6>
+                            <Row>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="habit"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Input
+                                        defaultValue=""
+                                        placeholder="state"
+                                        type="text"
+                                    ></Input>
+                                </FormGroup>
+                            </Row>
+                            <Row style={{alignContent:"left"}}>
+                                <Button className="btn-round" color="info" outline type="button" >upload</Button>
+                                <Button className="btn-round" color="danger" outline type="button" onClick={()=>handleClose}>Cancel</Button>
+                            </Row>
+
+                        </form>
+                    </DialogContent>
+                </Dialog>
+
             </>
         );
 }
