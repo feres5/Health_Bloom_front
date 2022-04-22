@@ -169,14 +169,24 @@ function ArticleDetails(props) {
             </div>
             <h4 className="title">{ArticleDetails.description}</h4>
          
-          <div align="right">
-            <CommentBox idArticle={idArticle} />
-            </div>  
+          <br/>
+          <br/>
          
-            <div   align="center">
-              <ArticleComments id={idArticle}/>
+            <div style={
+      {
+       border: '2px solid green'
+      }
+    } align="left">
+      <br/>
+            <h4 align="center">List of comments </h4>
+            <br/>
+            <CommentBox idArticle={idArticle} />
+            <br/>
+            <ArticleComments id={idArticle}/>
+            <br/>
             </div>
             </Container>
+
           </div>
 
         <DefaultFooter />

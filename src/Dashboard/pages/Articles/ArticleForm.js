@@ -1,12 +1,6 @@
 
 import { useState } from "react";
 
-// react-router-dom components
-import { Link } from "react-router-dom";
-
-// @mui material components
-import Switch from "@mui/material/Switch";
-import axios from 'axios';
 import 'react-custom-alert/dist/index.css';
 import { AlertContainer, alert } from 'react-custom-alert';
 // Soft UI Dashboard React components
@@ -16,6 +10,9 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import jwt_decode from "jwt-decode";
 import { useEffect } from "react";
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+
+
 
 function ArticleForm() {
 
@@ -29,6 +26,7 @@ function ArticleForm() {
     const [Image, setImage] = useState()
 
     console.log("title is" + Title)
+    console.log("description :"+Description)
     const url = "http://localhost:3002/articles/Author/"
 
     const fetchAuthor = async () => {
@@ -52,7 +50,7 @@ function ArticleForm() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 title: Title, author: id,
-                description: Description, image: newImage
+                description: finalTranscript, image: newImage
             })
         }).then(
             (result) => {
@@ -68,6 +66,49 @@ function ArticleForm() {
         )
     }
 
+
+ const [message, setMessage] = useState('');
+ const commands = [
+   {
+     command: 'reset',
+     callback: () => resetTranscript()
+   },
+   {
+     command: 'shut up',
+     callback: () => setMessage('I wasn\'t talking.')
+   },
+   {
+     command: 'Hello',
+     callback: () => setMessage('Hi there!')
+   },
+ ]
+ const {
+   transcript,
+   interimTranscript,
+   finalTranscript,
+   resetTranscript,
+   listening,
+ } = useSpeechRecognition({ commands });
+
+
+ useEffect(() => {
+    if (finalTranscript !== '') {
+      console.log('Got final result:', finalTranscript);
+    }
+  }, [interimTranscript, finalTranscript]);
+  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+    return null;
+  }
+ 
+  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+    console.log('Your browser does not support speech recognition software! Try Chrome desktop, maybe?');
+  }
+  const listenContinuously = () => {
+    SpeechRecognition.startListening({
+      continuous: true,
+      language: 'en-GB',
+    });
+  };
     return (
         <div style={{
             display: 'block',
@@ -75,13 +116,14 @@ function ArticleForm() {
             padding: 30
         }}>
             <h4> Welcome Back Dr.{Author.FirstName} </h4>
+
             <br />
+            <h5> Add a new article</h5>
             <br />
             <div>
               <AlertContainer floatingTime={100000} />
             </div>
             <br/>
-            <h6> Add a new article</h6>
             <Form>
                 <Form.Group>
                     <Form.Label>Title:</Form.Label>
@@ -92,12 +134,25 @@ function ArticleForm() {
                         placeholder="Enter the title" />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Write you article:</Form.Label>
+                <div>
+                <Form.Label>Write you article:</Form.Label>
+
+       <div>
+       <span>
+         Recording:
+         {' '}
+         {listening ? <span class="mr-1 badge badge-success"> On </span>: <span class="mr-1 badge badge-warning"> Off </span>}
+       </span>
+         <button class="btn btn-warning" type="button" onClick={resetTranscript}>Reset</button>
+         <button class="btn btn-info" type="button" onClick={listenContinuously}>Listen</button>
+         <button class="btn btn-danger" type="button" onClick={SpeechRecognition.stopListening}>Stop</button>
+       </div>
+     </div>
 
                     <div className="form-group">
                         <textarea
                             name="description"
-                            value={Description}
+                            value={transcript}
                             onChange={e => setDescription(e.target.value)}
                             className="form-control"
                             id="exampleFormControlTextarea1"
@@ -106,6 +161,7 @@ function ArticleForm() {
                             placeholder="Write you article here.."
                         />
                     </div>
+                   
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Image:</Form.Label>
@@ -122,7 +178,14 @@ function ArticleForm() {
                     Click here to add this article
                 </Button>
             </Form>
+
+            <div>
+     
+     
+   </div>
         </div>
+
+        
     )
 }
 export default ArticleForm;
