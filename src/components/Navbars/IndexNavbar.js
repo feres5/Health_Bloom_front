@@ -1,7 +1,8 @@
 import React from "react";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 // reactstrap components
 import {
+  Button,
   Collapse,
   DropdownToggle,
   DropdownMenu,
@@ -20,6 +21,7 @@ function IndexNavbar() {
   const history = useHistory()
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
+  
   React.useEffect(() => {
     const updateNavbarColor = () => {
       if (
@@ -61,10 +63,10 @@ function IndexNavbar() {
           }}
         />
       ) : null}
-      <Navbar expand="lg" color="info">
+      <Navbar className={"fixed-top " + navbarColor} expand="lg" color="info">
         <Container>
           <div className="navbar-translate">
-            <NavbarBrand href="/index" id="navbar-brand">
+            <NavbarBrand href="/" id="navbar-brand">
               <img src={require("assets/img/logoNav1.png").default}
                    width="70"
                    className="d-inline-block align-top"
@@ -98,8 +100,13 @@ function IndexNavbar() {
 
               <NavItem>
                 <NavLink
-                    href="/medical-magazine"
-                   
+                    href="#pablo"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document
+                          .getElementById("download-section")
+                          .scrollIntoView();
+                    }}
                 >
                   <i className="now-ui-icons business_bulb-63 mr-1"></i>
                   <p>Medical Magazine</p>
@@ -259,7 +266,7 @@ function IndexNavbar() {
             <Navbar className={"fixed-top " + navbarColor} expand="lg" color="info">
               <Container>
                 <div className="navbar-translate">
-                  <NavbarBrand href="/index" id="navbar-brand">
+                  <NavbarBrand href="/" id="navbar-brand">
                     <img src={require("assets/img/logoNav1.png").default}
                          width="70"
                          className="d-inline-block align-top"
@@ -293,7 +300,13 @@ function IndexNavbar() {
 
                     <NavItem>
                       <NavLink
-                          href="/medical-magazine"
+                          href="#pablo"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            document
+                                .getElementById("download-section")
+                                .scrollIntoView();
+                          }}
                       >
                         <i className="now-ui-icons business_bulb-63 mr-1"></i>
                         <p>Medical Magazine</p>

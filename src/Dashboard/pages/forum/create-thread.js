@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from "react";
-//import { useHistory  } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import Switch from "react-bootstrap-switch";
 // plugin that creates slider
@@ -21,11 +21,15 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import ForumSection from './../../components/Forum/ForumSection'
+import { Redirect } from "react-router-dom";
+
 
 const axios = require('axios');
 
 
 function CreateThread() {
+
+  const {sectionId} = useParams()
 
     useEffect(() => {
       document.body.classList.add("index-page");
@@ -40,16 +44,18 @@ function CreateThread() {
       };
     });
 
-    //const history = useHistory();
+    const history = useHistory();
     
     const handleSubmit = e => {
         e.preventDefault();
         // get our form data out of state
         const title =  e.target.elements.title.value;
         const body =  e.target.elements.body.value;
-        axios.post("http://localhost:3002/forum/create-thread", {title, body }).then((res) => {
+        axios.post("http://localhost:3002/forum/create-thread", {title, body,sectionId }).then((res) => {
             console.log(res.data)
-            //history.push("/forum/section/1");
+
+
+            history.push("/dashboard/forum/section/" + sectionId);
         }).catch((error) => {
             console.log(error)
         });

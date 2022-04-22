@@ -100,7 +100,7 @@ ReactDOM.render(
             />
 
           <Route exact
-            path="/dashboard/forum/create-thread"
+            path="/dashboard/forum/section/:sectionId/create-thread"
             render={(props) => <CreateThread {...props} />}
             />
 

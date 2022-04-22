@@ -16,7 +16,7 @@ import {
 
 import ReactPaginate from 'react-paginate';
 
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import SectionThreadsContent from './../../components/Forum/SectionThreadsContent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -39,10 +39,13 @@ const SectionThreads = () =>
     const [allThreads, setAllThreads] = useState([])
     const [threads, setThreads] = useState(null)
 
+    const { id } = useParams();
+
+
     const fetchSections = async (_mounted) => {
-      const url = "http://localhost:3002/forum/get-threads";
-      //const urlId= url+idArticle
-      const reponse = await fetch(url);
+      const url = "http://localhost:3002/forum/get-threads-by-section/";
+      const urlId= url+id
+      const reponse = await fetch(urlId);
       const newThreads = await reponse.json();
       if(_mounted)
       setAllThreads(newThreads);
@@ -81,7 +84,7 @@ const SectionThreads = () =>
                               
               <Card className="section-threads-links-container">
                
-               <Link className="section-threads-create-thread" to={"/dashboard/forum/create-thread"}>
+               <Link className="section-threads-create-thread" to={`/dashboard/forum/section/${id}/create-thread`}>
                  <FontAwesomeIcon icon={solid('plus')} size="lg" />&nbsp; New Thread
                </Link>
 

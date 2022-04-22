@@ -30,36 +30,58 @@ function Thread()
         const url = "http://localhost:3002/forum/get-thread/";
         
         const urlId= url+id;
-        const reponse = await fetch(urlId);
-        const newThread = await reponse.json();
+        //const reponse = await fetch(urlId);
+        //const newThread = 
+        axios.get(urlId).then((response) => {
+            //console.log(response.data)
+            let thread = response.data
+            setThread(thread);
+            setInitContent(thread.initContent)
+            setComments(thread.comments)
+        })
         
         
-        setThread(newThread);
+        /*setThread(newThread);
         setInitContent(newThread.initContent)
-        setComments(newThread.comments)
+        setComments(newThread.comments)*/
       }
 
       useEffect(() => {
           fetchThread()
-
       },[]);
 
+      const onFinish = (values) => {
+
+          const comment =  values.comment;
+          
+            axios.post("http://localhost:3002/forum/add-comment-to-thread", { body: comment , threadId: id})
+            .then((res) => {
+                let data = res.data;
+                
+                let newComments = [...comments,{body:comment, threadId:id, _id:data._id}]
+                setComments(newComments)
+
+
+                //history.push("/forum/section/1");
+            }).catch((error) => {
+                console.log(error)
+            });
+      }
       
-    const onFinish = (values) => {
 
-        console.log(values)
+      const onCommentDelete = (id) => {
+        let newComments = comments
+        newComments.forEach((element,index,object) => {
+                if(element._id === id)
+                {
+                    //alert(id)
+                    object.splice(index, 1)
+                }
+            });
+            
+            setComments([...newComments])
+      }
 
-        const comment =  values.comment;
-        axios.post("http://localhost:3002/forum/add-comment-to-thread", { body: comment , threadId: id}).then((res) => {
-            console.log(res.data)
-            fetchThread()
-            //history.push("/forum/section/1");
-        }).catch((error) => {
-            console.log(error)
-        });
-      };
-
-      
     return(
         <>
         <div className="wrapper">
@@ -74,7 +96,7 @@ function Thread()
                 </Row>
                 
                 <div className="thread-content container">
-                    <ThreadContentCard thread={thread} initContent={initContent} comments={comments}></ThreadContentCard>
+                    <ThreadContentCard onCommentDelete={onCommentDelete} thread={thread} initContent={initContent} comments={comments} ></ThreadContentCard>
                 </div>
 
 
