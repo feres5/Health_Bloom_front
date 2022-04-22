@@ -45,6 +45,11 @@ import ArticleForm from "Dashboard/pages/Articles/ArticleForm";
 import HomeShop from "./Shop/Home";
 import ArticleComments from "views/Magazine/ArticleComments";
 import Shop from "./Shop/Shop";
+import ArticleComments from "views/Magazine/ArticleComments";
+import AsisstantProfile from "./Dashboard/pages/Assistants/AsisstantProfile";
+import AsisstantProfile2 from "./Dashboard/pages/Assistants/AsisstantProfile2";
+import EditAssistantProfile from "./Dashboard/pages/Assistants/EditAssistantProfile";
+
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
@@ -120,6 +125,7 @@ ReactDOM.render(
                     />
 
                     <Route exact path="/dashboard" component={Home}/>
+                    <Route exact path="/dashboard" component={Home}/>
                     <Route exact path="/articles" component={Articles}/>
                     <Route exact path="/articleDetails"
                            component={ArticleDetailsDashboard}/>
@@ -127,7 +133,9 @@ ReactDOM.render(
                     <Route exact path="/tables" component={Tables}/>
                     <Route exact path="/billing" component={Billing}/>
                     <Route exact path="/rtl" component={Rtl}/>
-                    <Route exact path="/profile" component={Profile}/>
+                    <Route exact path="/dashboard/profile" component={AsisstantProfile}/>
+                    <Route exact path="/dashboard/editprofile" component={EditAssistantProfile}/>
+
 
                 </Main>
 
