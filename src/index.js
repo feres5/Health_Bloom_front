@@ -20,8 +20,9 @@ import ArticleDetails from "views/Magazine/ArticleDetails";
 import ProfilePatient from "views/Patient/Profile";
 import ForgottenPassword from "views/SignUp/forgottenPassword";
 import ResetPassword from "views/SignUp/resetPassword";
-// pages for dashbord
+import CompleteProfile from "views/SignUp/CompleteProfile";
 
+// pages for dashbord
 import Home from "./Dashboard/pages/Home"
 import Tables from "./Dashboard/pages/Tables";
 import Billing from "./Dashboard/pages/Billing";
@@ -52,6 +53,8 @@ ReactDOM.render(
         <Route path="/resetPassword/:userId/:resetString" element={<ResetPassword/>} />
         <Route path="/signUp" element={<SignUp/>} />
         <Route path="/medical-signUp" element={<MedicalSignUp/>} />
+        <Route path="/completeProfile/:userId" element={<CompleteProfile/>} />
+
         <Route path=""  element={<Navigate replace to="index"/>} />
 
         {/*this section is for dashboard routes*/}

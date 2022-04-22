@@ -1,11 +1,13 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-
+import  GoogleLogin  from 'react-google-login';
+import axios from "axios";
 // reactstrap components
-import {Button,Card,CardHeader,CardBody,CardFooter,Form,Input,InputGroupAddon,InputGroupText,InputGroup,Container,Col} from "reactstrap";
+import {Button,Card,CardHeader,Row,CardBody,CardFooter,Form,Input,InputGroupAddon,InputGroupText,InputGroup,Container,Col} from "reactstrap";
 
 // core components
 import TransparentFooter from "components/Footers/TransparentFooter.js";
+import jwt_decode from "jwt-decode";
 
 function LoginPage() {
   const navigate = useNavigate ()
@@ -42,9 +44,41 @@ function LoginPage() {
       console.log("you need to enter all of your credentials");
     }
     result = await result.json();
-    await localStorage.setItem("user_info",JSON.stringify(result));
-    navigate("/index");
+    checkCompleteProfile(result)
 
+  }
+
+  const responseSuccessGoogle = (response) => {
+    //console.log(response);
+    axios({
+      method: "POST",
+      url: "http://127.0.0.1:3002/users/googleLogin",
+      data : {tokenId: response.tokenId}
+    }).then(async response => {
+      checkCompleteProfile(response.data)
+    })
+  }
+  const responseErrorGoogle = (response) => {
+    console.log(response);
+  }
+
+  //this function is to check if user info is complete or not and redirect to the necessary page
+  function checkCompleteProfile(token){
+    var decodedTOKEN = jwt_decode(token,{payload : true});
+    axios({
+      method: "GET",
+      url: "http://127.0.0.1:3002/users/getById/"+ decodedTOKEN.user_id,
+    }).then(async response => {
+      //console.log(response.data.Role);
+      if (response.data.Role ==="unknown"){
+        navigate("/completeProfile/"+decodedTOKEN.user_id)
+      }
+      else {
+        await localStorage.setItem("user_info", token);
+        navigate("/index");
+      }
+
+    })
   }
 
   return (
@@ -112,7 +146,16 @@ function LoginPage() {
                     </InputGroup>
                   </CardBody>
                   <CardFooter className="text-center">
-                    <Button block className="btn-round" color="info" onClick={login} size="lg">Login</Button>
+                    <Row>
+                      <Button block className="btn-round" color="info" onClick={login} size="lg">Login</Button>
+                      <GoogleLogin
+                          clientId="410085321469-ndnv3jtljc9fksblkbtdv9lvu6gnv614.apps.googleusercontent.com"
+                          buttonText="Login"
+                          onSuccess={responseSuccessGoogle}
+                          onFailure={responseErrorGoogle}
+                          cookiePolicy={'single_host_origin'}
+                      />
+                    </Row>
                     <div className="pull-left">
                       <h6>
                         <a className="link" href="/signUp">Create Account</a>
