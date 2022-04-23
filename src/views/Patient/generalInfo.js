@@ -34,6 +34,9 @@ function GeneralInfo(props) {
 
     const onChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
+    const setDate =(e)=>{
+        formData.BirthDate= e;
+    }
 
     async function updatePatient() {
         console.log(formData);
@@ -155,7 +158,11 @@ function GeneralInfo(props) {
                                 <DatePicker
                                     className="form-control"
                                     selected={BirthDate}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        const d = new Date(e);
+                                        console.log(d);
+                                        setDate(d);
+                                    }}
                                 />
                             </Descriptions.Item>
                             <Descriptions.Item label="Email" span={3}>
