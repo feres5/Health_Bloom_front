@@ -1,8 +1,51 @@
 import "../../../assets/css/plugins/animate.min.css";
 import "../../../assets/css/main.scoped.css";
 import "./cart.css"
+import CheckoutItem from "./CheckoutItem";
+import React from "react";
+import {useCart} from "react-use-cart";
+import {loadStripe} from "@stripe/stripe-js";
+import {useHttpClient} from "../../../../shared/hooks/http-hook";
+
 
 const Checkout = () => {
+    const {isLoading, error, sendRequest, clearError} = useHttpClient();
+
+    const {
+        isEmpty,
+        totalUniqueItems,
+        items,
+        updateItemQuantity,
+        removeItem,
+        cartTotal,
+        emptyCart
+    } = useCart();
+
+    const checkoutSubmitHandler = async event => {
+        event.preventDefault();
+
+        try {
+
+
+           const data =  await sendRequest('http://localhost:3002/api/products/checkout',
+                'POST',
+                JSON.stringify({
+                    items
+                }),
+                {
+                    'Content-Type': 'application/json'
+                }
+            );
+
+            if (data.url) {
+                window.location = data.url;
+            }
+        } catch (e) {
+            console.log(e);
+        }
+
+    };
+
 
     return (
         <>
@@ -32,7 +75,8 @@ const Checkout = () => {
                     <div className="col-lg-7">
                         <div className="row mb-50">
                             <div className="col-lg-6 mb-sm-15 mb-lg-0 mb-md-3">
-                                <div style={{marginTop: "10px"}} className="toggle_info">
+                                <div style={{marginTop: "10px"}}
+                                     className="toggle_info">
                                 <span><i className="fi-rs-user mr-10"></i><span
                                     className="text-muted font-lg">Already have an account?</span> <a
                                     href="#loginform" data-bs-toggle="collapse"
@@ -88,7 +132,8 @@ const Checkout = () => {
                             </div>
                             <div className="col-lg-6">
                                 <form method="post" className="apply-coupon">
-                                    <input style={{marginTop: "10px"}} type="text"
+                                    <input style={{marginTop: "10px"}}
+                                           type="text"
                                            placeholder="Enter Coupon Code..."/>
                                     <button className="btn  btn-md"
                                             name="login">Apply Coupon
@@ -190,114 +235,30 @@ const Checkout = () => {
                             <div
                                 className="d-flex align-items-end justify-content-between mb-30">
                                 <h4>Your Order</h4>
-                                <h6 className="text-muted">Subtotal</h6>
+
+                                <div>
+                                    <h4 className="text-brand"
+                                    >${cartTotal}</h4>
+                                </div>
                             </div>
                             <div className="divider-2 mb-30"></div>
                             <div
                                 className="table-responsive order_table checkout">
                                 <table className="table no-border">
                                     <tbody>
-                                    <tr>
-                                        <td className="image product-thumbnail">
-                                            <img
-                                                src="assets/imgs/shop/product-1-1.jpg"
-                                                alt="#"/></td>
-                                        <td>
-                                            <h6 className="w-160 mb-5"><a
-                                                href="shop-product-full.html"
-                                                className="text-heading">Yidarton
-                                                Women
-                                                Summer Blue</a></h6>
-                                            <div className="product-rate-cover">
-                                                <div
-                                                    className="product-rate d-inline-block">
-                                                    <div
-                                                        className="product-rating"
-                                                        style={{width: "90%"}}>
-                                                    </div>
-                                                </div>
-                                                <span
-                                                    className="font-small ml-5 text-muted"> (4.0)</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h6 className="text-muted pl-20 pr-20">x
-                                                1</h6>
-                                        </td>
-                                        <td>
-                                            <h4 className="text-brand">$13.3</h4>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="image product-thumbnail">
-                                            <img
-                                                src="assets/imgs/shop/product-2-1.jpg"
-                                                alt="#"/></td>
-                                        <td>
-                                            <h6 className="w-160 mb-5"><a
-                                                href="shop-product-full.html"
-                                                className="text-heading">Seeds
-                                                of
-                                                Change
-                                                Organic Quinoa</a></h6>
-                                            <div className="product-rate-cover">
-                                                <div
-                                                    className="product-rate d-inline-block">
-                                                    <div
-                                                        className="product-rating"
-                                                        style={{width: "90%"}}>
-                                                    </div>
-                                                </div>
-                                                <span
-                                                    className="font-small ml-5 text-muted"> (4.0)</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h6 className="text-muted pl-20 pr-20">x
-                                                1</h6>
-                                        </td>
-                                        <td>
-                                            <h4 className="text-brand">$15.0</h4>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="image product-thumbnail">
-                                            <img
-                                                src="assets/imgs/shop/product-3-1.jpg"
-                                                alt="#"/></td>
-                                        <td>
-                                            <h6 className="w-160 mb-5"><a
-                                                href="shop-product-full.html"
-                                                className="text-heading">Angie’s
-                                                Boomchickapop Sweet </a></h6>
-                                            <div className="product-rate-cover">
-                                                <div
-                                                    className="product-rate d-inline-block">
-                                                    <div
-                                                        className="product-rating"
-                                                        style={{width: "90%"}}>
-                                                    </div>
-                                                </div>
-                                                <span
-                                                    className="font-small ml-5 text-muted"> (4.0)</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h6 className="text-muted pl-20 pr-20">x
-                                                1</h6>
-                                        </td>
-                                        <td>
-                                            <h4 className="text-brand">$17.2</h4>
-                                        </td>
-                                    </tr>
-                                    <tr style={{color: "red"}}>
-                                        <td className="cart_total_label">
-                                            <h6 className="text-muted">Subtotal</h6>
-                                        </td>
-                                        <td className="cart_total_amount" >
-                                            <h4  className="text-brand text-end" >$12.31</h4>
-                                        </td>
-                                    </tr>
+                                    {items.map((item, index) => {
+                                        return (
+                                            <CheckoutItem image={item.image}
+                                                          name={item.name}
+                                                          quantity={item.quantity}
+                                                          price={item.price}
+                                                          key={index}
+                                                          item={item}
+                                                          id={item.id}
+                                            />
+                                        );
+                                    })}
+
                                     </tbody>
                                 </table>
                             </div>
@@ -360,7 +321,9 @@ const Checkout = () => {
                                     src="assets/imgs/theme/icons/payment-zapper.svg"
                                     alt=""/>
                             </div>
+
                             <a href="#"
+                               onClick={checkoutSubmitHandler}
                                className="btn btn-fill-out mt-30">Place
                                 an
                                 Order<i

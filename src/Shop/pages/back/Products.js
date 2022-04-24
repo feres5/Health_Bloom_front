@@ -29,6 +29,10 @@ const Products = () => {
 
     }, [sendRequest]);
 
+    const productDeletedHandler = deletedProductId => {
+        setLoadedProducts(prevProducts => prevProducts.filter(product => product.id !== deletedProductId));
+    };
+
 
     const handleShow = () => setShowNewProduct(true);
 
@@ -43,7 +47,8 @@ const Products = () => {
                 Add Product
             </Button>
         </Link>
-        {!isLoading && loadedProducts && <ProductsList items={loadedProducts}/>}
+        {!isLoading && loadedProducts && <ProductsList items={loadedProducts}
+                                                       onDeleteProduct={productDeletedHandler}/>}
     </React.Fragment>;
 };
 

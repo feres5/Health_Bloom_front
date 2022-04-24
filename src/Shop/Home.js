@@ -26,6 +26,7 @@ import Shop404Page from "./components/front/Shop404Page";
 import ProductDetails from "./pages/front/ProductDetails";
 import ShopProducts from "./components/front/products/ShopProducts";
 import Checkout from "./components/front/cart/Checkout";
+import Invoice from "./components/front/cart/Invoice";
 
 window.$ = window.jQuery = jquery;
 const HomeShop = () => {
@@ -57,60 +58,67 @@ const HomeShop = () => {
     console.log(path);
     return (
         <React.Fragment>
-            <div style={{paddingLeft: "15px"}}>
+            <Switch>
+                <Route exact path={`${path}/invoice`}>
+                    <Invoice/>
+                </Route>
+                <Route path={path}>
+                    <div style={{paddingLeft: "15px"}}>
 
-            <ShopHeader/>
+                        <ShopHeader/>
 
-            <main className="main">
-                <Switch>
-                    <Route exact path={`${path}/cart`}>
-                        <Cart/>
-                    </Route>
-                    <Route exact path={`${path}/checkout`}>
-                        <Checkout/>
-                    </Route>
-                    <Route exact path={`${path}/products`}>
-                        <ShopProducts/>
-                    </Route>
-                    <Route exact path={`${path}/products/:productId`}>
-                        <ProductDetails/>
-                    </Route>
-                    <Route exact path={`${path}/home`}>
-                        {/*<ShopModal/>*/}
-                        <ProductModalView/>
+                        <main className="main">
+                            <Switch>
 
-                        <ShopBanner/>
+                                <Route exact path={`${path}/cart`}>
+                                    <Cart/>
+                                </Route>
+                                <Route exact path={`${path}/checkout`}>
+                                    <Checkout/>
+                                </Route>
+                                <Route exact path={`${path}/products`}>
+                                    <ShopProducts/>
+                                </Route>
+                                <Route exact
+                                       path={`${path}/products/:productId`}>
+                                    <ProductDetails/>
+                                </Route>
+                                <Route exact path={`${path}/home`}>
+                                    {/*<ShopModal/>*/}
+                                    <ProductModalView/>
 
-                        <ShopFeaturedCategories/>
+                                    <ShopBanner/>
 
-                        <ShopFeaturedBanners/>
+                                    <ShopFeaturedCategories/>
 
-                        <section
-                            className="product-tabs section-padding position-relative">
-                            <div className="container">
-                                <HomeProductsList/>
-                            </div>
-                        </section>
+                                    <ShopFeaturedBanners/>
 
-                        <ShopBestSells/>
-                        <ShopDeals/>
+                                    <section
+                                        className="product-tabs section-padding position-relative">
+                                        <div className="container">
+                                            <HomeProductsList/>
+                                        </div>
+                                    </section>
 
-                        <ShopTopProducts/>
-                    </Route>
+                                    <ShopBestSells/>
+                                    <ShopDeals/>
 
-                    <Route path={`${path}/*`}>
-                        <Shop404Page/>
-                    </Route>
-                    <Redirect exact to={`${path}/home`}/>
-                </Switch>
+                                    <ShopTopProducts/>
+                                </Route>
 
-            </main>
+                                <Route path={`${path}/*`}>
+                                    <Shop404Page/>
+                                </Route>
+                                <Redirect exact to={`${path}/home`}/>
+                            </Switch>
 
-
-            <ShopFooter/>
-            </div>
+                        </main>
 
 
+                        <ShopFooter/>
+                    </div>
+                </Route>
+            </Switch>
         </React.Fragment>
     );
 

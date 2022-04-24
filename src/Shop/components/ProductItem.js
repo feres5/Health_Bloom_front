@@ -2,8 +2,28 @@ import React from 'react';
 
 import {Button, Card, Col} from "react-bootstrap";
 import {AiFillDelete, AiFillEdit} from "react-icons/all";
+import {Link, useRouteMatch} from "react-router-dom";
+import {useHttpClient} from "../../shared/hooks/http-hook";
 
 const UserItem = props => {
+    const {isLoading, error, sendRequest, clearError} = useHttpClient();
+
+    const {path, url} = useRouteMatch();
+    console.log(path)
+    const confirmDeleteHandler = async () => {
+
+        try {
+
+            await sendRequest(
+                `http://localhost:3002/api/products/${props.id}`,
+                'DELETE'
+            );
+            props.onDelete(props.id);
+
+        } catch (e) {
+            console.log(e);
+        }
+    };
     return (
         <Col>
             <Card style={{width: '18rem'}}>
@@ -14,8 +34,10 @@ const UserItem = props => {
                     <Card.Text>
                         {props.description}
                     </Card.Text>
-                    <Button variant="primary">Edit <AiFillEdit/></Button>
-                    <Button style={{marginLeft:'102px'}} variant="danger"> <AiFillDelete/></Button>
+                    <Link exact="true" to={`${path}/edit/${props.id}`}>
+                        <Button variant="primary">Edit <AiFillEdit/></Button>
+                    </Link>
+                    <Button onClick={confirmDeleteHandler} style={{marginLeft:'102px'}} variant="danger"> <AiFillDelete/></Button>
 
                 </Card.Body>
             </Card>

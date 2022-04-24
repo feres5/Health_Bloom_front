@@ -1,13 +1,18 @@
 import "../../../assets/css/plugins/animate.min.css";
 import "../../../assets/css/main.scoped.css";
 import {Link, useRouteMatch} from "react-router-dom";
+import {useCart} from "react-use-cart";
+
 const ShopProductsItem = props => {
 
     const {path, url} = useRouteMatch();
+    const {addItem} = useCart();
+    console.log()
 
     return (
         <div
-            className="col-lg-1-5 col-md-4 col-12 col-sm-6" style={{padding: "20px 10px" }}>
+            className="col-lg-1-5 col-md-4 col-12 col-sm-6"
+            style={{padding: "20px 10px"}}>
             <div className="product-cart-wrap mb-30">
                 <div className="product-img-action-wrap">
                     <div
@@ -68,7 +73,11 @@ const ShopProductsItem = props => {
                         </div>
                         <div className="add-cart">
                             <a className="add"
-                               href="shop-cart.html"><i
+                               href="shop-cart.html"
+                               onClick={(e) =>{
+                                   e.preventDefault()
+                                   addItem(props.item)
+                               }}><i
                                 className="fi-rs-shopping-cart mr-5"></i>Add
                             </a>
                         </div>

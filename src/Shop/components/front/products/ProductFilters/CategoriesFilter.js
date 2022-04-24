@@ -9,31 +9,31 @@ const CategoriesFilter = () => {
                 <li>
                     <a href="shop-grid-right.html"> <img
                         src="assets/imgs/theme/icons/category-1.svg"
-                        alt=""/>Milks & Dairies</a><span
+                        alt=""/>Pharmacy</a><span
                     className="count">30</span>
                 </li>
                 <li>
                     <a href="shop-grid-right.html"> <img
                         src="assets/imgs/theme/icons/category-2.svg"
-                        alt=""/>Clothing</a><span
+                        alt=""/>Health & Nutrition</a><span
                     className="count">35</span>
                 </li>
                 <li>
                     <a href="shop-grid-right.html"> <img
                         src="assets/imgs/theme/icons/category-3.svg"
-                        alt=""/>Pet Foods </a><span
+                        alt=""/>Home Essentials </a><span
                     className="count">42</span>
                 </li>
                 <li>
                     <a href="shop-grid-right.html"> <img
                         src="assets/imgs/theme/icons/category-4.svg"
-                        alt=""/>Baking material</a><span
+                        alt=""/>Health Condition</a><span
                     className="count">68</span>
                 </li>
                 <li>
                     <a href="shop-grid-right.html"> <img
                         src="assets/imgs/theme/icons/category-5.svg"
-                        alt=""/>Fresh Fruit</a><span
+                        alt=""/>Ayurveda</a><span
                     className="count">87</span>
                 </li>
             </ul>

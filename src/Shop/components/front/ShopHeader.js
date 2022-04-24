@@ -2,8 +2,20 @@ import "../../assets/css/plugins/animate.min.css";
 import "../../assets/css/main.scoped.css";
 import React from "react";
 import {useRouteMatch} from "react-router-dom";
+import QuickCartItem from "./cart/QuickCartItem";
+import cartData from "./cart/CartData";
+import {useCart} from "react-use-cart";
 
 const ShopHeader = () => {
+    const {
+        isEmpty,
+        totalUniqueItems,
+        items,
+        updateItemQuantity,
+        removeItem,
+        cartTotal,
+        emptyCart
+    } = useCart();
 
     const {path, url} = useRouteMatch();
 
@@ -116,76 +128,44 @@ const ShopHeader = () => {
                                     </div>
                                     <div className="header-action-icon-2">
                                         <a className="mini-cart-icon"
-                                           href="shop-cart.html">
+                                           href={`${path}/cart`}>
                                             <img alt="Nest"
                                                  src="assets/imgs/theme/icons/icon-cart.svg"/>
                                             <span
-                                                className="pro-count blue">2</span>
+                                                className="pro-count blue">{totalUniqueItems}</span>
                                         </a>
-                                        <a href="shop-cart.html"><span
+                                        <a href={`${path}/cart`}><span
                                             className="lable">Cart</span></a>
                                         <div
                                             className="cart-dropdown-wrap cart-dropdown-hm2">
                                             <ul>
-                                                <li>
-                                                    <div
-                                                        className="shopping-cart-img">
-                                                        <a href="shop-product-right.html"><img
-                                                            alt="Nest"
-                                                            src="assets/imgs/shop/thumbnail-3.jpg"/></a>
-                                                    </div>
-                                                    <div
-                                                        className="shopping-cart-title">
-                                                        <h4><a
-                                                            href="shop-product-right.html">Daisy
-                                                            Casual Bag</a>
-                                                        </h4>
-                                                        <h4>
-                                                            <span>1 × </span>$800.00
-                                                        </h4>
-                                                    </div>
-                                                    <div
-                                                        className="shopping-cart-delete">
-                                                        <a href="#"><i
-                                                            className="fi-rs-cross-small"></i></a>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div
-                                                        className="shopping-cart-img">
-                                                        <a href="shop-product-right.html"><img
-                                                            alt="Nest"
-                                                            src="assets/imgs/shop/thumbnail-2.jpg"/></a>
-                                                    </div>
-                                                    <div
-                                                        className="shopping-cart-title">
-                                                        <h4><a
-                                                            href="shop-product-right.html">Corduroy
-                                                            Shirts</a></h4>
-                                                        <h4>
-                                                            <span>1 × </span>$3200.00
-                                                        </h4>
-                                                    </div>
-                                                    <div
-                                                        className="shopping-cart-delete">
-                                                        <a href="#"><i
-                                                            className="fi-rs-cross-small"></i></a>
-                                                    </div>
-                                                </li>
+                                                {items.map((item, index) => {
+                                                    return (
+                                                        <QuickCartItem image={item.image}
+                                                                       name={item.name}
+                                                                       quantity={item.quantity}
+                                                                       price={item.price}
+                                                                       key={index}
+                                                                       item={item}
+                                                                       id={item.id}
+                                                                       onRemove={removeItem}
+                                                        />
+                                                    );
+                                                })}
                                             </ul>
                                             <div
                                                 className="shopping-cart-footer">
                                                 <div
                                                     className="shopping-cart-total">
-                                                    <h4>Total <span>$4000.00</span>
+                                                    <h4>Total <span>${cartTotal}</span>
                                                     </h4>
                                                 </div>
                                                 <div
                                                     className="shopping-cart-button">
-                                                    <a href="shop-cart.html"
+                                                    <a href={`${path}/cart`}
                                                        className="outline">View
                                                         cart</a>
-                                                    <a href="shop-checkout.html">Checkout</a>
+                                                    <a href={`${path}/checkout`}>Checkout</a>
                                                 </div>
                                             </div>
                                         </div>

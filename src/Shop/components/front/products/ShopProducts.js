@@ -37,7 +37,6 @@ const ShopProducts = () => {
 
     }, [sendRequest]);
 
-
     return (
         <div style={{paddingLeft: "5px"}}>
             <div>
@@ -45,11 +44,11 @@ const ShopProducts = () => {
                     <div className="archive-header">
                         <div className="row align-items-center">
                             <div className="col-xl-3">
-                                <h1 className="mb-15">Snack</h1>
+                                <h1 className="mb-15">Products</h1>
                                 <div className="breadcrumb">
                                     <a href="index.html" rel="nofollow"><i
                                         className="fi-rs-home mr-5"></i>Home</a>
-                                    <span></span> Shop <span></span> Snack
+                                    <span></span> Shop <span></span> Products
                                 </div>
                             </div>
                         </div>
@@ -104,12 +103,16 @@ const ShopProducts = () => {
                         {gridView &&
                             <div className="row product-grid">
                                 {!isLoading && loadedProducts &&
-                                    <ShopProductsList items={loadedProducts} grid={gridView}/>}
+                                    <ShopProductsList items={loadedProducts}
+                                                      grid={gridView}
+                                                      />}
                             </div>}
                         {!gridView &&
                             <div className="product-list mb-50">
                                 {!isLoading && loadedProducts &&
-                                    <ShopProductsList items={loadedProducts} grid={gridView} />}
+                                    <ShopProductsList items={loadedProducts}
+                                                      grid={gridView}
+                                                      />}
                             </div>}
 
                         <div className="pagination-area mt-20 mb-20">

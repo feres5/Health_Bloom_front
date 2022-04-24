@@ -26,6 +26,7 @@ const ProductsList = props => {
                     name={product.name}
                     description={product.description}
                     price={product.price}
+                    onDelete={props.onDeleteProduct}
                 />
             ))}
         </Row>
