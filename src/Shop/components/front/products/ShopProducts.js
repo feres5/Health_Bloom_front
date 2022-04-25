@@ -4,14 +4,17 @@ import ShopDealsOfTheDay from "./ShopDealsOfTheDay";
 import ProductFilters from "./ProductFilters/ProductFilters";
 import ShopProductsList from "./ShopProductsList";
 import {useHttpClient} from "../../../../shared/hooks/http-hook";
-import {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 
 const ShopProducts = () => {
 
+    const searchInput = useRef("");
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const [loadedProducts, setLoadedProducts] = useState();
+    const [productsResults, setProductsResults] = useState();
     const [gridView, setGridView] = useState(true);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const gridViewHandler = () => setGridView(prevState => {
             console.log(prevState);
@@ -26,6 +29,7 @@ const ShopProducts = () => {
             try {
                 const responseData = await sendRequest('http://localhost:3002/api/products');
 
+                setProductsResults(responseData.products);
                 setLoadedProducts(responseData.products);
                 console.log(responseData);
             } catch (e) {
@@ -36,6 +40,22 @@ const ShopProducts = () => {
         fecthProducts();
 
     }, [sendRequest]);
+
+    const getSearchTerm = () => {
+        setSearchTerm(searchInput.current.value);
+        if (searchInput.current.value !== "" ) {
+            setProductsResults(() => {
+                return loadedProducts.filter((product) => {
+                    return  product.name.toLowerCase().includes(searchInput.current.value);
+                });
+            });
+        } else {
+            setProductsResults(loadedProducts);
+        }
+
+
+    };
+
 
     return (
         <div style={{paddingLeft: "5px"}}>
@@ -65,7 +85,16 @@ const ShopProducts = () => {
                                     you!
                                 </p>
                             </div>
+                            <div className="search-style-1">
+                                <form action="#">
+
+                                    <input ref={searchInput}
+                                           onChange={getSearchTerm} type="text"
+                                           placeholder="Search for items..."/>
+                                </form>
+                            </div>
                             <div className="sort-by-product-area">
+
                                 <div className="sort-by-cover mr-10">
                                     <div onClick={gridViewHandler}
                                          className="sort-by-product-wrap">
@@ -83,8 +112,8 @@ const ShopProducts = () => {
                                     <option value="volvo">Volvo</option>
 
                                 </select>
-                                <div className="sort-by-cover">
 
+                                <div className="sort-by-cover">
 
                                     <div className="sort-by-product-wrap">
                                         <div className="sort-by">
@@ -102,17 +131,19 @@ const ShopProducts = () => {
                         </div>
                         {gridView &&
                             <div className="row product-grid">
-                                {!isLoading && loadedProducts &&
-                                    <ShopProductsList items={loadedProducts}
+                                {!isLoading && productsResults &&
+                                    <ShopProductsList items={productsResults}
                                                       grid={gridView}
-                                                      />}
+                                                      term={searchTerm}
+                                    />}
                             </div>}
                         {!gridView &&
                             <div className="product-list mb-50">
-                                {!isLoading && loadedProducts &&
-                                    <ShopProductsList items={loadedProducts}
+                                {!isLoading && productsResults &&
+                                    <ShopProductsList items={productsResults}
                                                       grid={gridView}
-                                                      />}
+                                                      term={searchTerm}
+                                    />}
                             </div>}
 
                         <div className="pagination-area mt-20 mb-20">

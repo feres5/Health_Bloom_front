@@ -87,7 +87,7 @@ const ShopHeader = () => {
                                         <option>Ice cream</option>
                                     </select>
                                     <input type="text"
-                                           placeholder="Search for items..."/>
+                                           placeholder="Search ..."/>
                                 </form>
                             </div>
                             <div className="header-action-right">
