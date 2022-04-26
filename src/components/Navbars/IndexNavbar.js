@@ -28,9 +28,9 @@ function IndexNavbar() {
   useEffect(()=>{
     if(token){
       decodedTOKEN = jwt_decode(token,{payload : true});
-      console.log(decodedTOKEN);
+      //console.log(decodedTOKEN);
     }
-  })
+  },[])
 
   React.useEffect(() => {
     const updateNavbarColor = () => {

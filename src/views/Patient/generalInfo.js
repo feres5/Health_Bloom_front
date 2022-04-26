@@ -155,15 +155,25 @@ function GeneralInfo(props) {
                                 </Input>
                             </Descriptions.Item>
                             <Descriptions.Item label="Birth Date" span={3}>
-                                <DatePicker
-                                    className="form-control"
+                                <Input
+                                    type="date"
+                                    placeholder={BirthDate}
                                     selected={BirthDate}
                                     onChange={(e) => {
                                         const d = new Date(e);
-                                        console.log(d);
                                         setDate(d);
                                     }}
-                                />
+                                ></Input>
+                                {/*<DatePicker*/}
+                                {/*    className="form-control"*/}
+                                {/*    selected={BirthDate}*/}
+                                {/*    name="BirthDate"*/}
+                                {/*    startDate={BirthDate}*/}
+                                {/*    onChange={(e) => {*/}
+                                {/*        const d = new Date(e);*/}
+                                {/*        setDate(d);*/}
+                                {/*    }}*/}
+                                {/*/>*/}
                             </Descriptions.Item>
                             <Descriptions.Item label="Email" span={3}>
                                 <Input
