@@ -45,10 +45,12 @@ import ArticleForm from "Dashboard/pages/Articles/ArticleForm";
 import HomeShop from "./Shop/Home";
 import ArticleComments from "views/Magazine/ArticleComments";
 import Shop from "./Shop/Shop";
-import ArticleComments from "views/Magazine/ArticleComments";
 import AsisstantProfile from "./Dashboard/pages/Assistants/AsisstantProfile";
-import AsisstantProfile2 from "./Dashboard/pages/Assistants/AsisstantProfile2";
 import EditAssistantProfile from "./Dashboard/pages/Assistants/EditAssistantProfile";
+import FrontAssistantProfile from "./views/Assistant profile/FrontAssistantProfile";
+
+
+
 
 ReactDOM.render(
     <BrowserRouter>
@@ -82,8 +84,11 @@ ReactDOM.render(
                     render={(props) => <LandingPage {...props} />}
                 />
                 {/*this route is protected, only access when logged in*/}
-                <ProtectedRoute exact path="/profile-page"
-                                component={ProfilePage}/>
+                {/*<ProtectedRoute exact path="/profile-page"*/}
+                {/*                component={ProfilePage}/>*/}
+
+                <Route exact path="/Assistantprofile" component={FrontAssistantProfile}/>
+
                 <Route
                     path="/login-page"
                     render={(props) => <LoginPage {...props} />}
@@ -136,11 +141,10 @@ ReactDOM.render(
                     <Route exact path="/dashboard/profile" component={AsisstantProfile}/>
                     <Route exact path="/dashboard/editprofile" component={EditAssistantProfile}/>
 
-
                 </Main>
-
             </Switch>
         </Switch>
     </BrowserRouter>,
     document.getElementById("root")
 );
+

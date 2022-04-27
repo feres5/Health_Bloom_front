@@ -40,6 +40,10 @@ import Faq from "./index-sections/Faq";
 import articles from "../Magazine.json";
 import products from "../products.json"
 import subject from "../FAQ.json"
+import ReCAPTCHA from "react-google-recaptcha";
+
+
+
 
 function Index() {
   React.useEffect(() => {
@@ -53,7 +57,8 @@ function Index() {
       document.body.classList.remove("sidebar-collapse");
     };
   });
-  
+
+
   return (
     <>
       <IndexNavbar />
@@ -111,6 +116,7 @@ function Index() {
           <NucleoIcons />
           <CompleteExamples />
           <SignUp />
+
 
         </div>
         <DarkFooter />

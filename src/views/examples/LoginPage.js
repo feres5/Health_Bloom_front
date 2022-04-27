@@ -21,7 +21,10 @@ import {
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import TransparentFooter from "components/Footers/TransparentFooter.js";
-
+import ReCAPTCHA from "react-google-recaptcha";
+function onChangecap(value) {
+  console.log("Captcha value:", value);
+}
 function LoginPage() {
   const history = useHistory()
   const [Email, setEmail]= useState("");
@@ -160,6 +163,10 @@ function LoginPage() {
                         </a>
                       </h6>
                     </div>
+                    <ReCAPTCHA
+                        sitekey="6LcVqJ4fAAAAALRy-bRXCRkyMdG0990Vu9pOxCw5"
+                        onChange={onChangecap()}
+                    />,
                   </CardFooter>
                 </Form>
               </Card>
