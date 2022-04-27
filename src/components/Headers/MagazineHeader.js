@@ -110,7 +110,6 @@ function MagazineHeader() {
                 hidden={Author.newsLetter==true}
                 className="btn btn-success"
                 color="info"
-                href="#pablo"
                 onClick={() =>subscribe(decodedTOKEN.user_id)}
               > Subscribe to our NewsLetter
               </Button>
@@ -118,11 +117,11 @@ function MagazineHeader() {
                 hidden={Author.newsLetter==false}
                 className="btn btn-success"
                 color="info"
-                href="#pablo"
                 onClick={() =>unsubscribe(decodedTOKEN.user_id)}
               > Unsubscribe from our NewsLetter
               </Button>
             </div>
+          
           </Container>
         </div>
       </div>

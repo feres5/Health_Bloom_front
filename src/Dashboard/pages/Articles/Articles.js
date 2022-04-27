@@ -84,7 +84,7 @@ function Articles() {
                                 >
                                     <div className="card-tag" height={170} width={50}>{item.title}</div>
 
-                                    <div className="card-tag" height={170}>Published On: {item.dateCreation}</div>
+                                    <div className="card-tag" height={170}>{item.category}</div>
                                     <Row gutter={[6, 0]} className="card-footer">
                                         <Col span={5}>
                                             <Link to={{

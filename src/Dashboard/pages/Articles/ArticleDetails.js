@@ -54,12 +54,11 @@ function ArticleDetailsDashboard() {
         const reponse = await fetch(urlId)
         const newArticleDetails = await reponse.json()
         setArticleDetails(newArticleDetails)
+        localStorage.setItem("author",newArticleDetails.author)
     }
     useEffect(() => {
         fetchArticleDetails()
        
-    }, ()=>{
-        fetchAuthor()
     })
 
     const [Author, setAuthor] = useState([])
@@ -67,15 +66,18 @@ function ArticleDetailsDashboard() {
   var user = localStorage.getItem("user_info");
   var decodedTOKEN = jwt_decode(user,{payload : true});
 
-  const idAuthor=ArticleDetails.author
   const urlAuthor = "http://localhost:3002/articles/Author/"
+
   const fetchAuthor = async () => {
+    const idAuthor = localStorage.getItem("author");
+
       const urlId = urlAuthor + idAuthor;
 
       const reponse = await fetch(urlId)
+      console.log(urlId)
       const newAuthor = await reponse.json()
       setAuthor(newAuthor)
-      console.log(newAuthor)
+      console.log("======>"+newAuthor)
       return newAuthor;
   }
   useEffect(() => {
