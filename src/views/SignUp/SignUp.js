@@ -25,7 +25,7 @@ function SignUp() {
     const [emailFocus, setEmailFocus] = React.useState(false);
     //credentials
     const [formData, setFormData] = useState({
-        Role: "Patient",
+        Role: "Assistant",
         FirstName: "",
         LastName: "",
         Email: "",
@@ -325,7 +325,10 @@ function SignUp() {
                         >
                             View Login Page
                         </Button>
+
                     </div>
+
+
                 </Container>
             </div>
         </>

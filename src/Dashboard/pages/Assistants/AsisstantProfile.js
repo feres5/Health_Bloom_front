@@ -10,6 +10,9 @@
   * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 import {useEffect, useState} from "react";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import React from "react";
 
 import {
   Row,
@@ -199,8 +202,94 @@ function AssistantProfile() {
     },
   ];
 
+  const handleClose = () => setShow(false);
+  const handleOpen = () => setShow(true);
+  const [show, setShow] = React.useState(false);
   return (
+
     <>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit your Profile</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3 " controlId="firstNamefield">
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                  value={user.FirstName}
+                  type="text"
+                  name="firstNamefield"
+                  placeholder="First Name"
+                  autoFocus
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3 " controlId="lastNamefield">
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                  type="text"
+                  name="lastNamefield"
+                  placeholder="Last Name"
+                  autoFocus
+                  value={user.LastName}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="phoneField">
+              <Form.Label>Phone</Form.Label>
+              <Form.Control
+                  type="number"
+                  placeholder="Phone"
+                  name="phoneField"
+                  autoFocus
+                  value={user.Phone}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="emailField">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                  name="emailField"
+                  type="email"
+                  placeholder="name@example.com"
+                  value={user.Email}
+                  autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="specialityField">
+              <Form.Label>Speciality</Form.Label>
+              <Form.Control
+                  name="specialityField"
+                  type="text"
+                  placeholder="Speciality"
+                  autoFocus
+                  value={Assistant.Speciality}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="descriptionFiled">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                  autoFocus
+                  name="descriptionFiled"
+                  as="textarea"
+                  rows={4}
+                  value={Assistant.Description}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
       <div
         className="profile-nav-bg"
@@ -258,7 +347,8 @@ function AssistantProfile() {
             bordered={false}
             title={<h6 className="font-semibold m-0">Profile Information</h6>}
             className="header-solid h-full card-profile-information"
-            extra={<Button type="link">{pencil}</Button>}
+            extra={<Button type="link" onClick={handleOpen}>{pencil}</Button>}
+            //href={"/dashboard/editprofile"}
             bodyStyle={{ paddingTop: 0, paddingBottom: 16 }}
           >
             <p className="text-dark">
