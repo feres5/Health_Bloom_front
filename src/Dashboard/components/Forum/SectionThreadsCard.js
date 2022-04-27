@@ -12,7 +12,6 @@ import {
 const SectionThreadsCard = (props) => 
 {
     const thread = props.thread;
-
     return(
         <>
         <tr className='section-thread-table-row'> 
@@ -22,18 +21,18 @@ const SectionThreadsCard = (props) =>
                     <Container  className='section-thread-card-infos'>
                         <span>By:</span> <Link to={"#"}>Foulen</Link>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Link to={"#"}>15-12-2021</Link>
+                        <Link to={"#"}>{thread.dateCreated != null ?  thread.dateCreated : 'No date'}</Link>
                     </Container>
                 </Container>
             </td>
                 <td>
-                    52 Comments
+                    {thread.comments.length} Replies
                 </td>
             <td>
                 <Container  className='section-thread-card-infos'>
                         <span>By:</span> <Link to={"#"}>Foulen</Link>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Link>15-12-2021</Link>
+                        <Link>{ thread.comments[thread.comments.length-1]  != null? thread.comments[thread.comments.length-1].dateCreated : 'No data'}</Link>
                 </Container>
             </td>
         </tr>

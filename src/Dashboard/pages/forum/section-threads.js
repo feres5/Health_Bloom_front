@@ -22,6 +22,12 @@ import SectionThreadsContent from './../../components/Forum/SectionThreadsConten
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro' 
 
+import ArrowBackIosNew from '@mui/icons-material/ArrowBackIosNew';
+
+import {
+
+  IconButton
+} from "@mui/material";
 
 //const items = [...Array(33).keys()];
 
@@ -39,14 +45,25 @@ const SectionThreads = () =>
     const [allThreads, setAllThreads] = useState([])
     const [threads, setThreads] = useState(null)
 
+    const [section, setSection] = useState({})
+
     const { id } = useParams();
 
+    const fetchSectionData = async () => 
+    {
+      const url = "http://localhost:3002/forum/get-section-by-id/";
+      const urlId= url+id
+      const reponse = await fetch(urlId);
+      let section = await reponse.json();
+      setSection(section)
+    }
 
     const fetchSections = async (_mounted) => {
       const url = "http://localhost:3002/forum/get-threads-by-section/";
       const urlId= url+id
       const reponse = await fetch(urlId);
-      const newThreads = await reponse.json();
+      let newThreads = await reponse.json();
+      newThreads = newThreads.reverse()
       if(_mounted)
       setAllThreads(newThreads);
     }
@@ -54,7 +71,7 @@ const SectionThreads = () =>
         let isMounted = true;  
         
         fetchSections(isMounted)
-        
+        fetchSectionData(isMounted)
         return () => { isMounted = false };
     },[]);
   
@@ -81,7 +98,8 @@ const SectionThreads = () =>
         <>
         <div className="wrapper">
             <div className="section-threads">
-                              
+            <Link to={`/dashboard/forum/`}> <IconButton onClick={() => {}} > <ArrowBackIosNew /></IconButton> </Link> <h4>Section : {section.title}</h4>
+
               <Card className="section-threads-links-container">
                
                <Link className="section-threads-create-thread" to={`/dashboard/forum/section/${id}/create-thread`}>
@@ -91,7 +109,7 @@ const SectionThreads = () =>
                 </Card>
 
                 
-                    <Card title='Section Title' className="section-thread-content">
+                    <Card className="section-thread-content">
 
 
                         <table className="section-threads-table">
