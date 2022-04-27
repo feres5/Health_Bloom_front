@@ -41,9 +41,9 @@ const ShopProductsItemGrid = props => {
             </div>
             <div className="product-content-wrap">
                 <div className="product-category">
-                    <a href="shop-grid-right.html">Hodo Foods</a>
+                    <a href={`${path}/${props.id}`}>Hodo Foods</a>
                 </div>
-                <h2><a href="shop-product-right.html">{props.name}</a></h2>
+                <h2><a href={`${path}/${props.id}`}>{props.name}</a></h2>
                 <div className="product-rate-cover">
                     <div className="product-rate d-inline-block">
                         <div className="product-rating"

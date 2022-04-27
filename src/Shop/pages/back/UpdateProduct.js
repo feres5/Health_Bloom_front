@@ -90,12 +90,7 @@ const UpdateProduct = () => {
         event.preventDefault();
 
         try {
-            const formData = new FormData();
-            formData.append('name', formState.inputs.name.value);
-            formData.append('description', formState.inputs.description.value);
-            formData.append('category', formState.inputs.category.value);
-            formData.append('price', formState.inputs.price.value);
-            formData.append('quantity', formState.inputs.quantity.value);
+
 
             await sendRequest(`http://localhost:3002/api/products/${productId}`,
                 'PATCH',

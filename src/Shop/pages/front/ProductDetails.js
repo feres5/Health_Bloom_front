@@ -5,14 +5,29 @@ import ReviewsSection from "../../components/front/reviews/ReviewsSection";
 import {useParams} from "react-router-dom";
 import {useHttpClient} from "../../../shared/hooks/http-hook";
 import {useEffect, useState} from "react";
+import {
+    score,
+    rate,
+    average
+} from 'average-rating'
 
 const ProductDetails = () => {
     const [loadedProduct, setLoadedProduct] = useState();
     const productId = useParams().productId;
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
-
+    const [rating, setrating] = useState({
+        star1: 0,
+        star2: 0,
+        star3: 0,
+        star4: 0,
+        star5: 0,
+        total: 0,
+        average: 0
+    })
+    let star1 = 0, star2 = 0, star3 = 0, star4 = 0, star5 = 0;
+    let average, total = 0;
     useEffect(() => {
-        const fetchPLaces = async () => {
+        const fetchProduct = async () => {
             try {
 
                 const responseData = await sendRequest(
@@ -20,12 +35,50 @@ const ProductDetails = () => {
                 );
 
                 setLoadedProduct(responseData.product);
+                if (responseData.product.reviews.length > 0) {
+                    responseData.product.reviews.map(review => {
+                        total++;
+                        switch (parseInt(review.rating)) {
+                            case 1:
+                                star1++;
+                                break;
+                            case 2:
+                                star2++;
+                                break;
+                            case 3:
+                                star3++
+                                break;
+                            case 4:
+                                star4++;
+                                break;
+                            case 5:
+                                star5++;
+                                break;
+
+                            default:
+                            // code block
+                        }
+                    });
+
+
+                    average = (5 * star5 + 4 * star4 + 3 * star3 + 2 * star2 + star1) / total;
+
+                    setrating({
+                        star1: star1,
+                        star2: star2,
+                        star3: star3,
+                        star4: star4,
+                        star5: star5,
+                        total: total,
+                        average: average.toFixed(1)
+                    });
+                }
 
             } catch (e) {
                 console.log(e);
             }
         };
-        fetchPLaces();
+        fetchProduct();
     }, [sendRequest, productId]);
 
     return (
@@ -66,10 +119,10 @@ const ProductDetails = () => {
                                                     className="product-rate d-inline-block">
                                                     <div
                                                         className="product-rating"
-                                                        style={{width: "90%"}}></div>
+                                                        style={{width: `${rating.average * 20}%`}}></div>
                                                 </div>
                                                 <span
-                                                    className="font-small ml-5 text-muted"> (32 reviews)</span>
+                                                    className="font-small ml-5 text-muted"> ({loadedProduct.reviews.length} reviews)</span>
                                             </div>
                                         </div>
                                         <div
@@ -80,9 +133,9 @@ const ProductDetails = () => {
                                                 className="current-price text-brand">${loadedProduct.price}</span>
                                                 <span>
                                                     <span
-                                                        className="save-price font-md color3 ml-15">26% Off</span>
+                                                        className="save-price font-md color3 ml-15"></span>
                                                     <span
-                                                        className="old-price font-md ml-15">$52</span>
+                                                        className="old-price font-md ml-15"></span>
                                                 </span>
                                             </div>
                                         </div>
@@ -95,19 +148,6 @@ const ProductDetails = () => {
                                                 nisi modi, quasi, odio minus
                                                 dolore
                                                 impedit fuga eum eligendi.</p>
-                                        </div>
-                                        <div
-                                            className="attr-detail attr-size mb-30">
-                                            <strong className="mr-10">Size /
-                                                Weight: </strong>
-                                            <ul className="list-filter size-filter font-small">
-                                                <li><a href="#">50g</a></li>
-                                                <li className="active"><a
-                                                    href="#">60g</a></li>
-                                                <li><a href="#">80g</a></li>
-                                                <li><a href="#">100g</a></li>
-                                                <li><a href="#">150g</a></li>
-                                            </ul>
                                         </div>
                                         <div className="detail-extralink mb-50">
                                             <div
@@ -196,7 +236,7 @@ const ProductDetails = () => {
                                                id="Reviews-tab"
                                                data-bs-toggle="tab"
                                                href="#Reviews">Reviews
-                                                (3)</a>
+                                                ({loadedProduct.reviews.length})</a>
                                         </li>
                                     </ul>
                                     <div
@@ -544,7 +584,16 @@ const ProductDetails = () => {
                                                 across 29 states and Washington,
                                                 D.C.</p>
                                         </div>
-                                        <ReviewsSection/>
+                                        {rating &&
+                                            <ReviewsSection star1={rating.star1}
+                                                            star2={rating.star2}
+                                                            star3={rating.star3}
+                                                            star4={rating.star4}
+                                                            star5={rating.star5}
+                                                            average={rating.average}
+                                                            total={rating.total}
+                                                            productId={productId}/>
+                                        }
                                     </div>
                                 </div>
                             </div>

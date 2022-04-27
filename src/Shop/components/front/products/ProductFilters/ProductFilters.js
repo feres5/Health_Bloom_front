@@ -5,12 +5,14 @@ import PriceFilter from "./PriceFilter";
 import NewProductsFilter from "./NewProductsFilter";
 import BannerFilter from "./BannerFilter";
 
-const ProductFilters = () => {
+const ProductFilters = props => {
 
     return (
         <div className="col-lg-1-5 primary-sidebar sticky-sidebar">
-            <CategoriesFilter/>
-            <PriceFilter />
+            <CategoriesFilter
+                items={props.items}
+                onClick={props.onClick}
+            />
             <NewProductsFilter />
             <BannerFilter />
         </div>

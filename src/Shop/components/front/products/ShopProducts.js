@@ -5,9 +5,11 @@ import ProductFilters from "./ProductFilters/ProductFilters";
 import ShopProductsList from "./ShopProductsList";
 import {useHttpClient} from "../../../../shared/hooks/http-hook";
 import React, {useEffect, useRef, useState} from "react";
+import jwt_decode from "jwt-decode";
 
 
 const ShopProducts = () => {
+
 
     const searchInput = useRef("");
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
@@ -39,14 +41,18 @@ const ShopProducts = () => {
         };
         fecthProducts();
 
+
+        // console.log(token)
+        // var decodedTOKEN = jwt_decode(token,{payload : true});
+        // console.log(decodedTOKEN);
     }, [sendRequest]);
 
     const getSearchTerm = () => {
         setSearchTerm(searchInput.current.value);
-        if (searchInput.current.value !== "" ) {
+        if (searchInput.current.value !== "") {
             setProductsResults(() => {
                 return loadedProducts.filter((product) => {
-                    return  product.name.toLowerCase().includes(searchInput.current.value);
+                    return product.name.toLowerCase().includes(searchInput.current.value);
                 });
             });
         } else {
@@ -135,6 +141,7 @@ const ShopProducts = () => {
                                     <ShopProductsList items={productsResults}
                                                       grid={gridView}
                                                       term={searchTerm}
+
                                     />}
                             </div>}
                         {!gridView &&
@@ -146,39 +153,16 @@ const ShopProducts = () => {
                                     />}
                             </div>}
 
-                        <div className="pagination-area mt-20 mb-20">
-                            <nav aria-label="Page navigation example">
-                                <ul className="pagination justify-content-start">
-                                    <li className="page-item">
-                                        <a className="page-link" href="#"><i
-                                            className="fi-rs-arrow-small-left"></i></a>
-                                    </li>
-                                    <li className="page-item"><a
-                                        className="page-link"
-                                        href="#">1</a></li>
-                                    <li className="page-item active"><a
-                                        className="page-link" href="#">2</a>
-                                    </li>
-                                    <li className="page-item"><a
-                                        className="page-link"
-                                        href="#">3</a></li>
-                                    <li className="page-item"><a
-                                        className="page-link dot"
-                                        href="#">...</a></li>
-                                    <li className="page-item"><a
-                                        className="page-link"
-                                        href="#">6</a></li>
-                                    <li className="page-item">
-                                        <a className="page-link" href="#"><i
-                                            className="fi-rs-arrow-small-right"></i></a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <ShopDealsOfTheDay/>
+
 
                     </div>
-                    <ProductFilters/>
+                    {!isLoading && productsResults &&
+                        <ProductFilters
+                            items={loadedProducts}
+                            onClick={setProductsResults}
+
+                        />
+                    }
                 </div>
             </div>
         </div>

@@ -40,7 +40,8 @@ function LoginPage() {
     };
   }, []);
 
-  async function login(){
+  async function login(e){
+    e.preventDefault()
     console.log("login a user", Email , Password);
     let item={Email,Password};
     let result = await fetch(
@@ -56,7 +57,7 @@ function LoginPage() {
     );
     result = await result.json();
     console.log(result);
-    localStorage.setItem("user_info",JSON.stringify(result));
+    await localStorage.setItem("user_info",JSON.stringify(result));
     var decodedTOKEN = jwt_decode(result,{payload : true});
     console.log(decodedTOKEN.Role);
     history.push("/index");

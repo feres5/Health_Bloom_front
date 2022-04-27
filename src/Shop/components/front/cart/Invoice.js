@@ -4,6 +4,7 @@ import "../../../assets/css/main.scoped.css";
 import {useLocation} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {useHttpClient} from "../../../../shared/hooks/http-hook";
+import {useCart} from "react-use-cart";
 
 
 const Invoice = () => {
@@ -14,7 +15,19 @@ const Invoice = () => {
     const search = useLocation().search;
     const sessionId = new URLSearchParams(search).get('session_id');
 
+
+    const {
+        isEmpty,
+        totalUniqueItems,
+        items,
+        updateItemQuantity,
+        removeItem,
+        cartTotal,
+        emptyCart
+    } = useCart();
     useEffect(() => {
+
+        emptyCart();
         const fecthPayments = async () => {
 
             try {

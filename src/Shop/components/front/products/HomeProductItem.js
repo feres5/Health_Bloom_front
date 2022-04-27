@@ -1,8 +1,11 @@
 import "../../../assets/css/plugins/animate.min.css";
 import "../../../assets/css/main.scoped.css";
 import React from "react";
+import jwt_decode from "jwt-decode";
 
 const HomeProductItem = () => {
+
+
     return (
         <div
             className="col-lg-1-5 col-md-4 col-12 col-sm-6">
@@ -28,7 +31,7 @@ const HomeProductItem = () => {
                         className="product-action-1">
                         <a aria-label="Add To Wishlist"
                            className="action-btn"
-                           href="shop-wishlist.html"><i
+                           ><i
                             className="fi-rs-heart"></i></a>
                         <a aria-label="Compare"
                            className="action-btn"

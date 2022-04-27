@@ -27,6 +27,8 @@ import ProductDetails from "./pages/front/ProductDetails";
 import ShopProducts from "./components/front/products/ShopProducts";
 import Checkout from "./components/front/cart/Checkout";
 import Invoice from "./components/front/cart/Invoice";
+import WishList from "./components/front/cart/WishList";
+import jwt_decode from "jwt-decode";
 
 window.$ = window.jQuery = jquery;
 const HomeShop = () => {
@@ -56,6 +58,32 @@ const HomeShop = () => {
     useScript('assets/js/vendor/bootstrap.bundle.min.js')
 
     console.log(path);
+    const token = localStorage.getItem("user_info");
+    let wishlist = localStorage.getItem("wishlist");
+    if (!wishlist) {
+
+         wishlist = [];
+        localStorage.setItem("wishlist",JSON.stringify(wishlist));
+    }else {
+         wishlist =  JSON.parse(wishlist);
+    }
+    if (token) {
+        const decodedTOKEN = jwt_decode(token, {payload: true});
+
+        const index = wishlist.findIndex(item => item.userId === decodedTOKEN.user_id);
+        if (index === -1) {
+            wishlist.push({
+                userId: decodedTOKEN.user_id,
+                products: []
+            });
+             localStorage.setItem("wishlist",JSON.stringify(wishlist));
+
+        }
+
+
+    }
+
+
     return (
         <React.Fragment>
             <Switch>
@@ -72,6 +100,9 @@ const HomeShop = () => {
 
                                 <Route exact path={`${path}/cart`}>
                                     <Cart/>
+                                </Route>
+                                <Route exact path={`${path}/wishlist`}>
+                                    <WishList/>
                                 </Route>
                                 <Route exact path={`${path}/checkout`}>
                                     <Checkout/>

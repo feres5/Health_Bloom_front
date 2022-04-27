@@ -1,5 +1,6 @@
 import ErrorModal from "../../../shared/components/UIElements/ErrorModal";
-import LoadingSpinner from "../../../shared/components/UIElements/LoadingSpinner";
+import LoadingSpinner
+    from "../../../shared/components/UIElements/LoadingSpinner";
 import Input from "../../../shared/components/FormElements/Input";
 import ImageUpload from "../../../shared/components/FormElements/ImageUpload";
 import {useHttpClient} from "../../../shared/hooks/http-hook";
@@ -11,10 +12,15 @@ import {
 } from "../../../shared/util/validators";
 import {useHistory} from "react-router-dom";
 import Button from "../../../shared/components/FormElements/Button";
+import {useState} from "react";
 
 const NewProduct = () => {
 
+    const [value, setValue] = useState("Pharmacy");
 
+    const handleChange = (e) => {
+        setValue(e.target.value);
+    };
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const [formState, inputHandler] = useForm({
         name: {
@@ -22,10 +28,6 @@ const NewProduct = () => {
             isValid: false
         },
         description: {
-            value: '',
-            isValid: false
-        },
-        category: {
             value: '',
             isValid: false
         },
@@ -42,7 +44,7 @@ const NewProduct = () => {
             isValid: false
         }
     }, false);
-     const history = useHistory();
+    const history = useHistory();
     const placeSubmitHandler = async event => {
         event.preventDefault();
 
@@ -50,13 +52,11 @@ const NewProduct = () => {
             const formData = new FormData();
             formData.append('name', formState.inputs.name.value);
             formData.append('description', formState.inputs.description.value);
-            formData.append('category', formState.inputs.category.value);
+            formData.append('category', value);
             formData.append('price', formState.inputs.price.value);
             formData.append('quantity', formState.inputs.quantity.value);
             formData.append('image', formState.inputs.image.value);
-            for (var pair of formData.entries()) {
-                console.log(pair[0]+ ', ' + pair[1]);
-            }
+
             await sendRequest('http://localhost:3002/api/products',
                 'POST',
                 formData
@@ -72,7 +72,8 @@ const NewProduct = () => {
         <>
 
             <ErrorModal error={error} onClear={clearError}/>
-            <form className="place-form" onSubmit={placeSubmitHandler} encType="multipart/form-data">
+            <form className="place-form" onSubmit={placeSubmitHandler}
+                  encType="multipart/form-data">
 
                 {isLoading && <LoadingSpinner/>}
                 <Input id="name"
@@ -87,12 +88,17 @@ const NewProduct = () => {
                        validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]}
                        errorText="Please enter a valid description (at least 5 characters)."
                        onInput={inputHandler}/>
-                <Input id="category"
-                       element="input"
-                       label="Category"
-                       validators={[VALIDATOR_REQUIRE()]}
-                       errorText="Please enter a valid category."
-                       onInput={inputHandler}/>
+                <div
+                    className="form-floating mb-3">
+                    <select value={value} onChange={handleChange} className="form-select"
+                            aria-label="Default select example">
+                        <option  value="Pharmacy" selected>Pharmacy</option>
+                        <option value="Health & Nutrition">Health & Nutrition</option>
+                        <option value="Home Essentials">Home Essentials</option>
+                        <option value="Health Condition">Health Condition</option>
+                        <option value="Ayurveda">Ayurveda</option>
+                    </select>
+                </div>
                 <Input id="price"
                        element="input"
                        label="Price"
