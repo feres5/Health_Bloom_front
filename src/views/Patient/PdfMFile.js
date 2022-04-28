@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import  ReactPDF,{ Document, Page, Text, View, StyleSheet ,PDFViewer } from '@react-pdf/renderer';
-
+import MedicalFileView from "./medicalFileView";
 
 const styles = StyleSheet.create({
     page: {
@@ -13,15 +13,19 @@ const styles = StyleSheet.create({
         flexGrow: 1
     }
 });
-const PdfMFile = () => {
+function PdfMFile (props)  {
+    const [MedicalFile,setMedicalFile]=useState(props.medicalFile)
+    console.log(MedicalFile);
+    if (!MedicalFile){
+        return <a>Still loading data</a>
+    }
     return(
         <Document>
             <Page size="A4" style={styles.page}>
                 <View style={styles.section}>
-                    <Text>Section #1</Text>
-                </View>
-                <View style={styles.section}>
-                    <Text>Section #2</Text>
+                    <Text>
+                        <MedicalFileView medicalFile={MedicalFile} ></MedicalFileView>
+                    </Text>
                 </View>
             </Page>
         </Document>
