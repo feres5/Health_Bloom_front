@@ -20,6 +20,7 @@ import ShopDeals from "./components/front/ShopDeals";
 import ShopTopProducts from "./components/front/ShopTopProducts";
 import ShopFooter from "./components/front/ShopFooter";
 import Cart from "./components/front/cart/Cart";
+
 import {Redirect, Route, useRouteMatch} from "react-router-dom";
 import {Switch} from "react-router";
 import Shop404Page from "./components/front/Shop404Page";
