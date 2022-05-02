@@ -43,7 +43,12 @@ import Articles from "Dashboard/pages/Articles/Articles";
 import ArticleDetailsDashboard from "Dashboard/pages/Articles/ArticleDetails";
 import ArticleForm from "Dashboard/pages/Articles/ArticleForm";
 import HomeShop from "./Shop/Home";
+import ArticleComments from "views/Magazine/ArticleComments";
 import Shop from "./Shop/Shop";
+import ArticleComments from "views/Magazine/ArticleComments";
+import AsisstantProfile from "./Dashboard/pages/Assistants/AsisstantProfile";
+import AsisstantProfile2 from "./Dashboard/pages/Assistants/AsisstantProfile2";
+import EditAssistantProfile from "./Dashboard/pages/Assistants/EditAssistantProfile";
 import {CartProvider} from "react-use-cart";
 import {transitions, positions, Provider as AlertProvider} from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
@@ -72,78 +77,82 @@ ReactDOM.render(
                                render={(props) => <HomeShop {...props} />}/>
 
 
-                        <Route
-                            path="/nucleo-icons"
-                            render={(props) => <NucleoIcons {...props} />}
-                        />
-                        <Route
-                            path="/medical-magazine"
-                            render={(props) => <MedicalMagazine {...props} />}
-                        />
-                        <Route
-                            path="/article"
-                            render={(props) => <ArticleDetails {...props} />}
-                        />
-                        <Route
-                            path="/landarticleForming-page"
-                            render={(props) => <LandingPage {...props} />}
-                        />
-                        {/*this route is protected, only access when logged in*/}
-                        <ProtectedRoute exact path="/profile-page"
-                                        component={ProfilePage}/>
-                        <Route
-                            path="/login-page"
-                            render={(props) => <LoginPage {...props} />}
-                        />
+
+                <Route
+                    path="/nucleo-icons"
+                    render={(props) => <NucleoIcons {...props} />}
+                />
+                <Route
+                    path="/medical-magazine"
+                    render={(props) => <MedicalMagazine {...props} />}
+                />
+                <Route
+                    path="/article"
+                    render={(props) => <ArticleDetails {...props} />}
+                />
+                 <Route
+                    path="/comments"
+                    render={(props) => <ArticleComments {...props} />}
+                />
+                <Route
+                    path="/landarticleForming-page"
+                    render={(props) => <LandingPage {...props} />}
+                />
+                {/*this route is protected, only access when logged in*/}
+                <ProtectedRoute exact path="/profile-page"
+                                component={ProfilePage}/>
+                <Route
+                    path="/login-page"
+                    render={(props) => <LoginPage {...props} />}
+                />
 
 
-                        <Route
-                            path="/signUp"
-                            render={(props) => <SignUp {...props} />}
-                        />
-                        <Route
-                            path="/medical-signUp"
-                            render={(props) => <MedicalSignUp {...props} />}
-                        />
+                <Route
+                    path="/signUp"
+                    render={(props) => <SignUp {...props} />}
+                />
+                <Route
+                    path="/medical-signUp"
+                    render={(props) => <MedicalSignUp {...props} />}
+                />
 
-                        {/*this section is for dashboard routes*/}
-                        <Main>
+                {/*this section is for dashboard routes*/}
+                <Main>
 
-                            <Route path="/admin/shop"
-                                   render={(props) => <Shop {...props} />}/>
-                            <Route exact
-                                   path="/dashboard/forum/section/:id"
-                                   render={(props) =>
-                                       <SectionThreads {...props} />}
-                            />
+                    <Route path="/admin/shop"
+                           render={(props) => <Shop {...props} />}/>
+                    <Route exact
+                           path="/dashboard/forum/section/:id"
+                           render={(props) => <SectionThreads {...props} />}
+                    />
 
-                            <Route exact
-                                   path="/dashboard/forum/thread/:id"
-                                   render={(props) => <Thread {...props} />}
-                            />
+                    <Route exact
+                           path="/dashboard/forum/thread/:id"
+                           render={(props) => <Thread {...props} />}
+                    />
 
-                            <Route exact
-                                   path="/dashboard/forum"
-                                   render={(props) =>
-                                       <ForumWelcome {...props} />}
-                            />
+                    <Route exact
+                           path="/dashboard/forum"
+                           render={(props) => <ForumWelcome {...props} />}
+                    />
 
-                            <Route exact
-                                   path="/dashboard/forum/create-thread"
-                                   render={(props) =>
-                                       <CreateThread {...props} />}
-                            />
+                    <Route exact
+                           path="/dashboard/forum/create-thread"
+                           render={(props) => <CreateThread {...props} />}
+                    />
 
-                            <Route exact path="/dashboard" component={Home}/>
-                            <Route exact path="/articles" component={Articles}/>
-                            <Route exact path="/articleDetails"
-                                   component={ArticleDetailsDashboard}/>
-                            <Route exact path="/articleForm"
-                                   component={ArticleForm}/>
-                            <Route exact path="/tables" component={Tables}/>
-                            <Route exact path="/billing" component={Billing}/>
-                            <Route exact path="/rtl" component={Rtl}/>
-                            <Route exact path="/profile" component={Profile}/>
+                    <Route exact path="/dashboard" component={Home}/>
+                    <Route exact path="/dashboard" component={Home}/>
+                    <Route exact path="/articles" component={Articles}/>
+                    <Route exact path="/articleDetails"
+                           component={ArticleDetailsDashboard}/>
+                    <Route exact path="/articleForm" component={ArticleForm}/>
+                    <Route exact path="/tables" component={Tables}/>
+                    <Route exact path="/billing" component={Billing}/>
+                    <Route exact path="/rtl" component={Rtl}/>
+                    <Route exact path="/dashboard/profile" component={AsisstantProfile}/>
+                    <Route exact path="/dashboard/editprofile" component={EditAssistantProfile}/>
+
 
                         </Main>
 
