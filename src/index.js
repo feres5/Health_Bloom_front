@@ -45,7 +45,6 @@ import ArticleForm from "Dashboard/pages/Articles/ArticleForm";
 import HomeShop from "./Shop/Home";
 import ArticleComments from "views/Magazine/ArticleComments";
 import Shop from "./Shop/Shop";
-import ArticleComments from "views/Magazine/ArticleComments";
 import AsisstantProfile from "./Dashboard/pages/Assistants/AsisstantProfile";
 import AsisstantProfile2 from "./Dashboard/pages/Assistants/AsisstantProfile2";
 import EditAssistantProfile from "./Dashboard/pages/Assistants/EditAssistantProfile";
