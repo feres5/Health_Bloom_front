@@ -84,7 +84,7 @@ function ArticleDetails(props) {
           <Container>
             <div className="button-container">
               <Button onClick={() => { like(ArticleDetails._id) }} className="btn-round" color="info" size="lg">
-                <i class="now-ui-icons ui-2_favourite-28"></i>
+                <i className="now-ui-icons ui-2_favourite-28"></i>
                 Like
               </Button>
 

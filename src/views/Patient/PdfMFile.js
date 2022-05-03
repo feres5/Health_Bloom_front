@@ -24,7 +24,7 @@ function PdfMFile (props)  {
             <Page size="A4" style={styles.page}>
                 <View style={styles.section}>
                     <Text>
-                        <MedicalFileView medicalFile={MedicalFile} ></MedicalFileView>
+                        <MedicalFileView  medicalFile={MedicalFile} ></MedicalFileView>
                     </Text>
                 </View>
             </Page>

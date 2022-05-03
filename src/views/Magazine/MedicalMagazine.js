@@ -72,7 +72,7 @@ function MedicalMagazine() {
           return(
             <div className="card">
             <div className="card__body">
-              <img src={process.env.PUBLIC_URL+ item.image}  class="card__image" />
+              <img src={process.env.PUBLIC_URL+ item.image}  className="card__image" />
               <h4 className="card__title">{item.title}</h4>
               <p className="card__description">{item.author}</p>
             </div>

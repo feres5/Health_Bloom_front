@@ -11,7 +11,7 @@ function MedicalFileView(props) {
                 {
                     MedicalFile.Surgical?.map((surgical,index)=>(
                         <>
-                            <Descriptions.Item label="title" span={3}>
+                            <Descriptions.Item  label="title" span={3}>
                                 {surgical.title}
                             </Descriptions.Item>
                             <Descriptions.Item label="motif" span={3}>

@@ -3,51 +3,60 @@ import { useNavigate } from "react-router-dom";
 import  GoogleLogin  from 'react-google-login';
 import axios from "axios";
 // reactstrap components
-import {Button,Card,CardHeader,Row,CardBody,CardFooter,Form,Input,InputGroupAddon,InputGroupText,InputGroup,Container,Col} from "reactstrap";
+import {Button,Card,CardHeader,Row,CardBody,CardFooter,Form,Input,InputGroupAddon,FormFeedback,FormText,InputGroupText,InputGroup,Container,Col} from "reactstrap";
+import {useFormik} from "formik";
+import * as yup from 'yup';
 
 // core components
 import TransparentFooter from "components/Footers/TransparentFooter.js";
 import jwt_decode from "jwt-decode";
+import {InputBase} from "@mui/material";
 
 function LoginPage() {
   const navigate = useNavigate ()
-  const [Email, setEmail]= useState("");
-  const [Password, setPassword]= useState("");
+  const [error, setError]= useState(null);
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
-  React.useEffect(() => {
-    document.body.classList.add("login-page");
-    document.body.classList.add("sidebar-collapse");
-    document.documentElement.classList.remove("nav-open");
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
-    return function cleanup() {
-      document.body.classList.remove("login-page");
-      document.body.classList.remove("sidebar-collapse");
-    };
-  }, []);
 
-  async function login(){
-    let item={Email,Password};
+  const validationSchema = yup.object({
+    Email: yup.string().email().required(),
+    Password: yup.string().required()
+  })
+
+  const formik = useFormik({
+    initialValues: {Email:"",Password:""},
+    validateOnBlur: true,
+    onSubmit,
+    validationSchema: validationSchema
+  });
+
+  async function onSubmit(values) {
+    console.log(values);
     let result = await fetch(
         "http://127.0.0.1:3002/users/login",
         {
-          method:'POST',
-          headers:{
-            "Content-Type":"application/json",
-              "Accept":'application/json'
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": 'application/json'
           },
-          body: JSON.stringify(item)
+          body: JSON.stringify(values)
         }
     );
-    if( result.status === 401 ){
-      console.log("you need to enter all of your credentials");
+    if (result.status === 200) {
+      result = await result.json();
+      checkCompleteProfile(result)
+    } else if (result.status === 401) {
+      alert("you need to enter all of your credentials");
+    } else if (result.status === 402) {
+      alert("wrong email");
+    } else if (result.status === 400) {
+      alert("wrong password");
     }
-    result = await result.json();
-    checkCompleteProfile(result)
 
   }
 
+  //google response
   const responseSuccessGoogle = (response) => {
     //console.log(response);
     axios({
@@ -58,6 +67,7 @@ function LoginPage() {
       checkCompleteProfile(response.data)
     })
   }
+
   const responseErrorGoogle = (response) => {
     console.log(response);
   }
@@ -81,6 +91,18 @@ function LoginPage() {
     })
   }
 
+  React.useEffect(() => {
+    document.body.classList.add("login-page");
+    document.body.classList.add("sidebar-collapse");
+    document.documentElement.classList.remove("nav-open");
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+    return function cleanup() {
+      document.body.classList.remove("login-page");
+      document.body.classList.remove("sidebar-collapse");
+    };
+  }, []);
+
   return (
     <>
       {/*<ExamplesNavbar />*/}
@@ -96,7 +118,7 @@ function LoginPage() {
           <Container>
             <Col className="ml-auto mr-auto" md="4">
               <Card className="card-login card-plain">
-                <Form action="" className="form" method="">
+                <Form action="" className="form" method="" onSubmit={formik.handleSubmit}>
                   <CardHeader className="text-center">
                     <div className="logo-container">
                       <img
@@ -118,13 +140,15 @@ function LoginPage() {
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
-                        placeholder="Email..."
-                        type="text"
-                        onFocus={() => setFirstFocus(true)}
-                        onBlur={() => setFirstFocus(false)}
-                        onChange={(e) => setEmail(e.target.value)}
+                          name="Email"
+                          placeholder="Email..."
+                          type="email"
+                          onBlur={formik.handleBlur}
+                          value={formik.values.Email}
+                          onChange={formik.handleChange}
                       ></Input>
                     </InputGroup>
+                    <FormText style={{color: "red"}}>{formik.touched.Email && formik.errors.Email ? formik.errors.Email : ""}</FormText>
                     <InputGroup
                       className={
                         "no-border input-lg" +
@@ -137,25 +161,29 @@ function LoginPage() {
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
-                        placeholder="Password..."
-                        type="password"
-                        onFocus={() => setLastFocus(true)}
-                        onBlur={() => setLastFocus(false)}
-                        onChange={(e) => setPassword(e.target.value)}
+                          name="Password"
+                          placeholder="Password..."
+                          type="password"
+                          onBlur={formik.handleBlur}
+                          value={formik.values.Password}
+                          onChange={formik.handleChange}
                       ></Input>
                     </InputGroup>
+                    <FormText style={{color: "red"}}>{formik.touched.Password && formik.errors.Password ? formik.errors.Password : ""}</FormText>
+                    <Button block className="btn-round" style={{backgroundColor: "#2CA8FF" }} disabled={!formik.isValid} type="submit" size="lg">Login</Button>
+                    <Row>
+                      <div style={{margin: "auto"}}>
+                        <GoogleLogin
+                            clientId="410085321469-ndnv3jtljc9fksblkbtdv9lvu6gnv614.apps.googleusercontent.com"
+                            buttonText="Login"
+                            onSuccess={responseSuccessGoogle}
+                            onFailure={responseErrorGoogle}
+                            cookiePolicy={'single_host_origin'}
+                        />
+                      </div>
+                    </Row>
                   </CardBody>
                   <CardFooter className="text-center">
-                    <Row>
-                      <Button block className="btn-round" color="info" onClick={login} size="lg">Login</Button>
-                      <GoogleLogin
-                          clientId="410085321469-ndnv3jtljc9fksblkbtdv9lvu6gnv614.apps.googleusercontent.com"
-                          buttonText="Login"
-                          onSuccess={responseSuccessGoogle}
-                          onFailure={responseErrorGoogle}
-                          cookiePolicy={'single_host_origin'}
-                      />
-                    </Row>
                     <div className="pull-left">
                       <h6>
                         <a className="link" href="/signUp">Create Account</a>

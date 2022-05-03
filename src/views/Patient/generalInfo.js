@@ -6,6 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 function GeneralInfo(props) {
     const navigate = useNavigate();
@@ -19,6 +20,7 @@ function GeneralInfo(props) {
 
      const [formData, setFormData] = useState({
          id : props.info.patient._id,
+         Picture : props.info.user.Picture,
          FirstName: props.info.user.FirstName,
          LastName: props.info.user.LastName,
          Sex: props.info.user.Sex,
@@ -30,17 +32,34 @@ function GeneralInfo(props) {
          weight : props.info.patient.weight,
          BloodType : props.info.patient.BloodType
     });
-    const {id,FirstName,LastName,Sex,BirthDate,Email,Address,Phone,height,weight,BloodType} = formData;
-
+    const {id,Picture,FirstName,LastName,Sex,BirthDate,Email,Address,Phone,height,weight,BloodType} = formData;
     const onChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
+    const setPicture = (path) =>{
+        formData.Picture = path;
+    }
     const setDate =(e)=>{
         formData.BirthDate= e;
     }
-
+    const [selectedImage,setSelectedImage]=useState("");
+    async function pictureUploadHandler() {
+        const instance = axios.create()
+        const formData = new FormData();
+        formData.append("file", selectedImage);
+        formData.append("upload_preset", "userPreset");
+        formData.append("cloud_name", "dgwq7xcnk");
+        console.log(selectedImage);
+        await instance.post("https://api.cloudinary.com/v1_1/dgwq7xcnk/image/upload/", formData)
+            .then(response => {
+                console.log(response);
+                setPicture(response.data.secure_url);
+            })
+            .catch(err=>{console.log(err)});
+    }
     async function updatePatient() {
-        console.log(formData);
-        let result = await fetch(
+        await pictureUploadHandler();
+        //console.log(formData);
+        await fetch(
             url+"updatePatient/"+id,
             {
                 method:'POST',
@@ -50,9 +69,9 @@ function GeneralInfo(props) {
                 },
                 body: JSON.stringify(formData)
             }
-        )
-        result = await result.json();
-        console.log(result);
+        ).then(res=>{
+                console.log(res);
+            })
         navigate("/PatientProfile");
     }
 
@@ -125,6 +144,15 @@ function GeneralInfo(props) {
                     </CardHeader>
                     <CardBody>
                         <Descriptions title="Basic">
+                            <Descriptions.Item label="Profile Image" span={3}>
+                                <Input
+                                    type="file"
+                                    onChange={e=> {
+                                        // setPicture(e);
+                                        setSelectedImage(e.target.files[0]);
+                                    }}
+                                ></Input>
+                            </Descriptions.Item>
                             <Descriptions.Item label="First Name" span={3}>
                                 <Input
                                     defaultValue={FirstName}
