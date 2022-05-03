@@ -16,7 +16,7 @@ function Magazine() {
 
   const [articles, setarticles] = useState([])
   const fetcharticles = async () => {
-    const url = 'http://localhost:3002/articles/bestArticles'
+    const url = 'https://bbrains-health-bloom.herokuapp.com/articles/bestArticles'
     const reponse = await fetch(url)
     const newarticles = await reponse.json()
     setarticles(newarticles)
