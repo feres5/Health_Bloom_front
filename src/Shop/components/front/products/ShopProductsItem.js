@@ -1,18 +1,18 @@
 import "../../../assets/css/plugins/animate.min.css";
 import "../../../assets/css/main.scoped.css";
-import {Link, useHistory, useRouteMatch} from "react-router-dom";
+import {Link, useNavigate , useMatch } from "react-router-dom";
 import {useCart} from "react-use-cart";
 import jwt_decode from "jwt-decode";
 
 const ShopProductsItem = props => {
 
-    const {path, url} = useRouteMatch();
+    const {path, url} = useMatch();
     const {addItem} = useCart();
 
     const token = localStorage.getItem("user_info");
     let wishlist = JSON.parse(localStorage.getItem("wishlist"))
 
-    const history = useHistory();
+    const history = useNavigate ();
 
     const wishlistHandler = (e) => {
         e.preventDefault()

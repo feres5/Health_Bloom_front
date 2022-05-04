@@ -1,9 +1,9 @@
 import "../../../assets/css/plugins/animate.min.css";
 import "../../../assets/css/main.scoped.css";
-import {useRouteMatch} from "react-router-dom";
+import {useMatch } from "react-router-dom";
 
 const CheckoutItem = props => {
-    const {path, url} = useRouteMatch();
+    const {path, url} = useMatch();
 
     return (
         <tr>

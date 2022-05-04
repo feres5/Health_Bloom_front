@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 // reactstrap components
@@ -23,7 +23,7 @@ import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import TransparentFooter from "components/Footers/TransparentFooter.js";
 
 function LoginPage() {
-  const history = useHistory()
+  const history = useNavigate ()
   const [Email, setEmail]= useState("");
   const [Password, setPassword]= useState("");
   const [firstFocus, setFirstFocus] = React.useState(false);

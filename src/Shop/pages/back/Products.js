@@ -5,10 +5,10 @@ import LoadingSpinner from "../../../shared/components/UIElements/LoadingSpinner
 import ProductsList from "../../components/ProductList";
 import {Button} from "react-bootstrap";
 import NewProduct from "./NewProduct";
-import {Link, useRouteMatch} from "react-router-dom";
+import {Link, useMatch} from "react-router-dom";
 
 const Products = () => {
-    const {path, url} = useRouteMatch();
+    const {path, url} = useMatch();
 
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const [loadedProducts, setLoadedProducts] = useState();

@@ -2,13 +2,13 @@ import React from 'react';
 
 import {Button, Card, Col} from "react-bootstrap";
 import {AiFillDelete, AiFillEdit} from "react-icons/all";
-import {Link, useRouteMatch} from "react-router-dom";
+import {Link, useMatch } from "react-router-dom";
 import {useHttpClient} from "../../shared/hooks/http-hook";
 
 const UserItem = props => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
 
-    const {path, url} = useRouteMatch();
+    const {path, url} = useMatch();
     console.log(path)
     const confirmDeleteHandler = async () => {
 

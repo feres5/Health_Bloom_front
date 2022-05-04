@@ -5,10 +5,10 @@ import { Form } from 'react-bootstrap';
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import moment from "moment";
-import { useHistory } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
 
 function GeneralInfo(props) {
-    const navigate = useHistory();
+    const navigate = useNavigate ();
    console.log(props.info.user);
     // console.log(props.info.patient);
     const url = "http://localhost:3002/users/";

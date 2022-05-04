@@ -1,12 +1,12 @@
 import "../../../assets/css/plugins/animate.min.css";
 import "../../../assets/css/main.scoped.css";
 import React from "react";
-import {Link, useRouteMatch} from "react-router-dom";
+import {Link, useMatch } from "react-router-dom";
 import {useCart} from "react-use-cart";
 
 const ShopProductsItemGrid = props => {
 
-    const {path, url} = useRouteMatch();
+    const {path, url} = useMatch();
     const {addItem} = useCart();
     return (
         <div className="product-cart-wrap">

@@ -21,7 +21,7 @@ import ShopTopProducts from "./components/front/ShopTopProducts";
 import ShopFooter from "./components/front/ShopFooter";
 import Cart from "./components/front/cart/Cart";
 
-import {Redirect, Route, useRouteMatch} from "react-router-dom";
+import {Navigate , Route, useMatch } from "react-router-dom";
 import {Switch} from "react-router";
 import Shop404Page from "./components/front/Shop404Page";
 import ProductDetails from "./pages/front/ProductDetails";
@@ -33,7 +33,7 @@ import jwt_decode from "jwt-decode";
 
 window.$ = window.jQuery = jquery;
 const HomeShop = () => {
-    const {path, url} = useRouteMatch();
+    const {path, url} = useMatch();
 
 
     useScript('assets/js/vendor/modernizr-3.6.0.min.js')
@@ -141,7 +141,7 @@ const HomeShop = () => {
                                 <Route path={`${path}/*`}>
                                     <Shop404Page/>
                                 </Route>
-                                <Redirect exact to={`${path}/home`}/>
+                                <Navigate  exact to={`${path}/home`}/>
                             </Switch>
 
                         </main>

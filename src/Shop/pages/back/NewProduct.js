@@ -10,7 +10,7 @@ import {
     VALIDATOR_MINLENGTH,
     VALIDATOR_REQUIRE
 } from "../../../shared/util/validators";
-import {useHistory} from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import Button from "../../../shared/components/FormElements/Button";
 import {useState} from "react";
 
@@ -44,7 +44,7 @@ const NewProduct = () => {
             isValid: false
         }
     }, false);
-    const history = useHistory();
+    const history = useNavigate ();
     const placeSubmitHandler = async event => {
         event.preventDefault();
 

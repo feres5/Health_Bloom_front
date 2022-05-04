@@ -1,5 +1,5 @@
 import React from "react";
-import {useHistory} from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 // reactstrap components
 import {
   Collapse,
@@ -17,7 +17,7 @@ import {
 } from "reactstrap";
 
 function IndexNavbar() {
-  const history = useHistory()
+  const history = useNavigate ()
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   React.useEffect(() => {

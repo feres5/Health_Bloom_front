@@ -1,12 +1,12 @@
 import React from "react";
 import "../../../assets/css/plugins/animate.min.css";
 import "../../../assets/css/main.scoped.css";
-import {Link, useRouteMatch} from "react-router-dom";
+import {Link, useMatch } from "react-router-dom";
 
 
 const QuickCartItem = props => {
 
-    const {path, url} = useRouteMatch();
+    const {path, url} = useMatch();
 
 
     return (

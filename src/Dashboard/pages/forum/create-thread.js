@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from "react";
-//import { useHistory  } from "react-router-dom";
+//import { useNavigate   } from "react-router-dom";
 
 import Switch from "react-bootstrap-switch";
 // plugin that creates slider
@@ -40,7 +40,7 @@ function CreateThread() {
       };
     });
 
-    //const history = useHistory();
+    //const history = useNavigate ();
     
     const handleSubmit = e => {
         e.preventDefault();

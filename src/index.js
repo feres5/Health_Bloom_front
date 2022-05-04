@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 
 // styles for this kit
 import "assets/css/bootstrap.min.css";
@@ -38,7 +38,7 @@ import CreateThread from "./Dashboard/pages/forum/create-thread";
 import ForumWelcome from "./Dashboard/pages/forum/forum-welcome.js";
 
 //protection of routes
-import ProtectedRoute from "./protectedRoute";
+//import ProtectedRoute from "./protectedRoute";
 import Articles from "Dashboard/pages/Articles/Articles";
 import ArticleDetailsDashboard from "Dashboard/pages/Articles/ArticleDetails";
 import ArticleForm from "Dashboard/pages/Articles/ArticleForm";
@@ -66,97 +66,39 @@ ReactDOM.render(
     <CartProvider>
         <AlertProvider template={AlertTemplate} {...options}>
             <BrowserRouter>
-                <Switch>
-                    <Switch>
-                        <Route path="/index"
-                               render={(props) => <Index {...props} />}/>
-                        <Route path="/" exact
-                               render={(props) => <Index {...props} />}/>
-                        <Route path="/shop"
-                               render={(props) => <HomeShop {...props} />}/>
+                <Routes>
+                    {/*this section is for FrontOffice routes*/}
+                    <Route path="/index" element={<Index/>} />
+                    <Route path="/shop" element={<HomeShop/>} />
+                    <Route path="/nucleo-icons" element={<NucleoIcons/>} />
+                    <Route path="/medical-magazine" element={<MedicalMagazine/>} />
+                    <Route path="/article" element={<ArticleDetails/>} />
+                    <Route path="/comments" element={<ArticleComments/>} />
+                    <Route path="/landarticleForming-page" element={<LandingPage/>} />
+                    <Route path="/login-page" element={<LoginPage/>} />
+                    <Route path="/signUp" element={<SignUp/>} />
+                    <Route path="/medical-signUp" element={<MedicalSignUp/>} />
 
+                    <Route path=""  element={<Navigate replace to="index"/>} />
 
+                    {/*this section is for dashboard routes*/}
+                    {/*you need to put the component that u want to redirect to inside <Main></Main> in element*/}
+                    <Route path="/dashboard" element={<Main> <Home/> </Main>} />
+                    <Route path="/dashboard/tables" element={<Main> <Tables/> </Main>} />
+                    <Route path="/dashboard/billing" element={<Main> <Billing/> </Main>} />
+                    <Route path="/dashboard/rtl" element={<Main> <Rtl/> </Main>} />
+                    <Route path="/dashboard/profile" element={<Main> <AsisstantProfile/> </Main>} />
+                    <Route path="/dashboard/editprofile" element={<Main> <EditAssistantProfile/> </Main>} />
+                    <Route path="/admin/shop" element={<Main> <Shop/> </Main>} />
+                    <Route path="/dashboard/forum/section/:id" element={<Main> <SectionThreads/> </Main>} />
+                    <Route path="/dashboard/forum/thread/:id" element={<Main> <Thread/> </Main>} />
+                    <Route path="/dashboard/forum" element={<Main> <ForumWelcome/> </Main>} />
+                    <Route path="/dashboard/forum/create-thread" element={<Main> <CreateThread/> </Main>} />
+                    <Route path="/articles" element={<Main> <Articles/> </Main>} />
+                    <Route path="/articleDetails" element={<Main> <ArticleDetailsDashboard/> </Main>} />
+                    <Route path="/articleForm" element={<Main> <ArticleForm/> </Main>} />
 
-                <Route
-                    path="/nucleo-icons"
-                    render={(props) => <NucleoIcons {...props} />}
-                />
-                <Route
-                    path="/medical-magazine"
-                    render={(props) => <MedicalMagazine {...props} />}
-                />
-                <Route
-                    path="/article"
-                    render={(props) => <ArticleDetails {...props} />}
-                />
-                 <Route
-                    path="/comments"
-                    render={(props) => <ArticleComments {...props} />}
-                />
-                <Route
-                    path="/landarticleForming-page"
-                    render={(props) => <LandingPage {...props} />}
-                />
-                {/*this route is protected, only access when logged in*/}
-                <ProtectedRoute exact path="/profile-page"
-                                component={ProfilePage}/>
-                <Route
-                    path="/login-page"
-                    render={(props) => <LoginPage {...props} />}
-                />
-
-
-                <Route
-                    path="/signUp"
-                    render={(props) => <SignUp {...props} />}
-                />
-                <Route
-                    path="/medical-signUp"
-                    render={(props) => <MedicalSignUp {...props} />}
-                />
-
-                {/*this section is for dashboard routes*/}
-                <Main>
-
-                    <Route path="/admin/shop"
-                           render={(props) => <Shop {...props} />}/>
-                    <Route exact
-                           path="/dashboard/forum/section/:id"
-                           render={(props) => <SectionThreads {...props} />}
-                    />
-
-                    <Route exact
-                           path="/dashboard/forum/thread/:id"
-                           render={(props) => <Thread {...props} />}
-                    />
-
-                    <Route exact
-                           path="/dashboard/forum"
-                           render={(props) => <ForumWelcome {...props} />}
-                    />
-
-                    <Route exact
-                           path="/dashboard/forum/create-thread"
-                           render={(props) => <CreateThread {...props} />}
-                    />
-
-                    <Route exact path="/dashboard" component={Home}/>
-                    <Route exact path="/dashboard" component={Home}/>
-                    <Route exact path="/articles" component={Articles}/>
-                    <Route exact path="/articleDetails"
-                           component={ArticleDetailsDashboard}/>
-                    <Route exact path="/articleForm" component={ArticleForm}/>
-                    <Route exact path="/tables" component={Tables}/>
-                    <Route exact path="/billing" component={Billing}/>
-                    <Route exact path="/rtl" component={Rtl}/>
-                    <Route exact path="/dashboard/profile" component={AsisstantProfile}/>
-                    <Route exact path="/dashboard/editprofile" component={EditAssistantProfile}/>
-
-
-                        </Main>
-
-                    </Switch>
-                </Switch>
+                </Routes>
             </BrowserRouter>
         </AlertProvider>
     </CartProvider>,
