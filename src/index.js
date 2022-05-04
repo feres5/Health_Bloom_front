@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import { BrowserRouter,Routes ,Route, Switch,Navigate } from "react-router-dom";
 
 // styles for this kit
 import "assets/css/bootstrap.min.css";
@@ -10,15 +10,17 @@ import "assets/demo/nucleo-icons-page-styles.css?v=1.5.0";
 // pages for this kit
 import Index from "views/Index.js";
 import NucleoIcons from "views/NucleoIcons.js";
-
 import LoginPage from "views/examples/LoginPage.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
-
 import SignUp from "./views/SignUp/SignUp";
 import MedicalSignUp from "./views/index-sections/MedicalSignUp";
 import MedicalMagazine from "views/Magazine/MedicalMagazine";
 import ArticleDetails from "views/Magazine/ArticleDetails";
+import ProfilePatient from "views/Patient/Profile";
+import ForgottenPassword from "views/SignUp/forgottenPassword";
+import ResetPassword from "views/SignUp/resetPassword";
+import CompleteProfile from "views/SignUp/CompleteProfile";
 
 // pages for dashbord
 
@@ -31,11 +33,6 @@ import Main from "./Dashboard/components/layout/Main";
 import "antd/dist/antd.css";
 import "./Dashboard/assets/styles/main.css";
 import "./Dashboard/assets/styles/responsive.css";
-
-import SectionThreads from "./Dashboard/pages/forum/section-threads.js"
-import Thread from "./Dashboard/pages/forum/thread";
-import CreateThread from "./Dashboard/pages/forum/create-thread";
-import ForumWelcome from "./Dashboard/pages/forum/forum-welcome.js";
 
 //protection of routes
 //import ProtectedRoute from "./protectedRoute";
@@ -73,11 +70,17 @@ ReactDOM.render(
                     <Route path="/nucleo-icons" element={<NucleoIcons/>} />
                     <Route path="/medical-magazine" element={<MedicalMagazine/>} />
                     <Route path="/article" element={<ArticleDetails/>} />
+                    <Route path="/landing-page" element={<LandingPage/>} />
+                    <Route path="/profile-page" element={<ProfilePage/>} />
+                    <Route path="/PatientProfile" element={<ProfilePatient/>} />
                     <Route path="/comments" element={<ArticleComments/>} />
                     <Route path="/landarticleForming-page" element={<LandingPage/>} />
                     <Route path="/login-page" element={<LoginPage/>} />
+                    <Route path="/forgotPassword" element={<ForgottenPassword/>} />
+                    <Route path="/resetPassword/:userId/:resetString" element={<ResetPassword/>} />
                     <Route path="/signUp" element={<SignUp/>} />
                     <Route path="/medical-signUp" element={<MedicalSignUp/>} />
+                    <Route path="/completeProfile/:userId" element={<CompleteProfile/>} />
 
                     <Route path=""  element={<Navigate replace to="index"/>} />
 

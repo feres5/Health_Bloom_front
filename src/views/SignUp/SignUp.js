@@ -1,5 +1,8 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+
 // reactstrap components
 import {
     Button,
@@ -16,10 +19,12 @@ import {
     Container,
     Row,
 } from "reactstrap";
+import axios from "axios";
 
 // core components
 
 function SignUp() {
+    const navigate = useNavigate()
     const [firstFocus, setFirstFocus] = React.useState(false);
     const [lastFocus, setLastFocus] = React.useState(false);
     const [emailFocus, setEmailFocus] = React.useState(false);
@@ -44,7 +49,6 @@ function SignUp() {
         console.log("register a new user");
         console.log(formData);
         console.log(ConfirmPassword);
-
         if(formData.Password === ConfirmPassword){
             console.log("password ok");
             let result = await fetch(
@@ -58,14 +62,18 @@ function SignUp() {
                     body: JSON.stringify(formData)
                 }
             );
-            result = await result.json();
-            console.log(result);
+            if(result.status===200){
+                alert("welcome to health bloom");
+                let token = await result.json();
+                await localStorage.setItem("user_info", token);
+                navigate("/index");
+            } else if(result.status===400){
+                alert("this email already exists");
+            }
         }
         else {
             console.log("password no match");
         }
-
-
     }
 
     return (
