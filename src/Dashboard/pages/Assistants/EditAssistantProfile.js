@@ -23,26 +23,73 @@ import jwt_decode from "jwt-decode";
 function Profile() {
   const [imageURL, setImageURL] = useState(false);
   const [, setLoading] = useState(false);
+  const [FirstName,setFirstName]= useState()
+  const [LastName,setLastName]= useState()
+  const [Email,setEmail]= useState()
+  const [Phone,setPhone]= useState()
+
+  console.log(FirstName)
 
 
   const[Assistant,setAssistant]= useState([])
 
-  const EditAssistant = async (id) => {
-    console.log("here" +  id);
-    const urlAssistant = "http://127.0.0.1:3002/users/editassistant/"
+  const EditAssistant = async () => {
 
+    if (((FirstName===user.FirstName)||(FirstName===null))
+        && ((LastName===user.LastName)||(LastName===null)) &&
+        ((Phone===user.Phone)||(Phone===null) )&&
+    ((Email===user.Email)||(Email===null) ))
+    {
+      alert({ message: 'You did not make any changes!', type: 'warning' })
 
-    const urlA = urlAssistant + id
-    console.log("uel"+urlA);
+    }
 
-    const reponse = await fetch(urlA)
-    const editedAssistant = await reponse.json()
-    setAssistant(editedAssistant)
-    console.log("hello "+Assistant);
+    if (FirstName) {
+      var newFirstName = FirstName
+    }
+    else {
+      newFirstName = user.FirstName
+    };
 
+    if (LastName) {
+      var newLastName = LastName
+    }
+    else {
+      var newLastName = user.LastName
+    };
+    if (Email) {
+      var newEmail = Email
+    }
+    else {
+      var newEmail = user.Email
+    }
+    if (Phone) {
+      var newPhone = Phone
+    }
+    else {
+      var newPhone = user.Phone
+    };
 
+    fetch('http://127.0.0.1:3002/users/updateUser/'+user._id, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        FirstName: newFirstName, LastName:newLastName,
+        Email: newEmail, Phone:newPhone
+      })
+    }).then(
+        (result) => {
+          result.json().then((resp) => {
+            console.warn(resp)
+            console.log(resp.success)
+            const message = resp.message;
+            alert({ message: 'Updated Successfully!', type: 'success' })
 
-    return editedAssistant;
+          })
+        }
+
+    )
+
   }
 
   const [user, setuser] = useState([])
@@ -180,7 +227,8 @@ function Profile() {
                   placeholder={user.FirstName}
                   type="text"
                   name="FirstName"
-                  value={user.FirstName}
+                  onChange={e => setFirstName(e.target.value)}
+                  defaultValue={user.FirstName}
               ></Input>
             </InputGroup>
             <InputGroup>
@@ -192,8 +240,9 @@ function Profile() {
               <Input
                   placeholder={user.LastName}
                   type="text"
+                  onChange={e => setLastName(e.target.value)}
                   name="LastName"
-                  value={user.LastName}
+                  defaultValue={user.LastName}
               ></Input>
             </InputGroup>
             <InputGroup>
@@ -205,8 +254,9 @@ function Profile() {
               <Input
                   placeholder={user.Email}
                   type="email"
+                  onChange={e => setEmail(e.target.value)}
                   name="Email"
-                  value={user.Email}
+                  defaultValue={user.Email}
               ></Input>
             </InputGroup>
             <InputGroup>
@@ -219,7 +269,7 @@ function Profile() {
                   placeholder={user.Address}
                   type="text"
                   name="Address"
-                  value={user.Address}
+                  defaultValue={user.Address}
               ></Input>
             </InputGroup>
             <InputGroup>
@@ -231,8 +281,9 @@ function Profile() {
               <Input
                   placeholder={user.Phone}
                   type="number"
+                  onChange={e => setPhone(e.target.value)}
                   name="Phone"
-                  value={user.Phone}
+                  defaultValue={user.Phone}
               ></Input>
             </InputGroup>
             <InputGroup>
@@ -242,7 +293,7 @@ function Profile() {
                   placeholder="speciality..."
                   type="text"
                   name="speciality"
-                  value={Assistant.Speciality}
+                  defaultValue={Assistant.Speciality}
               ></Input>
             </InputGroup>
             <InputGroup>
@@ -251,7 +302,7 @@ function Profile() {
                   placeholder="description..."
                   type="description"
                   name="description"
-                  value={Assistant.Description}
+                  defaultValue={Assistant.Description}
               ></Input>
             </InputGroup>
 
@@ -259,11 +310,12 @@ function Profile() {
               <Button
                   className="btn-neutral btn-round"
                   color="info"
+                  type="submit"
                   href="/dashboard/profile"
-                  onClick={EditAssistant}
+                  onClick={() => { EditAssistant()}}
                   size="lg"
               >
-                Get Started
+                Update
               </Button>
             </CardFooter>
           </form>

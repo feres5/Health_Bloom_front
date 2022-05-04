@@ -57,13 +57,17 @@ function LoginPage() {
           body: JSON.stringify(item)
         }
     );
-    result = await result.json();
-    console.log(result);
-    localStorage.setItem("user_info",JSON.stringify(result));
-    var decodedTOKEN = jwt_decode(result,{payload : true});
-    console.log(decodedTOKEN.Role);
-    history.push("/index");
-
+    if (result.status === 200) {
+      result = await result.json();
+      await localStorage.setItem("user_info",JSON.stringify(result));
+      history.push("/index");
+    } else if (result.status === 401) {
+      alert("you need to enter all of your credentials");
+    } else if (result.status === 402) {
+      alert("wrong email");
+    } else if (result.status === 400) {
+      alert("wrong password");
+    }
   }
 
   return (
