@@ -71,7 +71,7 @@ function Profile() {
     };
 
     fetch('http://127.0.0.1:3002/users/updateUser/'+user._id, {
-      method: 'PUT',
+      method: 'GET',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         FirstName: newFirstName, LastName:newLastName,
@@ -130,14 +130,16 @@ function Profile() {
     const newAssistant = await reponse.json();
     console.log(newAssistant)
     setAssistant(newAssistant)
-
-
     return newAssistant;
   }
 
   console.log("hello assistant"+Assistant.Speciality);
 
-
+  if(user=== null || Assistant=== null){
+    return (
+        <p>loading data...</p>
+    );
+  }
   return (
     <>
       <div
