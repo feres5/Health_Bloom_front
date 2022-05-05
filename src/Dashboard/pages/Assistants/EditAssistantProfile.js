@@ -20,7 +20,7 @@ import profilavatar from "../../assets/images/face-1.jpg";
 import {CardFooter, Input, InputGroup, InputGroupAddon, InputGroupText} from "reactstrap";
 import jwt_decode from "jwt-decode";
 
-function Profile() {
+function Profile(props) {
   const [imageURL, setImageURL] = useState(false);
   const [, setLoading] = useState(false);
   const [FirstName,setFirstName]= useState()
@@ -34,61 +34,63 @@ function Profile() {
   const[Assistant,setAssistant]= useState([])
 
   const EditAssistant = async () => {
+    console.log(user);
+    console.log(Assistant);
 
-    if (((FirstName===user.FirstName)||(FirstName===null))
-        && ((LastName===user.LastName)||(LastName===null)) &&
-        ((Phone===user.Phone)||(Phone===null) )&&
-    ((Email===user.Email)||(Email===null) ))
-    {
-      alert({ message: 'You did not make any changes!', type: 'warning' })
+    // if (((FirstName===user.FirstName)||(FirstName===null))
+    //     && ((LastName===user.LastName)||(LastName===null)) &&
+    //     ((Phone===user.Phone)||(Phone===null) )&&
+    // ((Email===user.Email)||(Email===null) ))
+    // {
+    //   alert({ message: 'You did not make any changes!', type: 'warning' })
+    //
+    // }
+    //
+    // if (FirstName) {
+    //   var newFirstName = FirstName
+    // }
+    // else {
+    //   newFirstName = user.FirstName
+    // };
+    //
+    // if (LastName) {
+    //   var newLastName = LastName
+    // }
+    // else {
+    //   var newLastName = user.LastName
+    // };
+    // if (Email) {
+    //   var newEmail = Email
+    // }
+    // else {
+    //   var newEmail = user.Email
+    // }
+    // if (Phone) {
+    //   var newPhone = Phone
+    // }
+    // else {
+    //   var newPhone = user.Phone
+    // };
 
-    }
-
-    if (FirstName) {
-      var newFirstName = FirstName
-    }
-    else {
-      newFirstName = user.FirstName
-    };
-
-    if (LastName) {
-      var newLastName = LastName
-    }
-    else {
-      var newLastName = user.LastName
-    };
-    if (Email) {
-      var newEmail = Email
-    }
-    else {
-      var newEmail = user.Email
-    }
-    if (Phone) {
-      var newPhone = Phone
-    }
-    else {
-      var newPhone = user.Phone
-    };
-
-    fetch('http://127.0.0.1:3002/users/updateUser/'+user._id, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        FirstName: newFirstName, LastName:newLastName,
-        Email: newEmail, Phone:newPhone
-      })
-    }).then(
-        (result) => {
-          result.json().then((resp) => {
-            console.warn(resp)
-            console.log(resp.success)
-            const message = resp.message;
-            alert({ message: 'Updated Successfully!', type: 'success' })
-
-          })
-        }
-
-    )
+    // fetch('http://127.0.0.1:3002/users/updateUser/'+user._id, {
+    //   method: 'GET',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     FirstName: newFirstName, LastName:newLastName,
+    //     Email: newEmail, Phone:newPhone
+    //   })
+    // }).then(
+    //     (result) => {
+    //       result.json().then((resp) => {
+    //         console.warn(resp)
+    //         console.log(resp.success)
+    //         const message = resp.message;
+    //         alert({ message: 'Updated Successfully!', type: 'success' })
+    //
+    //       })
+    //     }
+    //
+    // )
 
   }
 
@@ -313,7 +315,6 @@ function Profile() {
                   className="btn-neutral btn-round"
                   color="info"
                   type="submit"
-                  href="/dashboard/profile"
                   onClick={() => { EditAssistant()}}
                   size="lg"
               >

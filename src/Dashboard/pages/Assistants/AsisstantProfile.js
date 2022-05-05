@@ -13,7 +13,7 @@ import {useEffect, useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import React from "react";
-
+import axios from "axios";
 import {
   Row,
   Col,
@@ -53,6 +53,9 @@ function AssistantProfile() {
 
   const [imageURL, setImageURL] = useState(false);
   const [, setLoading] = useState(false);
+  const [data,setData] = useState(null);
+  const [user, setuser] = useState(null)
+  const[Assistant,setAssistant]= useState(null)
 
   const getBase64 = (img, callback) => {
     const reader = new FileReader();
@@ -60,7 +63,7 @@ function AssistantProfile() {
     reader.readAsDataURL(img);
   };
 
-  const [user, setuser] = useState([])
+
   const url = "http://127.0.0.1:3002/articles/Author/"
 
   var usertoken = localStorage.getItem("user_info");
@@ -68,42 +71,57 @@ function AssistantProfile() {
 
   
 
-  const fetchuser = async () => {
-    const urluser = url + decodedTOKEN.user_id
+  // const fetchuser = async () => {
+  //   const urluser = url + decodedTOKEN.user_id
+  //
+  //   const reponse = await fetch(urluser)
+  //   const newuser = await reponse.json()
+  //   setuser(newuser)
+  //   console.log("==========>"+newuser._assistant)
+  //   localStorage.setItem('idAssistant', newuser._assistant);
+  //
+  //
+  //   return newuser;
+  // }
 
-    const reponse = await fetch(urluser)
-    const newuser = await reponse.json()
-    setuser(newuser)
-    console.log("==========>"+newuser._assistant)
-    localStorage.setItem('idAssistant', newuser._assistant);
-
-
-    return newuser;
+  const fetchData = async ()=>{
+    await axios.get('http://127.0.0.1:3002/users/getById/'+decodedTOKEN.user_id)
+        .then(result=>{
+          console.log(result.data);
+          setData(result.data);
+          setuser(result.data.user)
+          setAssistant(result.data.assistant);
+          console.log(data);
+          console.log("hello assistant"+Assistant.Speciality);
+        })
+        .catch(err=>{
+          console.log(err);
+        })
   }
+
   useEffect(() => {
-    fetchuser();
-    fetchAssistant();
+    fetchData();
+    //fetchuser();
+    //fetchAssistant();
   }, [])
 
 
-  const[Assistant,setAssistant]= useState([])
-
-  const fetchAssistant = async () => {
-    const urlA = "http://127.0.0.1:3002/users/getassistants/"
-    const idA= localStorage.getItem("idAssistant")
-
-    const urlAssistant = urlA +idA
-    console.log("=======>"+urlAssistant)
-    const reponse = await fetch(urlAssistant)
-    const newAssistant = await reponse.json();
-    console.log(newAssistant)
-    setAssistant(newAssistant)
 
 
-    return newAssistant;
-  }
-
-  console.log("hello assistant"+Assistant.Speciality);
+  // const fetchAssistant = async () => {
+  //   const urlA = "http://127.0.0.1:3002/users/getassistants/"
+  //   const idA= localStorage.getItem("idAssistant")
+  //
+  //   const urlAssistant = urlA +idA
+  //   console.log("=======>"+urlAssistant)
+  //   const reponse = await fetch(urlAssistant)
+  //   const newAssistant = await reponse.json();
+  //   console.log(newAssistant)
+  //   setAssistant(newAssistant)
+  //
+  //
+  //   return newAssistant;
+  // }
 
   const EditAssistant = async (id) => {
     console.log("here" +  id);
@@ -205,6 +223,12 @@ function AssistantProfile() {
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
   const [show, setShow] = React.useState(false);
+
+  if(data ===null || user=== null || Assistant==null){
+    return (
+        <p>loading data...</p>
+    );
+  }
   return (
 
     <>
