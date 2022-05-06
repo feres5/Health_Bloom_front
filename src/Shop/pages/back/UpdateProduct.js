@@ -85,7 +85,7 @@ const UpdateProduct = () => {
     }, [sendRequest, productId, setLoadedProduct, setFormData]);
 
 
-    const history = useNavigate ();
+    const navigate = useNavigate();
     const placeSubmitHandler = async event => {
         event.preventDefault();
 
@@ -105,7 +105,7 @@ const UpdateProduct = () => {
                     'Content-Type': 'application/json'
                 }
             );
-            history.push('/admin/shop');
+            navigate('/admin/shop');
         } catch (e) {
             console.log(e);
         }

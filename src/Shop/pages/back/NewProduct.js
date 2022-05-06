@@ -1,6 +1,5 @@
 import ErrorModal from "../../../shared/components/UIElements/ErrorModal";
-import LoadingSpinner
-    from "../../../shared/components/UIElements/LoadingSpinner";
+import LoadingSpinner from "../../../shared/components/UIElements/LoadingSpinner";
 import Input from "../../../shared/components/FormElements/Input";
 import ImageUpload from "../../../shared/components/FormElements/ImageUpload";
 import {useHttpClient} from "../../../shared/hooks/http-hook";
@@ -15,7 +14,7 @@ import Button from "../../../shared/components/FormElements/Button";
 import {useState} from "react";
 
 const NewProduct = () => {
-
+    const navigate = useNavigate();
     const [value, setValue] = useState("Pharmacy");
 
     const handleChange = (e) => {
@@ -44,7 +43,6 @@ const NewProduct = () => {
             isValid: false
         }
     }, false);
-    const history = useNavigate ();
     const placeSubmitHandler = async event => {
         event.preventDefault();
 
@@ -61,7 +59,7 @@ const NewProduct = () => {
                 'POST',
                 formData
             );
-            history.push('/admin/shop');
+            navigate('/admin/shop');
         } catch (e) {
             console.log(e);
         }
@@ -92,7 +90,7 @@ const NewProduct = () => {
                     className="form-floating mb-3">
                     <select value={value} onChange={handleChange} className="form-select"
                             aria-label="Default select example">
-                        <option  value="Pharmacy" selected>Pharmacy</option>
+                        <option defaultValue="Pharmacy">Pharmacy</option>
                         <option value="Health & Nutrition">Health & Nutrition</option>
                         <option value="Home Essentials">Home Essentials</option>
                         <option value="Health Condition">Health Condition</option>

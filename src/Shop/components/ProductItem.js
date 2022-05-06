@@ -2,16 +2,15 @@ import React from 'react';
 
 import {Button, Card, Col} from "react-bootstrap";
 import {AiFillDelete, AiFillEdit} from "react-icons/all";
-import {Link, useMatch } from "react-router-dom";
+import {Link, useLocation } from "react-router-dom";
 import {useHttpClient} from "../../shared/hooks/http-hook";
 
 const UserItem = props => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
-
-    const {path, url} = useMatch();
+    //const {path, url} = useLocation();
+    let path = useLocation().pathname;
     console.log(path)
     const confirmDeleteHandler = async () => {
-
         try {
 
             await sendRequest(
@@ -19,11 +18,11 @@ const UserItem = props => {
                 'DELETE'
             );
             props.onDelete(props.id);
-
         } catch (e) {
             console.log(e);
         }
     };
+
     return (
         <Col>
             <Card style={{width: '18rem'}}>

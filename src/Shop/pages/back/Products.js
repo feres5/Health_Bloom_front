@@ -5,11 +5,11 @@ import LoadingSpinner from "../../../shared/components/UIElements/LoadingSpinner
 import ProductsList from "../../components/ProductList";
 import {Button} from "react-bootstrap";
 import NewProduct from "./NewProduct";
-import {Link, useMatch} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 const Products = () => {
-    const {path, url} = useMatch();
-
+    //const {path, url} = useLocation();
+    let path = useLocation().pathname;
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const [loadedProducts, setLoadedProducts] = useState();
     const [showNewProduct, setShowNewProduct] = useState(false);
@@ -35,14 +35,14 @@ const Products = () => {
 
 
     const handleShow = () => setShowNewProduct(true);
-
+    //console.log(path);
     return <React.Fragment>
         <ErrorModal error={error} onClear={clearError}/>
         {isLoading && (<div className="center">
                 <LoadingSpinner/>
             </div>
         )}
-        <Link to={`${path}/add`}>
+        <Link to={path+"/add"}>
             <Button variant="secondary" >
                 Add Product
             </Button>

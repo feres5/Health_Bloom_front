@@ -48,6 +48,10 @@ import EditAssistantProfile from "./Dashboard/pages/Assistants/EditAssistantProf
 import {CartProvider} from "react-use-cart";
 import {transitions, positions, Provider as AlertProvider} from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
+import SectionThreads from "./Dashboard/pages/forum/section-threads";
+import ForumWelcome from "./Dashboard/pages/forum/forum-welcome";
+import CreateThread from "./Dashboard/pages/forum/create-thread";
+import Thread from "./Dashboard/pages/forum/thread";
 
 const options = {
     // you can also just use 'bottom center'
@@ -66,7 +70,7 @@ ReactDOM.render(
                 <Routes>
                     {/*this section is for FrontOffice routes*/}
                     <Route path="/index" element={<Index/>} />
-                    <Route path="/shop" element={<HomeShop/>} />
+                    <Route path="/shop/*" element={<HomeShop/>} />
                     <Route path="/nucleo-icons" element={<NucleoIcons/>} />
                     <Route path="/medical-magazine" element={<MedicalMagazine/>} />
                     <Route path="/article" element={<ArticleDetails/>} />
@@ -92,7 +96,7 @@ ReactDOM.render(
                     <Route path="/dashboard/rtl" element={<Main> <Rtl/> </Main>} />
                     <Route path="/dashboard/profile" element={<Main> <AsisstantProfile/> </Main>} />
                     <Route path="/dashboard/editprofile" element={<Main> <EditAssistantProfile/> </Main>} />
-                    <Route path="/admin/shop" element={<Main> <Shop/> </Main>} />
+                    <Route path="/admin/shop/*" element={<Main> <Shop/> </Main>} />
                     <Route path="/dashboard/forum/section/:id" element={<Main> <SectionThreads/> </Main>} />
                     <Route path="/dashboard/forum/thread/:id" element={<Main> <Thread/> </Main>} />
                     <Route path="/dashboard/forum" element={<Main> <ForumWelcome/> </Main>} />
