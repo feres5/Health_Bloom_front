@@ -48,6 +48,7 @@ import Shop from "./Shop/Shop";
 import AsisstantProfile from "./Dashboard/pages/Assistants/AsisstantProfile";
 import EditAssistantProfile from "./Dashboard/pages/Assistants/EditAssistantProfile";
 import FrontAssistantProfile from "./views/Assistant profile/FrontAssistantProfile";
+import ContactUs from "./views/Assistant profile/ContactUs";
 
 
 
@@ -88,7 +89,7 @@ ReactDOM.render(
                 {/*                component={ProfilePage}/>*/}
 
                 <Route exact path="/Assistantprofile" component={FrontAssistantProfile}/>
-
+                <Route exact path="/ContactUs" component={ContactUs}/>
                 <Route
                     path="/login-page"
                     render={(props) => <LoginPage {...props} />}

@@ -14,6 +14,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import React from "react";
 import axios from "axios";
+import Info from "./Info"
 import {
   Row,
   Col,
@@ -87,12 +88,12 @@ function AssistantProfile() {
   const fetchData = async ()=>{
     await axios.get('http://127.0.0.1:3002/users/getById/'+decodedTOKEN.user_id)
         .then(result=>{
-          console.log(result.data);
+          //console.log(result.data);
           setData(result.data);
           setuser(result.data.user)
           setAssistant(result.data.assistant);
-          console.log(data);
-          console.log("hello assistant"+Assistant.Speciality);
+          //console.log(data);
+          //console.log("hello assistant"+Assistant.Speciality);
         })
         .catch(err=>{
           console.log(err);
@@ -367,47 +368,7 @@ function AssistantProfile() {
           </Card>
         </Col>
         <Col span={24} md={16} className="mb-24">
-          <Card
-            bordered={false}
-            title={<h6 className="font-semibold m-0">Profile Information</h6>}
-            className="header-solid h-full card-profile-information"
-            extra={<Button type="link" onClick={handleOpen}>{pencil}</Button>}
-            //href={"/dashboard/editprofile"}
-            bodyStyle={{ paddingTop: 0, paddingBottom: 16 }}
-          >
-            <p className="text-dark">
-
-              {" "}
-              {Assistant.Description}
-              {" "}
-            </p>
-            <hr className="my-25" />
-            <Descriptions title="General Info">
-              <Descriptions.Item label="Full Name" span={3}>
-                {user.FirstName} {user.LastName}
-              </Descriptions.Item>
-              <Descriptions.Item label="Mobile" span={3}>
-                {user.Phone}
-              </Descriptions.Item>
-              <Descriptions.Item label="Email" span={3}>
-                {user.Email}
-              </Descriptions.Item>
-              <Descriptions.Item label="Adress" span={3}>
-                {user.Address}
-              </Descriptions.Item>
-              <Descriptions.Item label="Social" span={3}>
-                <a href="#pablo" className="mx-1 px-4">
-                  {<TwitterOutlined />}
-                </a>
-                <a href="#pablo" className="mx-1 px-4">
-                  {<FacebookOutlined style={{ color: "#344e86" }} />}
-                </a>
-                <a href="#pablo" className="mx-1 px-4">
-                  {<InstagramOutlined style={{ color: "#e1306c" }} />}
-                </a>
-              </Descriptions.Item>
-            </Descriptions>
-          </Card>
+          <Info info={data} ></Info>
         </Col>
         <Col span={24} md={8} className="mb-24">
 

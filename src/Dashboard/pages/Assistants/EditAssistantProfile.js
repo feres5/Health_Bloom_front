@@ -19,19 +19,21 @@ import BgProfile from "../../assets/images/bg-profile.jpg";
 import profilavatar from "../../assets/images/face-1.jpg";
 import {CardFooter, Input, InputGroup, InputGroupAddon, InputGroupText} from "reactstrap";
 import jwt_decode from "jwt-decode";
+import axios from "axios";
 
-function Profile(props) {
+function Profile() {
   const [imageURL, setImageURL] = useState(false);
   const [, setLoading] = useState(false);
-  const [FirstName,setFirstName]= useState()
-  const [LastName,setLastName]= useState()
-  const [Email,setEmail]= useState()
-  const [Phone,setPhone]= useState()
+  // const [FirstName,setFirstName]= useState()
+  // const [LastName,setLastName]= useState()
+  // const [Email,setEmail]= useState()
+  // const [Phone,setPhone]= useState();
+  const [data,setData] = useState(null);
+  const [user, setUser] = useState(null)
+  const[Assistant,setAssistant]= useState(null)
 
-  console.log(FirstName)
 
-
-  const[Assistant,setAssistant]= useState([])
+  //console.log(FirstName)
 
   const EditAssistant = async () => {
     console.log(user);
@@ -94,7 +96,7 @@ function Profile(props) {
 
   }
 
-  const [user, setuser] = useState([])
+
   const url = "http://127.0.0.1:3002/articles/Author/"
 
   var usertoken = localStorage.getItem("user_info");
@@ -107,16 +109,52 @@ function Profile(props) {
 
     const reponse = await fetch(urluser)
     const newuser = await reponse.json()
-    setuser(newuser)
+    setUser(newuser)
     console.log("==========>"+newuser._assistant)
     localStorage.setItem('idAssistant', newuser._assistant);
 
 
     return newuser;
   }
-  useEffect(() => {
-    fetchuser();
-    fetchAssistant();
+  //new get user function
+  const fetchData = async ()=>{
+    await axios.get('http://127.0.0.1:3002/users/getById/'+decodedTOKEN.user_id)
+        .then(result=>{
+          console.log(result.data);
+          setData(result.data);
+          setUser(result.data.user)
+          setAssistant(result.data.assistant);
+          console.log(data);
+          //console.log("hello assistant"+Assistant.Speciality);
+        })
+        .catch(err=>{
+          console.log(err);
+        })
+  }
+
+  //form to be edited and submitted
+  const [formData, setFormData] = useState({
+    id : user._id,
+    Picture : user.Picture,
+    FirstName: user.FirstName,
+    LastName: user.LastName,
+    Sex: user.Sex,
+    BirthDate: user.BirthDate,
+    Email: user.Email,
+    Address: user.Address,
+    Phone: user.Phone,
+    Speciality : Assistant.Speciality,
+    Description : Assistant.Description,
+    ActsAndCare : Assistant.ActsAndCare
+  });
+  const {id,Picture,FirstName,LastName,Sex,BirthDate,Email,Address,Phone,Speciality,Description,ActsAndCare} = formData;
+  const onChange = (e) =>
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+  useEffect(async () => {
+    await fetchData();
+    console.log(formData);
+    //fetchuser();
+    //fetchAssistant();
   }, [])
 
 
@@ -135,9 +173,9 @@ function Profile(props) {
     return newAssistant;
   }
 
-  console.log("hello assistant"+Assistant.Speciality);
+  //console.log("hello assistant"+Assistant.Speciality);
 
-  if(user=== null || Assistant=== null){
+  if(data ===null || user=== null || Assistant==null){
     return (
         <p>loading data...</p>
     );
@@ -228,11 +266,10 @@ function Profile(props) {
                 </InputGroupText>
               </InputGroupAddon>
               <Input
-                  placeholder={user.FirstName}
+                  placeholder={FirstName}
                   type="text"
                   name="FirstName"
-                  onChange={e => setFirstName(e.target.value)}
-                  defaultValue={user.FirstName}
+                  onChange={(e) => onChange(e)}
               ></Input>
             </InputGroup>
             <InputGroup>
@@ -242,11 +279,10 @@ function Profile(props) {
                 </InputGroupText>
               </InputGroupAddon>
               <Input
-                  placeholder={user.LastName}
+                  placeholder={LastName}
                   type="text"
-                  onChange={e => setLastName(e.target.value)}
+                  onChange={(e) => onChange(e)}
                   name="LastName"
-                  defaultValue={user.LastName}
               ></Input>
             </InputGroup>
             <InputGroup>
@@ -256,11 +292,10 @@ function Profile(props) {
                 </InputGroupText>
               </InputGroupAddon>
               <Input
-                  placeholder={user.Email}
+                  placeholder={Email}
                   type="email"
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(e) => onChange(e)}
                   name="Email"
-                  defaultValue={user.Email}
               ></Input>
             </InputGroup>
             <InputGroup>
@@ -270,10 +305,9 @@ function Profile(props) {
                 </InputGroupText>
               </InputGroupAddon>
               <Input
-                  placeholder={user.Address}
+                  placeholder={Address}
                   type="text"
                   name="Address"
-                  defaultValue={user.Address}
               ></Input>
             </InputGroup>
             <InputGroup>
@@ -283,11 +317,10 @@ function Profile(props) {
                 </InputGroupText>
               </InputGroupAddon>
               <Input
-                  placeholder={user.Phone}
+                  placeholder={Phone}
                   type="number"
-                  onChange={e => setPhone(e.target.value)}
+                  onChange={(e) => onChange(e)}
                   name="Phone"
-                  defaultValue={user.Phone}
               ></Input>
             </InputGroup>
             <InputGroup>
