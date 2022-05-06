@@ -7,6 +7,7 @@ import { pink } from '@mui/material/colors';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Edit from '@mui/icons-material/Edit';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
@@ -16,6 +17,7 @@ const ThreadContentCard = (props) =>
     const {id}= useParams()
     const history = useHistory()
     
+
     useEffect(() => {
         //setComments(props.comments)
     }, [props.comments]);
@@ -47,8 +49,6 @@ const ThreadContentCard = (props) =>
                 axios.post(url,{commentId:commentId, userId:userId }).then(() => {
                     
                     props.onCommentLike()
-
-                    
             }).catch((err) => {
 
             })
@@ -66,6 +66,8 @@ const ThreadContentCard = (props) =>
         
         
       };
+
+
 
     return(
         <>
@@ -86,7 +88,7 @@ const ThreadContentCard = (props) =>
                 </p>
                 <div className='thread-comment-control'>
                 <i>created on : {props.initContent.dateCreated}</i>
-
+                    
                     <IconButton onClick={() => {OnDeleteThread(id)} }><DeleteIcon /></IconButton>
                     <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />}  sx={{
           color: pink[800],
@@ -115,6 +117,7 @@ const ThreadContentCard = (props) =>
 
                     <div className='thread-comment-control'>
                         <i>added on : {item.dateCreated}</i>
+                        
                         <IconButton  onClick={() => {OnDeleteComment(item._id)} }><DeleteIcon /></IconButton>
                         <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />}  sx={{
           color: pink[800],

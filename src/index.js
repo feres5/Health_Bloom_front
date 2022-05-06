@@ -39,6 +39,7 @@ import ForumWelcome from "./Dashboard/pages/forum/forum-welcome.js";
 
 //protection of routes
 import ProtectedRoute from "./protectedRoute";
+import CreateSection from "Dashboard/pages/forum/create-section";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -102,6 +103,11 @@ ReactDOM.render(
           <Route exact
             path="/dashboard/forum/section/:sectionId/create-thread"
             render={(props) => <CreateThread {...props} />}
+            />
+
+          <Route exact
+            path="/dashboard/forum/create-section"
+            render={(props) => <CreateSection {...props} />}
             />
 
           <Route exact path="/dashboard" component={Home} />

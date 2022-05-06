@@ -46,6 +46,8 @@ function Thread()
 
     const [replyText, setReplyText] = useState('')
 
+
+
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         ...theme.typography.body2,
@@ -105,8 +107,7 @@ function Thread()
         setComments(thread.comments)
         setAllComments(thread.comments)
     })
-        
-        
+      
         /*setThread(newThread);
         setInitContent(newThread.initContent)
         setComments(newThread.comments)*/
@@ -114,21 +115,28 @@ function Thread()
 
  
     const onCommentAdded = (commentText) => {
-        if(localStorage.getItem('lastPosted') != null)
-        {
-            let lastPosted = parseInt(localStorage.getItem('lastPosted'))
-
-            let timeDiff = parseInt( (parseInt(Date.now()) - parseInt(lastPosted)) );
+        
             
-            if(timeDiff < 10000)
-            { 
-                if(localStorage.getItem('postStrike') != null)
-                {
-                    localStorage.setItem('postStrike', JSON.stringify(parseInt(localStorage.getItem('postStrike')) + 1));
+            if(localStorage.getItem('lastPosted') != null)
+            {
+                let lastPosted = parseInt(localStorage.getItem('lastPosted'))
 
-                    if(parseInt(localStorage.getItem('postStrike')) > 3 )
+                let timeDiff = parseInt( (parseInt(Date.now()) - parseInt(lastPosted)) );
+                
+                if(timeDiff < 10000)
+                { 
+                    if(localStorage.getItem('postStrike') != null)
                     {
-                        alert('stop spam')
+                        localStorage.setItem('postStrike', JSON.stringify(parseInt(localStorage.getItem('postStrike')) + 1));
+
+                        if(parseInt(localStorage.getItem('postStrike')) > 3 )
+                        {
+                            alert('stop spam')
+                        }
+                    }
+                    else
+                    {
+                        localStorage.setItem('postStrike', '0');
                     }
                 }
                 else
@@ -136,11 +144,7 @@ function Thread()
                     localStorage.setItem('postStrike', '0');
                 }
             }
-            else
-            {
-                localStorage.setItem('postStrike', '0');
-            }
-        }
+        
 
         axios.post("http://localhost:3002/forum/add-comment-to-thread", { body: commentText , threadId: id})
         .then((res) => {
@@ -150,12 +154,12 @@ function Thread()
             
             let newComments = [...allComments,{body:commentText, threadId:id, _id:data._id}]
             setAllComments(newComments)
-
+            
         }).catch((error) => {
             console.log(error)
         });
-
         setGoToLastPageChecker(true);
+
         setReplyText('');
     }
 
@@ -164,20 +168,21 @@ function Thread()
         fetchThread()
     }
 
-      const onCommentDelete = (id) => {
-        let newComments = allComments
-        newComments.forEach((element,index,object) => {
-                if(element._id === id)
-                {
-                    
-                    object.splice(index, 1)
-                }
-            });
-            
-            setAllComments([...newComments])
-      }
+    const onCommentDelete = (id) => {
+    let newComments = allComments
+    newComments.forEach((element,index,object) => {
+            if(element._id === id)
+            {
+                
+                object.splice(index, 1)
+            }
+        });
+        
+        setAllComments([...newComments])
+    }
 
-      const onReplyTextChange = (e) => setReplyText(e.target.value);
+
+    const onReplyTextChange = (e) => setReplyText(e.target.value);
     return(
         <>
         <div className="wrapper">
