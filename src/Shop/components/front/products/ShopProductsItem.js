@@ -1,12 +1,13 @@
 import "../../../assets/css/plugins/animate.min.css";
 import "../../../assets/css/main.scoped.css";
-import {Link, useNavigate , useMatch } from "react-router-dom";
+import {Link, useNavigate , useLocation } from "react-router-dom";
 import {useCart} from "react-use-cart";
 import jwt_decode from "jwt-decode";
 
 const ShopProductsItem = props => {
 
-    const {path, url} = useMatch();
+    //const {path, url} = useMatch();
+    let path = useLocation().pathname;
     const {addItem} = useCart();
 
     const token = localStorage.getItem("user_info");

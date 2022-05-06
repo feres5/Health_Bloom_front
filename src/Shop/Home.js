@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 
 import jquery from 'jquery';
 import useScript from "../hooks/useScript";
-
+import { Layout } from "antd";
 
 import "./assets/css/plugins/animate.min.css";
 import "./assets/css/main.scoped.css";
@@ -31,11 +31,13 @@ import Invoice from "./components/front/cart/Invoice";
 import WishList from "./components/front/cart/WishList";
 import jwt_decode from "jwt-decode";
 import Index from "../views/Index";
+import Main from "../Dashboard/components/layout/Main";
+import Home from "../Dashboard/pages/Home";
 
 window.$ = window.jQuery = jquery;
 const HomeShop = () => {
-    const {path, url} = useLocation();
-
+    //const {path, url} = useLocation();
+    let path = useLocation().pathname;
 
     useScript('assets/js/vendor/modernizr-3.6.0.min.js')
     useScript('assets/js/plugins/slick.js')
@@ -89,66 +91,57 @@ const HomeShop = () => {
     return (
         <React.Fragment>
             <Routes>
-                <Route path=""  element={<Navigate replace to="invoice"/>} />
+                {/*<Route path=""  element={<Navigate replace to="invoice"/>} />*/}
                 <Route path="/invoice" element={<Invoice/>} />
-                {/*<Route path={path}>*/}
-                {/*    <div style={{paddingLeft: "15px"}}>*/}
-                {/*        <ShopHeader/>*/}
-                {/*        <main className="main">*/}
-                {/*            <Routes>*/}
-                {/*                <Route exact path={`${path}/cart`}>*/}
-                {/*                    <Cart/>*/}
-                {/*                </Route>*/}
-                {/*                <Route exact path={`${path}/wishlist`}>*/}
-                {/*                    <WishList/>*/}
-                {/*                </Route>*/}
-                {/*                <Route exact path={`${path}/checkout`}>*/}
-                {/*                    <Checkout/>*/}
-                {/*                </Route>*/}
-                {/*                <Route exact path={`${path}/products`}>*/}
-                {/*                    <ShopProducts/>*/}
-                {/*                </Route>*/}
-                {/*                <Route exact*/}
-                {/*                       path={`${path}/products/:productId`}>*/}
-                {/*                    <ProductDetails/>*/}
-                {/*                </Route>*/}
-                {/*                <Route exact path={`${path}/home`}>*/}
-                {/*                    /!*<ShopModal/>*!/*/}
-                {/*                    <ProductModalView/>*/}
+                <Route path="/home" element={<HomeLayout><HomePage/></HomeLayout>} />
+                <Route path="/products" element={<HomeLayout><ShopProducts/></HomeLayout>} />
+                <Route path="/products/:productId" element={<HomeLayout><ProductDetails/></HomeLayout>} />
 
-                {/*                    <ShopBanner/>*/}
-
-                {/*                    <ShopFeaturedCategories/>*/}
-
-                {/*                    <ShopFeaturedBanners/>*/}
-
-                {/*                    <section*/}
-                {/*                        className="product-tabs section-padding position-relative">*/}
-                {/*                        <div className="container">*/}
-                {/*                            <HomeProductsList/>*/}
-                {/*                        </div>*/}
-                {/*                    </section>*/}
-
-                {/*                    <ShopBestSells/>*/}
-                {/*                    <ShopDeals/>*/}
-
-                {/*                    <ShopTopProducts/>*/}
-                {/*                </Route>*/}
-
-                {/*                <Route path={`${path}/*`}>*/}
-                {/*                    <Shop404Page/>*/}
-                {/*                </Route>*/}
-                {/*                <Navigate  exact to={`${path}/home`}/>*/}
-                {/*            </Routes>*/}
-                {/*        </main>*/}
-                {/*        <ShopFooter/>*/}
-                {/*    </div>*/}
-                {/*</Route>*/}
             </Routes>
         </React.Fragment>
     );
 
 };
+
+function HomeLayout({children}){
+    const { Content } = Layout;
+    return(
+        <div style={{paddingLeft: "15px"}}>
+            <ShopHeader/>
+            <main className="main">
+                <Content className="content-ant">{children}</Content>
+            </main>
+            <ShopFooter/>
+        </div>
+    );
+}
+
+function HomePage(){
+    return(
+        <>
+            {/*<ShopModal/>*/}
+            <ProductModalView/>
+
+            <ShopBanner/>
+
+            <ShopFeaturedCategories/>
+
+            <ShopFeaturedBanners/>
+
+            <section
+                className="product-tabs section-padding position-relative">
+                <div className="container">
+                    <HomeProductsList/>
+                </div>
+            </section>
+
+            <ShopBestSells/>
+            <ShopDeals/>
+
+            <ShopTopProducts/>
+        </>
+    );
+}
 
 
 export default HomeShop;

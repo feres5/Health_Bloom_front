@@ -1,7 +1,7 @@
 import "../../assets/css/plugins/animate.min.css";
 import "../../assets/css/main.scoped.css";
 import React from "react";
-import {useNavigate , useMatch } from "react-router-dom";
+import {useNavigate, useMatch, useLocation} from "react-router-dom";
 import QuickCartItem from "./cart/QuickCartItem";
 import cartData from "./cart/CartData";
 import {useCart} from "react-use-cart";
@@ -61,7 +61,8 @@ const ShopHeader = () => {
     } = useCart();
 
 
-    const {path, url} = useMatch();
+    //const {path, url} = useMatch();
+    let path = useLocation().pathname;
 
     return (
         <header className="header-area header-style-1 header-height-2">
