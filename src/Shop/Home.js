@@ -30,6 +30,7 @@ import Checkout from "./components/front/cart/Checkout";
 import Invoice from "./components/front/cart/Invoice";
 import WishList from "./components/front/cart/WishList";
 import jwt_decode from "jwt-decode";
+import {ToastContainer} from "react-toastify";
 
 window.$ = window.jQuery = jquery;
 const HomeShop = () => {
@@ -87,6 +88,7 @@ const HomeShop = () => {
 
     return (
         <React.Fragment>
+            <ToastContainer />
             <Switch>
                 <Route exact path={`${path}/invoice`}>
                     <Invoice/>

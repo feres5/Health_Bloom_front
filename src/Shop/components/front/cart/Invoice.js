@@ -161,7 +161,7 @@ const Invoice = () => {
                                                                 </td>
                                                                 <td className="text-center">${item.price.unit_amount / 100}</td>
                                                                 <td className="text-center">{item.quantity}</td>
-                                                                <td className="text-right">${item.amount_total / 100}</td>
+                                                                <td className="text-right">${item.price.unit_amount / 100 * item.quantity}</td>
                                                             </tr>
                                                         );
                                                     })}

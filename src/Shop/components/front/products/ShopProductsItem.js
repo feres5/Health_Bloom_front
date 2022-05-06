@@ -3,6 +3,8 @@ import "../../../assets/css/main.scoped.css";
 import {Link, useHistory, useRouteMatch} from "react-router-dom";
 import {useCart} from "react-use-cart";
 import jwt_decode from "jwt-decode";
+import {toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const ShopProductsItem = props => {
 
@@ -21,11 +23,21 @@ const ShopProductsItem = props => {
             const index = wishlist.findIndex(item => item.userId === decodedTOKEN.user_id);
             const index2 = wishlist[index].products.findIndex(product => product.id === props.item.id);
             if (index2 === -1) {
+
                 wishlist[index].products.push(props.item);
                 localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
             }
             history.push('/shop/wishlist');
-
+            toast.success('Item Added to Wishlist!', {
+                position: "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
 
     }
@@ -94,11 +106,31 @@ const ShopProductsItem = props => {
                         </div>
                         <div className="add-cart">
                             <a className="add"
-                               href="shop-cart.html"
+                               href=""
                                onClick={(e) =>{
                                    e.preventDefault()
                                    if (props.item.quantity > 0) {
+
+                                       toast.success('Item Added to Cart!', {
+                                           position: "bottom-right",
+                                           autoClose: 2000,
+                                           hideProgressBar: false,
+                                           closeOnClick: true,
+                                           pauseOnHover: true,
+                                           draggable: true,
+                                           progress: undefined,
+                                       });
                                        addItem(props.item);
+                                   }else {
+                                       toast.error('Item Out of Stock :(', {
+                                           position: "bottom-right",
+                                           autoClose: 2000,
+                                           hideProgressBar: false,
+                                           closeOnClick: true,
+                                           pauseOnHover: true,
+                                           draggable: true,
+                                           progress: undefined,
+                                       });
                                    }
                                }}><i
                                 className="fi-rs-shopping-cart mr-5"></i>Add

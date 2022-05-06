@@ -51,6 +51,7 @@ import EditAssistantProfile from "./Dashboard/pages/Assistants/EditAssistantProf
 import {CartProvider} from "react-use-cart";
 import {transitions, positions, Provider as AlertProvider} from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
+import HomeCoupons from "./Shop/coupon/HomeCoupons";
 
 const options = {
     // you can also just use 'bottom center'
@@ -120,6 +121,8 @@ ReactDOM.render(
 
                     <Route path="/admin/shop"
                            render={(props) => <Shop {...props} />}/>
+                    <Route path="/admin/coupons"
+                           render={(props) => <HomeCoupons {...props} />}/>
                     <Route exact
                            path="/dashboard/forum/section/:id"
                            render={(props) => <SectionThreads {...props} />}

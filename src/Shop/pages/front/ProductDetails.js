@@ -2,19 +2,65 @@ import "../../assets/css/plugins/animate.min.css";
 import "../../assets/css/main.scoped.css";
 import RelatedProducts from "../../components/front/products/RelatedProducts";
 import ReviewsSection from "../../components/front/reviews/ReviewsSection";
-import {useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import {useHttpClient} from "../../../shared/hooks/http-hook";
 import {useEffect, useState} from "react";
-import {
-    score,
-    rate,
-    average
-} from 'average-rating'
+import jwt_decode from "jwt-decode";
+import {toast} from "react-toastify";
+import {useCart} from "react-use-cart";
+
 
 const ProductDetails = () => {
+
     const [loadedProduct, setLoadedProduct] = useState();
+    const [carItemCount, setCartItemCount] = useState(1);
+    const [loadedReview, setLoadedReview] = useState(false);
     const productId = useParams().productId;
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
+
+    const {
+        isEmpty,
+        totalUniqueItems,
+        items,
+        addItem,
+        updateItemQuantity,
+        removeItem,
+        getItem,
+        cartTotal,
+        emptyCart
+    } = useCart();
+
+    const token = localStorage.getItem("user_info");
+    let wishlist = JSON.parse(localStorage.getItem("wishlist"));
+    const history = useHistory();
+
+
+    const wishlistHandler = (e) => {
+        e.preventDefault()
+        if (token) {
+            const decodedTOKEN = jwt_decode(token, {payload: true});
+            const index = wishlist.findIndex(item => item.userId === decodedTOKEN.user_id);
+            const index2 = wishlist[index].products.findIndex(product => product.id === productId);
+            if (index2 === -1) {
+
+                wishlist[index].products.push(loadedProduct);
+                localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
+            }
+            history.push('/shop/wishlist');
+            toast.success('Item Added to Wishlist!', {
+                position: "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+
+    }
+
     const [rating, setrating] = useState({
         star1: 0,
         star2: 0,
@@ -27,6 +73,7 @@ const ProductDetails = () => {
     let star1 = 0, star2 = 0, star3 = 0, star4 = 0, star5 = 0;
     let average, total = 0;
     useEffect(() => {
+        console.log("productDetails")
         const fetchProduct = async () => {
             try {
 
@@ -79,7 +126,7 @@ const ProductDetails = () => {
             }
         };
         fetchProduct();
-    }, [sendRequest, productId]);
+    }, [sendRequest, productId, loadedReview]);
 
     return (
         <div className="container mb-30">
@@ -94,7 +141,8 @@ const ProductDetails = () => {
                                     <span className="zoom-icon"><i
                                         className="fi-rs-search"></i></span>
 
-                                        <div className="product-image-slider">
+                                        <div
+                                            className="product-image-slider">
                                             <figure
                                                 className="border-radius-10">
                                                 <img
@@ -107,12 +155,15 @@ const ProductDetails = () => {
                                     </div>
 
                                 </div>
-                                <div className="col-md-6 col-sm-12 col-xs-12">
-                                    <div className="detail-info pr-30 pl-30">
+                                <div
+                                    className="col-md-6 col-sm-12 col-xs-12">
+                                    <div
+                                        className="detail-info pr-30 pl-30">
                                         <span
-                                            className="stock-status out-stock"> Sale Off </span>
+                                            className="stock-status out-stock"> Sale Off {loadedReview} </span>
                                         <h2 className="title-detail">{loadedProduct.name}</h2>
-                                        <div className="product-detail-rating">
+                                        <div
+                                            className="product-detail-rating">
                                             <div
                                                 className="product-rate-cover text-end">
                                                 <div
@@ -140,42 +191,77 @@ const ProductDetails = () => {
                                             </div>
                                         </div>
                                         <div className="short-desc mb-30">
-                                            <p className="font-lg">Lorem ipsum
+                                            <p className="font-lg">Lorem
+                                                ipsum
                                                 dolor, sit amet consectetur
-                                                adipisicing elit. Aliquam rem
+                                                adipisicing elit. Aliquam
+                                                rem
                                                 officia, corrupti reiciendis
                                                 minima
                                                 nisi modi, quasi, odio minus
                                                 dolore
-                                                impedit fuga eum eligendi.</p>
+                                                impedit fuga eum
+                                                eligendi.</p>
                                         </div>
-                                        <div className="detail-extralink mb-50">
+                                        <div
+                                            className="detail-extralink mb-50">
                                             <div
                                                 className="detail-qty border radius">
                                                 <a href="#"
+                                                   onClick={(e) => {
+                                                       e.preventDefault()
+                                                       if(carItemCount>0)
+                                                       setCartItemCount(prevState => prevState - 1);
+                                                   }}
                                                    className="qty-down"><i
                                                     className="fi-rs-angle-small-down"></i></a>
                                                 <span
-                                                    className="qty-val">1</span>
+                                                    className="qty-val">{carItemCount}</span>
                                                 <a href="#"
+                                                   onClick={(e) => {
+                                                       e.preventDefault()
+                                                       if(carItemCount < loadedProduct.quantity)
+                                                       setCartItemCount(prevState => prevState + 1);
+                                                   }}
                                                    className="qty-up"><i
                                                     className="fi-rs-angle-small-up"></i></a>
                                             </div>
                                             <div
                                                 className="product-extra-link2">
-                                                <button type="submit"
+                                                <button onClick={(e) => {
+                                                    e.preventDefault();
+                                                    if (carItemCount <= loadedProduct.quantity) {
+                                                        addItem(loadedProduct, carItemCount);
+                                                        toast.success('Item Added to Cart!', {
+                                                            position: "bottom-right",
+                                                            autoClose: 2000,
+                                                            hideProgressBar: false,
+                                                            closeOnClick: true,
+                                                            pauseOnHover: true,
+                                                            draggable: true,
+                                                            progress: undefined,
+                                                        });
+                                                    } else {
+                                                        toast.error('insufficient Stock :(', {
+                                                            position: "bottom-right",
+                                                            autoClose: 2000,
+                                                            hideProgressBar: false,
+                                                            closeOnClick: true,
+                                                            pauseOnHover: true,
+                                                            draggable: true,
+                                                            progress: undefined,
+                                                        });
+                                                    }
+
+                                                }}
                                                         className="button button-add-to-cart">
                                                     <i className="fi-rs-shopping-cart"></i>Add
                                                     to cart
                                                 </button>
                                                 <a aria-label="Add To Wishlist"
                                                    className="action-btn hover-up"
-                                                   href="shop-wishlist.html"><i
+                                                   onClick={wishlistHandler}><i
                                                     className="fi-rs-heart"></i></a>
-                                                <a aria-label="Compare"
-                                                   className="action-btn hover-up"
-                                                   href="shop-compare.html"><i
-                                                    className="fi-rs-shuffle"></i></a>
                                             </div>
                                         </div>
                                         <div className="font-xs">
@@ -192,13 +278,15 @@ const ProductDetails = () => {
                                             </ul>
                                             <ul className="float-start">
                                                 <li className="mb-5">SKU: <a
-                                                    href="#">FWM15VKT</a></li>
+                                                    href="#">FWM15VKT</a>
+                                                </li>
                                                 <li className="mb-5">Tags: <a
                                                     href="#"
                                                     rel="tag">Snack</a>, <a
                                                     href="#"
                                                     rel="tag">Organic</a>, <a
-                                                    href="#" rel="tag">Brown</a>
+                                                    href="#"
+                                                    rel="tag">Brown</a>
                                                 </li>
                                                 <li>Stock:<span
                                                     className="in-stock text-brand ml-5">8 Items In Stock</span>
@@ -213,7 +301,7 @@ const ProductDetails = () => {
                                 <div className="tab-style3">
                                     <ul className="nav nav-tabs text-uppercase">
                                         <li className="nav-item">
-                                            <a className="nav-link active"
+                                            <a className="nav-link"
                                                id="Description-tab"
                                                data-bs-toggle="tab"
                                                href="#Description">Description</a>
@@ -232,7 +320,7 @@ const ProductDetails = () => {
                                                href="#Vendor-info">Vendor</a>
                                         </li>
                                         <li className="nav-item">
-                                            <a className="nav-link"
+                                            <a className="nav-link active"
                                                id="Reviews-tab"
                                                data-bs-toggle="tab"
                                                href="#Reviews">Reviews
@@ -242,16 +330,20 @@ const ProductDetails = () => {
                                     <div
                                         className="tab-content shop_info_tab entry-main-content">
                                         <div
-                                            className="tab-pane fade show active"
+                                            className="tab-pane fade"
                                             id="Description">
                                             <div className="">
-                                                <p>Uninhibited carnally hired
+                                                <p>Uninhibited carnally
+                                                    hired
                                                     played
-                                                    in whimpered dear gorilla
+                                                    in whimpered dear
+                                                    gorilla
                                                     koala
-                                                    depending and much yikes off
+                                                    depending and much yikes
+                                                    off
                                                     far
-                                                    quetzal goodness and from
+                                                    quetzal goodness and
+                                                    from
                                                     for
                                                     grimaced goodness
                                                     unaccountably
@@ -274,12 +366,15 @@ const ProductDetails = () => {
                                                     the frequent fluidly at
                                                     formidable acceptably
                                                     flapped
-                                                    besides and much circa far
+                                                    besides and much circa
+                                                    far
                                                     over
                                                     the bucolically hey
                                                     precarious
-                                                    goldfinch mastodon goodness
-                                                    gnashed a jellyfish and one
+                                                    goldfinch mastodon
+                                                    goodness
+                                                    gnashed a jellyfish and
+                                                    one
                                                     however because.</p>
                                                 <ul className="product-more-infor mt-30">
                                                     <li>
@@ -303,7 +398,8 @@ const ProductDetails = () => {
                                                 <hr className="wp-block-separator is-style-dots"/>
                                                 <p>Laconic overheard dear
                                                     woodchuck
-                                                    wow this outrageously taut
+                                                    wow this outrageously
+                                                    taut
                                                     beaver hey hello far
                                                     meadowlark
                                                     imitatively egregiously
@@ -316,11 +412,15 @@ const ProductDetails = () => {
                                                     energetic
                                                     across this jeepers
                                                     beneficently
-                                                    cockily less a the raucously
-                                                    that magic upheld far so the
-                                                    this where crud then below
+                                                    cockily less a the
+                                                    raucously
+                                                    that magic upheld far so
+                                                    the
+                                                    this where crud then
+                                                    below
                                                     after
-                                                    jeez enchanting drunkenly
+                                                    jeez enchanting
+                                                    drunkenly
                                                     more
                                                     much wow callously
                                                     irrespective
@@ -335,47 +435,61 @@ const ProductDetails = () => {
                                                     smugly
                                                     scratched far while thus
                                                     cackled
-                                                    sheepishly rigid after due
+                                                    sheepishly rigid after
+                                                    due
                                                     one
                                                     assenting regarding
                                                     censorious
                                                     while occasional or this
                                                     more
-                                                    crane went more as this less
+                                                    crane went more as this
+                                                    less
                                                     much amid overhung
                                                     anathematic
                                                     because much held one
-                                                    exuberantly sheep goodness
+                                                    exuberantly sheep
+                                                    goodness
                                                     so
                                                     where rat wry well
                                                     concomitantly.</p>
                                                 <p>Scallop or far crud plain
-                                                    remarkably far by thus far
-                                                    iguana lewd precociously and
+                                                    remarkably far by thus
+                                                    far
+                                                    iguana lewd precociously
                                                     and
-                                                    less rattlesnake contrary
-                                                    caustic wow this near alas
+                                                    and
+                                                    less rattlesnake
+                                                    contrary
+                                                    caustic wow this near
+                                                    alas
                                                     and
                                                     next and pled the yikes
                                                     articulate about as less
                                                     cackled
-                                                    dalmatian in much less well
+                                                    dalmatian in much less
+                                                    well
                                                     jeering for the thanks
                                                     blindly
-                                                    sentimental whimpered less
-                                                    across objectively fanciful
-                                                    grimaced wildly some wow and
+                                                    sentimental whimpered
+                                                    less
+                                                    across objectively
+                                                    fanciful
+                                                    grimaced wildly some wow
+                                                    and
                                                     rose jeepers outgrew
                                                     lugubrious
                                                     luridly irrationally
-                                                    attractively dachshund.</p>
+                                                    attractively
+                                                    dachshund.</p>
                                                 <h4 className="mt-30">Suggested
                                                     Use</h4>
                                                 <ul className="product-more-infor mt-30">
                                                     <li>Refrigeration not
                                                         necessary.
                                                     </li>
-                                                    <li>Stir before serving</li>
+                                                    <li>Stir before
+                                                        serving
+                                                    </li>
                                                 </ul>
                                                 <h4 className="mt-30">Other
                                                     Ingredients</h4>
@@ -384,13 +498,16 @@ const ProductDetails = () => {
                                                         organic
                                                         raw cashews.
                                                     </li>
-                                                    <li>This butter was produced
+                                                    <li>This butter was
+                                                        produced
                                                         using a LTG (Low
                                                         Temperature
                                                         Grinding) process
                                                     </li>
-                                                    <li>Made in machinery that
-                                                        processes tree nuts but
+                                                    <li>Made in machinery
+                                                        that
+                                                        processes tree nuts
+                                                        but
                                                         does
                                                         not process peanuts,
                                                         gluten,
@@ -399,8 +516,10 @@ const ProductDetails = () => {
                                                 </ul>
                                                 <h4 className="mt-30">Warnings</h4>
                                                 <ul className="product-more-infor mt-30">
-                                                    <li>Oil separation occurs
-                                                        naturally. May contain
+                                                    <li>Oil separation
+                                                        occurs
+                                                        naturally. May
+                                                        contain
                                                         pieces of shell.
                                                     </li>
                                                 </ul>
@@ -420,21 +539,25 @@ const ProductDetails = () => {
                                                     </td>
                                                 </tr>
                                                 <tr className="folded-wo-wheels">
-                                                    <th>Folded (w/o wheels)</th>
+                                                    <th>Folded (w/o
+                                                        wheels)
+                                                    </th>
                                                     <td>
                                                         <p>32.5″L x 18.5″W x
                                                             16.5″H</p>
                                                     </td>
                                                 </tr>
                                                 <tr className="folded-w-wheels">
-                                                    <th>Folded (w/ wheels)</th>
+                                                    <th>Folded (w/ wheels)
+                                                    </th>
                                                     <td>
                                                         <p>32.5″L x 24″W x
                                                             18.5″H</p>
                                                     </td>
                                                 </tr>
                                                 <tr className="door-pass-through">
-                                                    <th>Door Pass Through</th>
+                                                    <th>Door Pass Through
+                                                    </th>
                                                     <td>
                                                         <p>24</p>
                                                     </td>
@@ -446,7 +569,9 @@ const ProductDetails = () => {
                                                     </td>
                                                 </tr>
                                                 <tr className="weight-wo-wheels">
-                                                    <th>Weight (w/o wheels)</th>
+                                                    <th>Weight (w/o
+                                                        wheels)
+                                                    </th>
                                                     <td>
                                                         <p>20 LBS</p>
                                                     </td>
@@ -464,7 +589,8 @@ const ProductDetails = () => {
                                                     </td>
                                                 </tr>
                                                 <tr className="handle-height-ground-to-handle">
-                                                    <th>Handle height (ground to
+                                                    <th>Handle height
+                                                        (ground to
                                                         handle)
                                                     </th>
                                                     <td>
@@ -474,12 +600,14 @@ const ProductDetails = () => {
                                                 <tr className="wheels">
                                                     <th>Wheels</th>
                                                     <td>
-                                                        <p>12″ air / wide track
+                                                        <p>12″ air / wide
+                                                            track
                                                             slick tread</p>
                                                     </td>
                                                 </tr>
                                                 <tr className="seat-back-height">
-                                                    <th>Seat back height</th>
+                                                    <th>Seat back height
+                                                    </th>
                                                     <td>
                                                         <p>21.5″</p>
                                                     </td>
@@ -562,12 +690,14 @@ const ProductDetails = () => {
                                                     <h4 className="mb-0">89%</h4>
                                                 </div>
                                             </div>
-                                            <p>Noodles & Company is an American
+                                            <p>Noodles & Company is an
+                                                American
                                                 fast-casual restaurant that
                                                 offers
                                                 international and American
                                                 noodle
-                                                dishes and pasta in addition to
+                                                dishes and pasta in addition
+                                                to
                                                 soups and salads. Noodles &
                                                 Company
                                                 was founded in 1995 by Aaron
@@ -576,23 +706,28 @@ const ProductDetails = () => {
                                                 Broomfield,
                                                 Colorado. The company went
                                                 public in
-                                                2013 and recorded a $457 million
-                                                revenue in 2017.In late 2018,
+                                                2013 and recorded a $457
+                                                million
+                                                revenue in 2017.In late
+                                                2018,
                                                 there
                                                 were 460 Noodles & Company
                                                 locations
-                                                across 29 states and Washington,
+                                                across 29 states and
+                                                Washington,
                                                 D.C.</p>
                                         </div>
                                         {rating &&
-                                            <ReviewsSection star1={rating.star1}
-                                                            star2={rating.star2}
-                                                            star3={rating.star3}
-                                                            star4={rating.star4}
-                                                            star5={rating.star5}
-                                                            average={rating.average}
-                                                            total={rating.total}
-                                                            productId={productId}/>
+                                            <ReviewsSection
+                                                star1={rating.star1}
+                                                star2={rating.star2}
+                                                star3={rating.star3}
+                                                star4={rating.star4}
+                                                star5={rating.star5}
+                                                average={rating.average}
+                                                refresh={setLoadedReview}
+                                                total={rating.total}
+                                                productId={productId}/>
                                         }
                                     </div>
                                 </div>
@@ -602,6 +737,7 @@ const ProductDetails = () => {
                     </div>
                 </div>}
         </div>
+
     );
 };
 

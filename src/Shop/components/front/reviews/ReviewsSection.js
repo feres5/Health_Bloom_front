@@ -14,6 +14,7 @@ const ReviewsSection = props => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
 
     useEffect(() => {
+
         const fetchReviews = async () => {
             try {
                 const responseData = await sendRequest(
@@ -27,10 +28,10 @@ const ReviewsSection = props => {
             }
         };
         fetchReviews();
-        console.log(props.average)
+
     }, [sendRequest, onChange]);
     return (
-        <div className="tab-pane fade" id="Reviews">
+        <div className="tab-pane fade show active" id="Reviews">
             <div className="comments-area">
                 <div className="row">
                     <div className="col-lg-8">
@@ -53,6 +54,7 @@ const ReviewsSection = props => {
                         </div>
                     </div>
                     <OverallRating star1={props.star1}
+                                   refresh={props.refresh}
                                    star2={props.star2}
                                    star3={props.star3}
                                    star4={props.star4}
@@ -63,7 +65,7 @@ const ReviewsSection = props => {
                 </div>
             </div>
 
-            <AddReview key={loadedReviews.length} reviewsHandler={setOnChange}
+            <AddReview refresh={props.refresh} key={loadedReviews.length} reviewsHandler={setOnChange}
                        productId={props.productId}/>
         </div>);
 };

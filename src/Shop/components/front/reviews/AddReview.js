@@ -2,7 +2,7 @@ import "../../../assets/css/plugins/animate.min.css";
 import "../../../assets/css/main.scoped.css";
 
 import {Rating} from 'react-simple-star-rating'
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {useHttpClient} from "../../../../shared/hooks/http-hook";
 import {useForm} from "../../../../shared/hooks/form-hook";
 import {
@@ -12,10 +12,12 @@ import {
 } from "../../../../shared/util/validators";
 import ReviewInput
     from "../../../../shared/components/FormElements/ReviewInput";
+import {ReviewContext} from "../../../context/ReviewContext";
 
 
 const AddReview = props => {
 
+    const reviewContext = useContext(ReviewContext);
     const token = localStorage.getItem("user_info");
     let disabled = false;
 
@@ -92,6 +94,8 @@ const AddReview = props => {
 
         setRating(1);
         props.reviewsHandler(true);
+        props.refresh(prevState => !prevState);
+
     };
 
 

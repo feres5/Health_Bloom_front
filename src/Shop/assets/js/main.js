@@ -6,7 +6,7 @@
         $("body").css({
             overflow: "visible"
         });
-        $("#onloadModal").modal("show");
+
     });
     /*-----------------
         Menu Stick

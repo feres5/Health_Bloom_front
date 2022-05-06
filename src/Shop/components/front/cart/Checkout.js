@@ -18,9 +18,9 @@ const Checkout = () => {
         updateItemQuantity,
         removeItem,
         cartTotal,
-        emptyCart
+        emptyCart,
+        metadata
     } = useCart();
-
     const checkoutSubmitHandler = async event => {
         event.preventDefault();
 
@@ -30,7 +30,8 @@ const Checkout = () => {
            const data =  await sendRequest('http://localhost:3002/api/products/checkout',
                 'POST',
                 JSON.stringify({
-                    items
+                    items,
+                    discount: metadata.discount
                 }),
                 {
                     'Content-Type': 'application/json'
@@ -210,15 +211,7 @@ const Checkout = () => {
                     </div>
                     <div className="col-lg-5">
                         <div className="border p-40 cart-totals ml-30 mb-50">
-                            <div
-                                className="d-flex align-items-end justify-content-between mb-30">
-                                <h4>Your Order</h4>
 
-                                <div>
-                                    <h4 className="text-brand"
-                                    >${cartTotal}</h4>
-                                </div>
-                            </div>
                             <div className="divider-2 mb-30"></div>
                             <div
                                 className="table-responsive order_table checkout">
@@ -239,6 +232,15 @@ const Checkout = () => {
 
                                     </tbody>
                                 </table>
+                            </div>
+                            <div
+                                className="d-flex align-items-end justify-content-between mb-30">
+                                <h4>Your Order</h4>
+
+                                <div>
+                                    <h4 className="text-brand"
+                                    >${metadata.finalPrice}</h4>
+                                </div>
                             </div>
                         </div>
                         <div className="payment ml-30">
