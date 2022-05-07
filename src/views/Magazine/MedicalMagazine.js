@@ -20,7 +20,7 @@ function MedicalMagazine() {
   const [articles, setarticles] = useState([])
   const [searchTerm, setsearchTerm] = useState("")
   const fetcharticles = async () => {
-    const url = 'http://localhost:3002/articles'
+    const url = process.env.REACT_APP_BackEnd_url+'/articles'
     const reponse = await fetch(url)
     const newarticles = await reponse.json()
     setarticles(newarticles)
