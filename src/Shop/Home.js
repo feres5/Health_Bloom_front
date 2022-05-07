@@ -91,12 +91,15 @@ const HomeShop = () => {
     return (
         <React.Fragment>
             <Routes>
-                {/*<Route path=""  element={<Navigate replace to="invoice"/>} />*/}
                 <Route path="/invoice" element={<Invoice/>} />
                 <Route path="/home" element={<HomeLayout><HomePage/></HomeLayout>} />
                 <Route path="/products" element={<HomeLayout><ShopProducts/></HomeLayout>} />
                 <Route path="/products/:productId" element={<HomeLayout><ProductDetails/></HomeLayout>} />
-
+                <Route path="/checkout" element={<HomeLayout><Checkout/></HomeLayout>} />
+                <Route path="/wishlist" element={<HomeLayout><WishList/></HomeLayout>} />
+                <Route path="/cart" element={<HomeLayout><Cart/></HomeLayout>} />
+                <Route path="/*" element={<HomeLayout><Shop404Page/></HomeLayout>} />
+                <Route path=""  element={<Navigate replace to={path+"/home"} />} />
             </Routes>
         </React.Fragment>
     );
@@ -121,27 +124,19 @@ function HomePage(){
         <>
             {/*<ShopModal/>*/}
             <ProductModalView/>
-
             <ShopBanner/>
-
             <ShopFeaturedCategories/>
-
             <ShopFeaturedBanners/>
-
-            <section
-                className="product-tabs section-padding position-relative">
+            <section className="product-tabs section-padding position-relative">
                 <div className="container">
                     <HomeProductsList/>
                 </div>
             </section>
-
             <ShopBestSells/>
             <ShopDeals/>
-
             <ShopTopProducts/>
         </>
     );
 }
-
 
 export default HomeShop;

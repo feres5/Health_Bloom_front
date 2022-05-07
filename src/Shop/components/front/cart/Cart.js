@@ -5,7 +5,7 @@ import {useCart} from "react-use-cart";
 import CartItem from "./CartItem";
 import QuickCartItem from "./QuickCartItem";
 import React from "react";
-import {useMatch } from "react-router-dom";
+import {useLocation, useMatch} from "react-router-dom";
 
 const Cart = () => {
     const {
@@ -17,8 +17,8 @@ const Cart = () => {
         cartTotal,
         emptyCart
     } = useCart();
-    const {path, url} = useMatch();
-
+    //const {path, url} = useMatch();
+    let path = useLocation().pathname;
     return (
         <>
             <div id="CartHeader">
