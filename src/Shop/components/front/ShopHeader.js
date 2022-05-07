@@ -227,7 +227,7 @@ const ShopHeader = () => {
                                             className="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                             <ul>
                                                 <li>
-                                                    <a href="page-account.html"><i
+                                                    <a href={`${path}/account`}><i
                                                         className="fi fi-rs-user mr-10"></i>My
                                                         Account</a>
                                                 </li>

@@ -31,6 +31,7 @@ import Invoice from "./components/front/cart/Invoice";
 import WishList from "./components/front/cart/WishList";
 import jwt_decode from "jwt-decode";
 import {ToastContainer} from "react-toastify";
+import UserDashboard from "./pages/front/UserDashboard";
 
 window.$ = window.jQuery = jquery;
 const HomeShop = () => {
@@ -112,6 +113,9 @@ const HomeShop = () => {
                                 </Route>
                                 <Route exact path={`${path}/products`}>
                                     <ShopProducts/>
+                                </Route>
+                                <Route exact path={`${path}/account`}>
+                                        <UserDashboard />
                                 </Route>
                                 <Route exact
                                        path={`${path}/products/:productId`}>

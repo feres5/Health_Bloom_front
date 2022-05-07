@@ -2,7 +2,7 @@ import "../../../assets/css/plugins/animate.min.css";
 import "../../../assets/css/main.scoped.css";
 import "./cart.css"
 import CheckoutItem from "./CheckoutItem";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useCart} from "react-use-cart";
 import {loadStripe} from "@stripe/stripe-js";
 import {useHttpClient} from "../../../../shared/hooks/http-hook";
@@ -10,7 +10,14 @@ import {useHttpClient} from "../../../../shared/hooks/http-hook";
 
 const Checkout = () => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+    useEffect(() => {
+        const token = localStorage.getItem("user_info");
+        if (token) {
+            setIsLoggedIn(true);
+        }
+    }, []);
     const {
         isEmpty,
         totalUniqueItems,
@@ -303,6 +310,7 @@ const Checkout = () => {
                             </div>
 
                             <a href="#"
+                               //disabled
                                onClick={checkoutSubmitHandler}
                                className="btn btn-fill-out mt-30">Place
                                 an

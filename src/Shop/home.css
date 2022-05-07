@@ -1,5 +1,4 @@
 .nav-link.active {
     box-shadow: none !important;
-    background-color: transparent !important;
     border-color: transparent !important;
 }
