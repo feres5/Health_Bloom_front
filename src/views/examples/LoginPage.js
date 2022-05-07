@@ -33,7 +33,7 @@ function LoginPage() {
   async function onSubmit(values) {
     console.log(values);
     let result = await fetch(
-        "http://127.0.0.1:3002/users/login",
+        process.env.REACT_APP_BackEnd_url+"/users/login",
         {
           method: 'POST',
           headers: {
@@ -61,7 +61,7 @@ function LoginPage() {
     //console.log(response);
     axios({
       method: "POST",
-      url: "http://127.0.0.1:3002/users/googleLogin",
+      url: process.env.REACT_APP_BackEnd_url+"/users/googleLogin",
       data : {tokenId: response.tokenId}
     }).then(async response => {
       checkCompleteProfile(response.data)
@@ -77,7 +77,7 @@ function LoginPage() {
     var decodedTOKEN = jwt_decode(token,{payload : true});
     axios({
       method: "GET",
-      url: "http://127.0.0.1:3002/users/getById/"+ decodedTOKEN.user_id,
+      url: process.env.REACT_APP_BackEnd_url+"/users/getById/"+ decodedTOKEN.user_id,
     }).then(async response => {
       //console.log(response.data.Role);
       if (response.data.Role ==="unknown"){

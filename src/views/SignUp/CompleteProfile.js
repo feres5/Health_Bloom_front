@@ -50,7 +50,7 @@ function CompleteProfile() {
         console.log(id.userId);
         axios({
             method: "GET",
-            url: "http://127.0.0.1:3002/users/getById/" + id.userId,
+            url: process.env.REACT_APP_BackEnd_url+"/users/getById/" + id.userId,
         }).then(async response => {
             console.log(response.data);
             setUser(response.data);
@@ -71,13 +71,13 @@ function CompleteProfile() {
             {
                 axios({
                     method: "Post",
-                    url: "http://127.0.0.1:3002/users/completeProfile/" + id.userId,
+                    url: process.env.REACT_APP_BackEnd_url+"/users/completeProfile/" + id.userId,
                     data: user
                 }).then(response => {
                     console.log(response);
                 })
             } else {
-                console.log("password and conform password dont match")
+                console.log("password and confirm password dont match")
             }
         }
     }

@@ -10,7 +10,7 @@ import TransparentFooter from "components/Footers/TransparentFooter.js";
 function ForgottenPassword() {
     const navigate = useNavigate ()
     const [email, setEmail]= useState("");
-    const redirectUrl ="http://localhost:3000/resetPassword";
+    const redirectUrl = process.env.REACT_APP_BackEnd_url+"/resetPassword";
     const [firstFocus, setFirstFocus] = React.useState(false);
     React.useEffect(() => {
         document.body.classList.add("login-page");
@@ -28,7 +28,7 @@ function ForgottenPassword() {
         let params = {email, redirectUrl};
         console.log(params);
         let result = await fetch(
-            "http://127.0.0.1:3002/users/forgetPassword",
+            process.env.REACT_APP_BackEnd_url+"/users/forgetPassword",
             {
                 method:'POST',
                 headers:{

@@ -21,7 +21,7 @@ function Profile()  {
     var decodedTOKEN = jwt_decode(token,{payload : true});
     let pageHeader = React.createRef();
     const [data,setData]= useState(null);
-    const url = "http://localhost:3002/users/"
+    const url = process.env.REACT_APP_BackEnd_url+"/users/"
     React.useEffect( () => {
         document.body.classList.add("profile-page");
         document.body.classList.add("sidebar-collapse");
@@ -115,7 +115,7 @@ function Profile()  {
         console.log(form);
         axios({
             method: "Post",
-            url: "http://127.0.0.1:3002/medicalFile/add/",
+            url: process.env.REACT_APP_BackEnd_url+"/medicalFile/add/",
             data: form
         }).then(response => {
             console.log(response);
@@ -159,7 +159,7 @@ function Profile()  {
                 setData(response.data);
                 axios({
                     method: "GET",
-                    url: "http://127.0.0.1:3002/medicalFile/getById/" + response.data.patient._id,
+                    url: process.env.REACT_APP_BackEnd_url+"/medicalFile/getById/" + response.data.patient._id,
                 }).then(async response => {
                     SetMedicalFile(response.data);
                 });

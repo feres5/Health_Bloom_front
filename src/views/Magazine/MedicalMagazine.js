@@ -87,12 +87,10 @@ function MedicalMagazine() {
               <h4 className="card__title">{item.title}</h4>
               {/* <p className="card__description">{item.author}</p> */}
             </div>
-            <Link to={{
-                            pathname: "/article",
-                            state: {
-                              idArticle: item._id
-                            }
-                          }} >
+            <Link
+                to={{pathname: "/article"}}
+                state={{idArticle: item._id}}
+            >
             <button className="card__btn">Read Article</button>
             </Link>
           </div>

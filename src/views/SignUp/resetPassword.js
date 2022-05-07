@@ -33,7 +33,7 @@ function ResetPassword() {
         });
         if (Password===confirmPassword){
             let result = await fetch(
-                "http://127.0.0.1:3002/users/resetForgottenPassword",
+                process.env.REACT_APP_BackEnd_url+"/users/resetForgottenPassword",
                 {
                     method:'POST',
                     headers:{
