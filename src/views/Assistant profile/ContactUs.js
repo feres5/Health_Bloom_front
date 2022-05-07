@@ -6,7 +6,6 @@ import "../../assets/scss/magazine.scss";
 // core components
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import DarkFooter from "components/Footers/DarkFooter.js";
-import MagazineHeader from "components/Headers/MagazineHeader";
 import {
   FormGroup,
   Input,
@@ -19,30 +18,28 @@ import {Avatar} from "antd";
 import profilavatar from "../../Dashboard/assets/images/face-1.jpg";
 import Form from "react-bootstrap/Form";
 
-function MedicalMagazine() {
+import emailjs from '@emailjs/browser';
+import { useRef } from 'react';
+import {Image} from "react-bootstrap";
 
-  const [articles, setarticles] = useState([])
-  const [searchTerm, setsearchTerm] = useState("")
-  const fetcharticles = async () => {
-    const url = 'http://localhost:3002/articles'
-    const reponse = await fetch(url)
-    const newarticles = await reponse.json()
-    setarticles(newarticles)
-    console.log(newarticles)
-  }
-  useEffect(() => {
-    fetcharticles()
-  }, [])
-  
-  
-  
-  const handleSearchTerm = async (e) => {
-    let value = e.target.value;
-   
-      setsearchTerm(value);
+function ContactUs() {
 
-    console.log(value)
-  }  
+
+
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm('gmail', 'Test', e.target, 'cUUoM7PnO7lnsxpvJ')
+        .then((result) => {
+          console.log(result.text);
+        }, (error) => {
+          console.log(error.text);
+        });
+    e.target.reset()
+  };
+
 
   React.useEffect(() => {
     document.body.classList.add("index-page");
@@ -55,6 +52,12 @@ function MedicalMagazine() {
       document.body.classList.remove("sidebar-collapse");
     };
   });
+
+
+
+
+
+
   return (
     <>
       <IndexNavbar />
@@ -119,60 +122,27 @@ function MedicalMagazine() {
           <h1>Contact Us</h1>
           <br/>
           <br/>
+          <form ref={form} id="contact-form" onSubmit={sendEmail} method="POST">
+            <div className="form-group">
+              <label htmlFor="name"  >Name</label>
+              <input type="text" className="form-control" name="name" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleInputEmail1">Email address</label>
+              <input type="email" className="form-control" aria-describedby="emailHelp"  name="email" />
+            </div>
 
-          <Form>
+            <div className="form-group">
+              <label htmlFor="name"  >Subject</label>
+              <input type="text" className="form-control" name="Subject" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="message" >Message</label>
+              <textarea className="form-control" rows="5" name="message"></textarea>
+            </div>
+            <button type="submit" className="btn btn-primary">Submit</button>
+          </form>
 
-            <Form.Group className="mb-3 " controlId="firstNamefield">
-              <Form.Label>First Name</Form.Label>
-              <Form.Control
-                  value=""
-                  type="text"
-                  name="firstNamefield"
-                  placeholder="First Name"
-                  autoFocus
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3 " controlId="lastNamefield">
-              <Form.Label>Last Name</Form.Label>
-              <Form.Control
-                  type="text"
-                  name="lastNamefield"
-                  placeholder="Last Name"
-                  autoFocus
-                  value=""
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3 " controlId="lastNamefield">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                  type="text"
-                  name="lastNamefield"
-                  placeholder="Email"
-                  autoFocus
-                  value=""
-
-              />
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label>Write here:</Form.Label>
-
-              <div className="form-group">
-                        <textarea
-                            name="description"
-                            value=""
-                            className="form-control"
-                            id="exampleFormControlTextarea1"
-                            rows="10"
-                            height="100px"
-                            placeholder="Write here.."
-                        />
-              </div>
-            </Form.Group>
-
-            </Form>
           <br/>
           <br/>
 
@@ -187,6 +157,9 @@ function MedicalMagazine() {
         </Col>
           <Col md={4}></Col>
   </Row>
+        <row>
+
+        </row>
 
       </div>
       <DarkFooter />
@@ -194,4 +167,5 @@ function MedicalMagazine() {
   );
 }
 
-export default MedicalMagazine;
+export default ContactUs;
+

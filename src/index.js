@@ -90,6 +90,8 @@ ReactDOM.render(
 
                 <Route exact path="/Assistantprofile" component={FrontAssistantProfile}/>
                 <Route exact path="/ContactUs" component={ContactUs}/>
+
+                EMailContact
                 <Route
                     path="/login-page"
                     render={(props) => <LoginPage {...props} />}
