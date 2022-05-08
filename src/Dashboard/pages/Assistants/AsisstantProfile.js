@@ -58,7 +58,7 @@ function AssistantProfile() {
   };
 
   const [user, setuser] = useState([])
-  const url = "http://127.0.0.1:3002/articles/Author/"
+  const url = process.env.REACT_APP_BackEnd_url+"/articles/Author/"
 
   var usertoken = localStorage.getItem("user_info");
   var decodedTOKEN = jwt_decode(usertoken,{payload : true});
@@ -86,7 +86,7 @@ function AssistantProfile() {
   const[Assistant,setAssistant]= useState([])
 
   const fetchAssistant = async () => {
-    const urlA = "http://127.0.0.1:3002/users/getassistants/"
+    const urlA = process.env.REACT_APP_BackEnd_url+"/users/getassistants/"
     const idA= localStorage.getItem("idAssistant")
 
     const urlAssistant = urlA +idA
@@ -104,7 +104,7 @@ function AssistantProfile() {
 
   const EditAssistant = async (id) => {
     console.log("here" +  id);
-    const urlAssistant = "http://127.0.0.1:3002/users/editassistant/"
+    const urlAssistant = process.env.REACT_APP_BackEnd_url+"/users/editassistant/"
 
 
     const urlA = urlAssistant + id

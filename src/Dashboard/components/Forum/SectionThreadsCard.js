@@ -20,9 +20,10 @@ const SectionThreadsCard = (props) =>
                 <Container className='section-thread-card'>
                     <Link className='section-thread-card-title' to={"/dashboard/forum/thread/"+thread._id}>{thread.title}</Link>
                     <Container  className='section-thread-card-infos'>
-                        <span>By:</span> <Link to={"#"}>Foulen</Link>
+                        <span>By:</span>
+                        <a>Foulen</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Link to={"#"}>15-12-2021</Link>
+                        <a>15-12-2021</a>
                     </Container>
                 </Container>
             </td>
@@ -31,9 +32,10 @@ const SectionThreadsCard = (props) =>
                 </td>
             <td>
                 <Container  className='section-thread-card-infos'>
-                        <span>By:</span> <Link to={"#"}>Foulen</Link>
+                        <span>By:</span>
+                    <a>Foulen</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Link>15-12-2021</Link>
+                        <a>15-12-2021</a>
                 </Container>
             </td>
         </tr>

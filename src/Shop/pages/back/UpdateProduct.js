@@ -50,7 +50,7 @@ const UpdateProduct = () => {
             try {
 
                 const responseData = await sendRequest(
-                    `http://localhost:3002/api/products/${productId}`
+                    process.env.REACT_APP_BackEnd_url+`/api/products/${productId}`
                 );
 
                 setLoadedProduct(responseData.product);
@@ -92,7 +92,7 @@ const UpdateProduct = () => {
         try {
 
 
-            await sendRequest(`http://localhost:3002/api/products/${productId}`,
+            await sendRequest(process.env.REACT_APP_BackEnd_url+`/api/products/${productId}`,
                 'PATCH',
                 JSON.stringify({
                     name: formState.inputs.name.value,

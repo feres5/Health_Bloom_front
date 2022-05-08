@@ -31,7 +31,7 @@ const ProductDetails = () => {
             try {
 
                 const responseData = await sendRequest(
-                    `http://localhost:3002/api/products/${productId}`
+                    process.env.REACT_APP_BackEnd_url+`/api/products/${productId}`
                 );
 
                 setLoadedProduct(responseData.product);
@@ -98,7 +98,7 @@ const ProductDetails = () => {
                                             <figure
                                                 className="border-radius-10">
                                                 <img
-                                                    src={`http://localhost:3002/${loadedProduct.image}`}
+                                                    src={process.env.REACT_APP_BackEnd_url+`/${loadedProduct.image}`}
                                                     alt="product image"/>
                                             </figure>
                                         </div>

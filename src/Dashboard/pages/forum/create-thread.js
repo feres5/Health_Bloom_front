@@ -47,7 +47,7 @@ function CreateThread() {
         // get our form data out of state
         const title =  e.target.elements.title.value;
         const body =  e.target.elements.body.value;
-        axios.post("http://localhost:3002/forum/create-thread", {title, body }).then((res) => {
+        axios.post(process.env.REACT_APP_BackEnd_url+"/forum/create-thread", {title, body }).then((res) => {
             console.log(res.data)
             //history.push("/forum/section/1");
         }).catch((error) => {

@@ -55,7 +55,7 @@ const NewProduct = () => {
             formData.append('quantity', formState.inputs.quantity.value);
             formData.append('image', formState.inputs.image.value);
 
-            await sendRequest('http://localhost:3002/api/products',
+            await sendRequest(process.env.REACT_APP_BackEnd_url+'/api/products',
                 'POST',
                 formData
             );

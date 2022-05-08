@@ -27,7 +27,7 @@ function Thread()
     const { id } = useParams();
 
         const fetchThread = async () => {
-        const url = "http://localhost:3002/forum/get-thread/";
+        const url = process.env.REACT_APP_BackEnd_url+"/forum/get-thread/";
         
         const urlId= url+id;
         const reponse = await fetch(urlId);
@@ -50,7 +50,7 @@ function Thread()
         console.log(values)
 
         const comment =  values.comment;
-        axios.post("http://localhost:3002/forum/add-comment-to-thread", { body: comment , threadId: id}).then((res) => {
+        axios.post(process.env.REACT_APP_BackEnd_url+"/forum/add-comment-to-thread", { body: comment , threadId: id}).then((res) => {
             console.log(res.data)
             fetchThread()
             //history.push("/forum/section/1");

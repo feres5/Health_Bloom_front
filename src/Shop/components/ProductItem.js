@@ -14,7 +14,7 @@ const UserItem = props => {
         try {
 
             await sendRequest(
-                `http://localhost:3002/api/products/${props.id}`,
+                process.env.REACT_APP_BackEnd_url+`/api/products/${props.id}`,
                 'DELETE'
             );
             props.onDelete(props.id);
@@ -26,7 +26,7 @@ const UserItem = props => {
     return (
         <Col>
             <Card style={{width: '18rem'}}>
-                <Card.Img variant="top" src={`http://localhost:3002/${props.image}`} alt={props.name} style={{height: '250px'}} />
+                <Card.Img variant="top" src={process.env.REACT_APP_BackEnd_url+`/${props.image}`} alt={props.name} style={{height: '250px'}} />
                 <Card.Body>
                     <Card.Title>{props.name}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{props.price}</Card.Subtitle>
