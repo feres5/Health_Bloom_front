@@ -20,7 +20,7 @@ function IndexNavbar() {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
-  const url = "http://localhost:3002/users/";
+  const url = process.env.REACT_APP_BackEnd_url+"/users/";
   //console.log(localStorage.getItem("user_info"))
   var token = localStorage.getItem("user_info");
   var decodedTOKEN = null;

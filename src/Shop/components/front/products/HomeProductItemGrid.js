@@ -15,10 +15,10 @@ const ShopProductsItemGrid = props => {
                     <div className="product-img-inner">
                         <Link exact="true" to={`${path}/${props.id}`}>
                             <img className="default-img"
-                                 src={`http://localhost:3002/${props.image}`}
+                                 src={process.env.REACT_APP_BackEnd_url+`/${props.image}`}
                                  alt=""/>
                             <img className="hover-img"
-                                 src={`http://localhost:3002/${props.image}`}
+                                 src={process.env.REACT_APP_BackEnd_url+`/${props.image}`}
                                  alt=""/>
                         </Link>
                     </div>

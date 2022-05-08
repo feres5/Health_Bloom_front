@@ -11,7 +11,7 @@ function GeneralInfo(props) {
     const navigate = useNavigate ();
    console.log(props.info.user);
     // console.log(props.info.patient);
-    const url = "http://localhost:3002/users/";
+    const url = process.env.REACT_APP_BackEnd_url+"/users/";
 
     const getFormattedDate = (dateStr) => {
         return moment(dateStr).toDate();

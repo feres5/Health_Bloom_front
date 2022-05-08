@@ -31,7 +31,7 @@ const Invoice = () => {
         const fecthPayments = async () => {
 
             try {
-                const responseData = await sendRequest(`http://localhost:3002/api/products/checkout/${sessionId}`);
+                const responseData = await sendRequest(process.env.REACT_APP_BackEnd_url+`/api/products/checkout/${sessionId}`);
 
                 setLoadedPayments(responseData.items);
                 const {

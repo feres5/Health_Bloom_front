@@ -27,7 +27,7 @@ const Checkout = () => {
         try {
 
 
-           const data =  await sendRequest('http://localhost:3002/api/products/checkout',
+           const data =  await sendRequest(process.env.REACT_APP_BackEnd_url+'/api/products/checkout',
                 'POST',
                 JSON.stringify({
                     items

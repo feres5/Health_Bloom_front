@@ -9,7 +9,7 @@ const CheckoutItem = props => {
         <tr>
             <td className="image product-thumbnail">
                 <img
-                    src={`http://localhost:3002/${props.image}`}
+                    src={process.env.REACT_APP_BackEnd_url+`/${props.image}`}
                     alt="#"/></td>
             <td>
                 <h6 className="w-160 mb-5"><a

@@ -75,7 +75,7 @@ const WishListItem = props => {
                        htmlFor="exampleCheckbox2"></label>
             </td>
             <td className="image product-thumbnail"><img
-                src={`http://localhost:3002/${props.item.image}`}
+                src={process.env.REACT_APP_BackEnd_url+`/${props.item.image}`}
                 alt="#"/></td>
             <td className="product-des product-name">
                 <h6><a className="product-name mb-10"

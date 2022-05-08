@@ -17,7 +17,7 @@ const ReviewsSection = props => {
         const fetchReviews = async () => {
             try {
                 const responseData = await sendRequest(
-                    `http://localhost:3002/api/reviews/product/${props.productId}`
+                    process.env.REACT_APP_BackEnd_url+`/api/reviews/product/${props.productId}`
                 );
 
                 setLoadedReviews(responseData.reviews);

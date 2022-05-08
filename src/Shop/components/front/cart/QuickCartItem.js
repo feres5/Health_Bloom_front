@@ -15,7 +15,7 @@ const QuickCartItem = props => {
                 className="shopping-cart-img">
                 <Link exact="true" to={`${path}/products/${props.id}`}><img
                     alt="Nest"
-                    src={`http://localhost:3002/${props.image}`}/></Link>
+                    src={process.env.REACT_APP_BackEnd_url+`/${props.image}`}/></Link>
             </div>
             <div
                 className="shopping-cart-title">

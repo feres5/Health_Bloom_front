@@ -16,7 +16,7 @@ const CartItem = props => {
             </td>
             <td className="image product-thumbnail pt-40">
                 <img
-                    src={`http://localhost:3002/${props.image}`}
+                    src={process.env.REACT_APP_BackEnd_url+`/${props.image}`}
                     alt="#"/>
             </td>
             <td className="product-des product-name">

@@ -72,7 +72,7 @@ const AddReview = props => {
             formData.append('rating', rating);
             formData.append('product', props.productId);
 
-            await sendRequest('http://localhost:3002/api/reviews',
+            await sendRequest(process.env.REACT_APP_BackEnd_url+'/api/reviews',
                 'POST',
                 JSON.stringify({
                     name: formState.inputs.name.value,

@@ -28,7 +28,7 @@ const ShopProducts = () => {
     useEffect(() => {
         const fecthProducts = async () => {
             try {
-                const responseData = await sendRequest('http://localhost:3002/api/products');
+                const responseData = await sendRequest(process.env.REACT_APP_BackEnd_url+'/api/products');
                 setProductsResults(responseData.products);
                 setLoadedProducts(responseData.products);
                 console.log(responseData);
