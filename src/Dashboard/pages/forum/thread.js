@@ -23,6 +23,7 @@ import ReactPaginate from 'react-paginate';
 
 
 import ThreadContentCard from './../../components/Forum/ThreadContentCard'
+import jwt_decode from "jwt-decode";
 
 
 function Thread()
@@ -30,6 +31,8 @@ function Thread()
     const [thread, setThread] = useState({})
     const [initContent, setInitContent] = useState({})
     const [comments, setComments] = useState([])
+    //const [user, setUser] = useState({})
+
     const [allComments, setAllComments] = useState([])
     const [goToLastPageChecker, setGoToLastPageChecker] = useState(false)
     const { id } = useParams();
@@ -45,6 +48,32 @@ function Thread()
     const [currentPageIndex, setCurrentPageIndex] = useState(0)
 
     const [replyText, setReplyText] = useState('')
+
+    const [userData, setUserData] = useState({})
+
+    
+    var usertoken = localStorage.getItem("user_info");
+    var decodedTOKEN;
+    if(usertoken)
+    decodedTOKEN = jwt_decode(usertoken,{payload : true});
+
+    const fetchUser = async () => 
+    {
+      if(usertoken)
+      {
+        const urluser = "http://localhost:3002/users/getById/" + decodedTOKEN.user_id
+    
+        const reponse = await fetch(urluser)
+        const newuser = await reponse.json()
+
+        setUserData(newuser)
+        //alert(JSON.stringify(userData.user.Role))
+      }
+    }
+
+    useEffect(() => {
+      fetchUser()
+    }, [])
 
 
 
@@ -115,7 +144,8 @@ function Thread()
 
  
     const onCommentAdded = (commentText) => {
-        
+
+        if(commentText === "") return;
             
             if(localStorage.getItem('lastPosted') != null)
             {
@@ -145,15 +175,16 @@ function Thread()
                 }
             }
         
-
-        axios.post("http://localhost:3002/forum/add-comment-to-thread", { body: commentText , threadId: id})
+        let userId = userData.user._id;
+        axios.post("http://localhost:3002/forum/add-comment-to-thread", { body: commentText , threadId: id, userId:userId})
         .then((res) => {
             localStorage.setItem('lastPosted',JSON.stringify(Date.now()))
 
             let data = res.data;
             
-            let newComments = [...allComments,{body:commentText, threadId:id, _id:data._id}]
+            let newComments = [...allComments,{body:commentText, threadId:id, _id:data._id, user:userData}]
             setAllComments(newComments)
+            fetchThread()
             
         }).catch((error) => {
             console.log(error)
@@ -161,6 +192,7 @@ function Thread()
         setGoToLastPageChecker(true);
 
         setReplyText('');
+        
     }
 
     const OnCommentLike = () => 
@@ -181,6 +213,20 @@ function Thread()
         setAllComments([...newComments])
     }
 
+    if(!usertoken)
+    {
+      return(<>
+        <p>Not logged in !!</p>
+      </>)
+    }
+    else
+    {
+      if(userData.user)
+      if(userData.user.Role !== "Doctor")
+      return(<>
+        <p>Forum can only be accessed by a doctor.</p>
+      </>)
+    }
 
     const onReplyTextChange = (e) => setReplyText(e.target.value);
     return(
@@ -199,7 +245,7 @@ function Thread()
                 </Grid>
                 
                 <div className="thread-content container">
-                    <ThreadContentCard onCommentLike={OnCommentLike} onCommentDelete={onCommentDelete} thread={thread} initContent={initContent} comments={comments} ></ThreadContentCard>
+                    <ThreadContentCard userData={userData} onCommentLike={OnCommentLike} onCommentDelete={onCommentDelete} thread={thread} initContent={initContent} comments={comments} ></ThreadContentCard>
                 </div>
 
 

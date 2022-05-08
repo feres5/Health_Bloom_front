@@ -16,11 +16,21 @@ const ThreadContentCard = (props) =>
     //const [comments,setComments] = useState([])
     const {id}= useParams()
     const history = useHistory()
-    
+    const [userData, setUserData] = useState(null)
+    //alert(JSON.stringify(props.thread.user))
 
+    useEffect(() => {
+        setUserData(props.userData)
+        //alert(JSON.stringify(userData))
+    },[props.userData, userData])
+
+    //alert(JSON.stringify(props.userData))
+
+    
     useEffect(() => {
         //setComments(props.comments)
     }, [props.comments]);
+
 
     const OnDeleteThread = (id) => 
     {
@@ -63,11 +73,8 @@ const ThreadContentCard = (props) =>
             })
                
         }
-        
-        
+    
       };
-
-
 
     return(
         <>
@@ -76,26 +83,29 @@ const ThreadContentCard = (props) =>
                 <Col className='thread-profile-info' sm="3">
                     <Container>
                         <img src= {require("assets/img/eva.jpg").default}  alt="" />
-                        <Link to={"#"}>Doctor Profile Name</Link>
-                        <h5>Badge Specialite</h5>
-                    </Container>
-                    
+                        <Link to={"#"}> {props.thread.user ? props.thread.user.FirstName + " " + props.thread.user.LastName : ""} </Link>
+                        <h5>{props.thread.user ? props.thread.user._doctor.Speciality : ""}</h5>
+                    </Container>   
                 </Col>
-                <Col className='thread-comment-content' sm="9">
+                <Col className='thread-comment-content thread-main-content' sm="9">
+                    
                 <h3>{props.thread.title}</h3>
                 <p>
                     {props.initContent.body}
                 </p>
                 <div className='thread-comment-control'>
                 <i>created on : {props.initContent.dateCreated}</i>
-                    
-                    <IconButton onClick={() => {OnDeleteThread(id)} }><DeleteIcon /></IconButton>
+
+                    { props.thread.user && userData && userData.user._id === props.thread.user._id && 
+                        <IconButton onClick={() => {OnDeleteThread(id)} }><DeleteIcon /></IconButton>
+                    }
                     <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />}  sx={{
           color: pink[800],
           '&.Mui-checked': {
             color: pink[600],
           },
-        }} checked={props.initContent.likes != null && props.initContent.likes.length > 0} onChange={ (event) =>{ OnCommentLike(event,1,props.initContent._id) }} />
+        }} checked={props.initContent.likes != null && userData && props.initContent.likes.map((item) => {return item.user}).includes(userData.user._id)} onChange={ (event) =>{ if(userData) OnCommentLike(event,userData.user._id,props.initContent._id) }} />
+        <p className='comment-like-count'>{props.initContent.likes != null ? JSON.stringify(props.initContent.likes.length) :  "0"}</p>
                 </div>
                 </Col>
             </Row>
@@ -104,8 +114,8 @@ const ThreadContentCard = (props) =>
                 <Col className='thread-profile-info' sm="3">
                     <Container>
                         <img src= {require("assets/img/eva.jpg").default}  alt="" />
-                        <Link to={"#"}>Doctor Profile Name</Link>
-                        <h5>Badge Specialite</h5>
+                        <Link to={"#"}>{item.user ? item.user.FirstName + " " + item.user.LastName : ""} </Link>
+                        <h5>{props.thread.user ? props.thread.user._doctor.Speciality : ""}</h5>
                     </Container>
                     
                 </Col>
@@ -117,14 +127,15 @@ const ThreadContentCard = (props) =>
 
                     <div className='thread-comment-control'>
                         <i>added on : {item.dateCreated}</i>
-                        
-                        <IconButton  onClick={() => {OnDeleteComment(item._id)} }><DeleteIcon /></IconButton>
+                        { item.user && userData && userData.user._id === item.user._id && 
+                        <IconButton  onClick={() => {OnDeleteComment(item._id)} }><DeleteIcon /></IconButton> }
                         <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />}  sx={{
           color: pink[800],
           '&.Mui-checked': {
             color: pink[600],
           },
-        }} checked={item.likes != null && item.likes.length > 0} onChange={ (event) =>{ OnCommentLike(event,1,item._id) }} />
+        }} checked={item.likes != null && userData && item.likes.map((item) => {return item.user}).includes(userData.user._id)} onChange={ (event) =>{ if(userData) OnCommentLike(event,userData.user._id,item._id) }} />
+                    <p className='comment-like-count'>{item.likes != null ? JSON.stringify(item.likes.length) :  "0"}</p>
                     </div>
                 </Col>
                 

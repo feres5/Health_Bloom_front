@@ -12,6 +12,9 @@ import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import
 import { FilledInput, Box ,Grid, IconButton} from "@mui/material";
 import ArrowBackIosNew from '@mui/icons-material/ArrowBackIosNew';
 
+import jwt_decode from "jwt-decode";
+
+
 
 // reactstrap components
 import {
@@ -38,14 +41,18 @@ function CreateSection() {
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+    const [userData, setUserData] = useState({})
 
     const onTitleChange = (e) => setTitle(e.target.value);
     const onDescriptionChange = (e) => setDescription(e.target.value);
+
+    useEffect(() => {
+      fetchUser();
+    }, [])
     
     const handleSubmit = () => {
        
-        
-        axios.post("http://localhost:3002/forum/add-section", {title, description }).then((res) => {
+        axios.post("http://localhost:3002/forum/add-section", {title, description}).then((res) => {
             console.log(res.data)
             history.push("/dashboard/forum/");
         }).catch((error) => {
@@ -53,7 +60,43 @@ function CreateSection() {
         });
     };
 
+    var usertoken = localStorage.getItem("user_info");
+    var decodedTOKEN;
+    if(usertoken)
+    decodedTOKEN = jwt_decode(usertoken,{payload : true});
 
+    const fetchUser = async () => 
+    {
+      if(usertoken)
+      {
+        const urluser = "http://localhost:3002/users/getById/" + decodedTOKEN.user_id
+    
+        const reponse = await fetch(urluser)
+        const newuser = await reponse.json()
+
+        setUserData(newuser)
+        //alert(JSON.stringify(userData.user.Role))
+      }
+    }
+
+    useEffect(() => {
+      fetchUser()
+    }, [])
+    
+    if(!usertoken)
+    {
+      return(<>
+        <p>Not logged in !!</p>
+      </>)
+    }
+    else
+    {
+      if(userData.user)
+      if(userData.user.Role !== "Doctor")
+      return(<>
+        <p>Forum can only be accessed by a doctor.</p>
+      </>)
+    }
   
     return (
       <>

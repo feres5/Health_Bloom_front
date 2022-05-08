@@ -12,6 +12,8 @@ import { styled } from '@mui/material/styles';
 
 import { Box, Grid } from "@mui/material";
 
+import jwt_decode from "jwt-decode";
+
 import {
   Card,
   Col,
@@ -150,6 +152,7 @@ function ForumWelcome() {
 
     const [sections, setSections] = useState([])
     const [newsItems, setNewsItems] = useState([])
+    const [userData, setUserData] = useState({})
 
     const fetchNewsItems = async () => 
     {
@@ -177,11 +180,46 @@ function ForumWelcome() {
       const newSections = await reponse.json();
       setSections(newSections);
     }
+
+    var usertoken = localStorage.getItem("user_info");
+    var decodedTOKEN;
+    if(usertoken)
+    decodedTOKEN = jwt_decode(usertoken,{payload : true});
+
+    const fetchUser = async () => 
+    {
+      if(usertoken)
+      {
+        const urluser = "http://localhost:3002/users/getById/" + decodedTOKEN.user_id
+    
+        const reponse = await fetch(urluser)
+        const newuser = await reponse.json()
+
+        setUserData(newuser)
+        //alert(JSON.stringify(userData.user.Role))
+      }
+    }
+
     useEffect(() => {
       fetchSections()
-      fetchNewsItems()
+      //fetchNewsItems()
+      fetchUser()
     }, [])
-
+    
+    if(!usertoken)
+    {
+      return(<>
+        <p>Not logged in !!</p>
+      </>)
+    }
+    else
+    {
+      if(userData.user)
+      if(userData.user.Role !== "Doctor")
+      return(<>
+        <p>Forum can only be accessed by a doctor.</p>
+      </>)
+    }
 
 
     return (

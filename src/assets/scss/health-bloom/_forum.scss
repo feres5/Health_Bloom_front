@@ -274,10 +274,21 @@
     position: relative;
 }
 
+.thread-main-content
+{
+    border-left: 2px solid $color-g8;
+
+    background: 
+    linear-gradient(to top right,#0000 50%,#282828 50.1%) top right/40px 40px no-repeat,
+    black; 
+    overflow: hidden;
+}
+
 .thread-comment-content > h3
 {
     color:$color-forest-green-dark;
 }
+
 .thread-comment-content > p
 {
     font-size: 1.2em;
@@ -363,6 +374,17 @@
     position: absolute;
     right: 0;
     bottom: 0;
+}
+
+.comment-like-count
+{
+    position: relative;
+    top: 3px;
+    right: 7px;
+    display:inline;
+    font-size: 1.2em;
+    font-weight: bold !important;
+    color:#c2185b;
 }
 
 .section-threads-links-container

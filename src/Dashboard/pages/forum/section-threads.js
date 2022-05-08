@@ -29,7 +29,7 @@ import {
   IconButton
 } from "@mui/material";
 
-//const items = [...Array(33).keys()];
+import jwt_decode from "jwt-decode";
 
 
 const SectionThreads = () =>
@@ -46,6 +46,7 @@ const SectionThreads = () =>
     const [threads, setThreads] = useState(null)
 
     const [section, setSection] = useState({})
+    const [userData, setUserData] = useState({})
 
     const { id } = useParams();
 
@@ -72,6 +73,7 @@ const SectionThreads = () =>
         
         fetchSections(isMounted)
         fetchSectionData(isMounted)
+        fetchUser()
         return () => { isMounted = false };
     },[]);
   
@@ -92,7 +94,25 @@ const SectionThreads = () =>
       console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
       setItemOffset(newOffset);
     };
-  
+    
+    var usertoken = localStorage.getItem("user_info");
+    var decodedTOKEN;
+    if(usertoken)
+    decodedTOKEN = jwt_decode(usertoken,{payload : true});
+
+    const fetchUser = async () => 
+    {
+      if(usertoken)
+      {
+        const urluser = "http://localhost:3002/users/getById/" + decodedTOKEN.user_id
+    
+        const reponse = await fetch(urluser)
+        const newuser = await reponse.json()
+
+        setUserData(newuser)
+        //alert(JSON.stringify(userData.user.Role))
+      }
+    }
 
     return (
         <>

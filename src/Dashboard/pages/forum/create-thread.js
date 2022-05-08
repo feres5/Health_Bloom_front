@@ -27,6 +27,7 @@ import {
 import { Link } from "react-router-dom";
 import ForumSection from './../../components/Forum/ForumSection'
 import { Redirect } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 
 const axios = require('axios');
@@ -41,27 +42,65 @@ function CreateThread() {
 
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
+    const [userData, setUserData] = useState({})
+
 
     const onTitleChange = (e) => setTitle(e.target.value);
     const onBodyChange = (e) => setBody(e.target.value);
     
     const handleSubmit = () => {
        
-        
-        axios.post("http://localhost:3002/forum/create-thread", {title, body,sectionId }).then((res) => {
+      if(title === "" || body ==="" ) return;
+      
+        let userId = userData.user._id;
+        axios.post("http://localhost:3002/forum/create-thread", {title, body,sectionId,userId }).then((res) => {
             console.log(res.data)
             history.push("/dashboard/forum/section/" + sectionId);
         }).catch((error) => {
             console.log(error)
         });
     };
+    
+    useEffect(() => {
+      fetchUser();
+    }, [])
 
+    var usertoken = localStorage.getItem("user_info");
+    var decodedTOKEN;
+    if(usertoken)
+    decodedTOKEN = jwt_decode(usertoken,{payload : true});
 
+    const fetchUser = async () => 
+    {
+      if(usertoken)
+      {
+        const urluser = "http://localhost:3002/users/getById/" + decodedTOKEN.user_id
+    
+        const reponse = await fetch(urluser)
+        const newuser = await reponse.json()
+
+        setUserData(newuser)
+        //alert(JSON.stringify(userData.user.Role))
+      }
+    }
+
+    if(!usertoken)
+    {
+      return(<>
+        <p>Not logged in !!</p>
+      </>)
+    }
+    else
+    {
+      if(userData.user)
+      if(userData.user.Role !== "Doctor")
+      return(<>
+        <p>Forum can only be accessed by a doctor.</p>
+      </>)
+    }
   
     return (
       <>
-        
-
         <div className="wrapper">
             <div className="container forum-create-thread">
             <Link to={`/dashboard/forum/section/${sectionId}`}> <IconButton onClick={() => {}} > <ArrowBackIosNew /></IconButton>
