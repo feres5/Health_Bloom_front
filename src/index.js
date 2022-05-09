@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter,Routes ,Route, Switch,Navigate } from "react-router-dom";
 
 // styles for this kit
 import "assets/css/bootstrap.min.css";
@@ -10,15 +10,17 @@ import "assets/demo/nucleo-icons-page-styles.css?v=1.5.0";
 // pages for this kit
 import Index from "views/Index.js";
 import NucleoIcons from "views/NucleoIcons.js";
-
 import LoginPage from "views/examples/LoginPage.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
-
 import SignUp from "./views/SignUp/SignUp";
 import MedicalSignUp from "./views/index-sections/MedicalSignUp";
 import MedicalMagazine from "views/Magazine/MedicalMagazine";
 import ArticleDetails from "views/Magazine/ArticleDetails";
+import ProfilePatient from "views/Patient/Profile";
+import ForgottenPassword from "views/SignUp/forgottenPassword";
+import ResetPassword from "views/SignUp/resetPassword";
+import CompleteProfile from "views/SignUp/CompleteProfile";
 
 // pages for dashbord
 
@@ -32,94 +34,80 @@ import "antd/dist/antd.css";
 import "./Dashboard/assets/styles/main.css";
 import "./Dashboard/assets/styles/responsive.css";
 
-import SectionThreads from "./Dashboard/pages/forum/section-threads.js"
-import Thread from "./Dashboard/pages/forum/thread";
-import CreateThread from "./Dashboard/pages/forum/create-thread";
-import ForumWelcome from "./Dashboard/pages/forum/forum-welcome.js";
-
 //protection of routes
-import ProtectedRoute from "./protectedRoute";
+//import ProtectedRoute from "./protectedRoute";
 import Articles from "Dashboard/pages/Articles/Articles";
 import ArticleDetailsDashboard from "Dashboard/pages/Articles/ArticleDetails";
 import ArticleForm from "Dashboard/pages/Articles/ArticleForm";
+import HomeShop from "./Shop/Home";
+import ArticleComments from "views/Magazine/ArticleComments";
+import Shop from "./Shop/Shop";
+import AsisstantProfile from "./Dashboard/pages/Assistants/AsisstantProfile";
+import AsisstantProfile2 from "./Dashboard/pages/Assistants/AsisstantProfile2";
+import EditAssistantProfile from "./Dashboard/pages/Assistants/EditAssistantProfile";
+import {CartProvider} from "react-use-cart";
+import {transitions, positions, Provider as AlertProvider} from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
+import SectionThreads from "./Dashboard/pages/forum/section-threads";
+import ForumWelcome from "./Dashboard/pages/forum/forum-welcome";
+import CreateThread from "./Dashboard/pages/forum/create-thread";
+import Thread from "./Dashboard/pages/forum/thread";
+
+const options = {
+    // you can also just use 'bottom center'
+    position: positions.BOTTOM_CENTER,
+    timeout: 5000,
+    type: 'success',
+    offset: '30px',
+    // you can also just use 'scale'
+    transition: transitions.SCALE
+}
 
 ReactDOM.render(
-  <BrowserRouter>
-      <Switch>
-        <Switch>
-        <Route path="/index" render={(props) => <Index {...props} />} />
-        <Route path="/" exact render={(props) => <Index {...props} />} />
+    <CartProvider>
+        <AlertProvider template={AlertTemplate} {...options}>
+            <BrowserRouter>
+                <Routes>
+                    {/*this section is for FrontOffice routes*/}
+                    <Route path="/index" element={<Index/>} />
+                    <Route path="/shop/*" element={<HomeShop/>} />
+                    <Route path="/nucleo-icons" element={<NucleoIcons/>} />
+                    <Route path="/medical-magazine" element={<MedicalMagazine/>} />
+                    <Route path="/article" element={<ArticleDetails/>} />
+                    <Route path="/landing-page" element={<LandingPage/>} />
+                    <Route path="/profile-page" element={<ProfilePage/>} />
+                    <Route path="/PatientProfile" element={<ProfilePatient/>} />
+                    <Route path="/comments" element={<ArticleComments/>} />
+                    <Route path="/landarticleForming-page" element={<LandingPage/>} />
+                    <Route path="/login-page" element={<LoginPage/>} />
+                    <Route path="/forgotPassword" element={<ForgottenPassword/>} />
+                    <Route path="/resetPassword/:userId/:resetString" element={<ResetPassword/>} />
+                    <Route path="/signUp" element={<SignUp/>} />
+                    <Route path="/medical-signUp" element={<MedicalSignUp/>} />
+                    <Route path="/completeProfile/:userId" element={<CompleteProfile/>} />
 
-        <Route
-          path="/nucleo-icons"
-          render={(props) => <NucleoIcons {...props} />}
-        />
-          <Route
-              path="/medical-magazine"
-              render={(props) => <MedicalMagazine {...props} />}
-          />
-          <Route
-              path="/article"
-              render={(props) => <ArticleDetails {...props} />}
-          />
-        <Route
-          path="/landarticleForming-page"
-          render={(props) => <LandingPage {...props} />}
-        />
-          {/*this route is protected, only access when logged in*/}
-        <ProtectedRoute exact path="/profile-page" component={ProfilePage} />
-        <Route
-          path="/login-page"
-          render={(props) => <LoginPage {...props} />}
-        />
+                    <Route path=""  element={<Navigate replace to="index"/>} />
 
+                    {/*this section is for dashboard routes*/}
+                    {/*you need to put the component that u want to redirect to inside <Main></Main> in element*/}
+                    <Route path="/dashboard" element={<Main> <Home/> </Main>} />
+                    <Route path="/dashboard/tables" element={<Main> <Tables/> </Main>} />
+                    <Route path="/dashboard/billing" element={<Main> <Billing/> </Main>} />
+                    <Route path="/dashboard/rtl" element={<Main> <Rtl/> </Main>} />
+                    <Route path="/dashboard/profile" element={<Main> <AsisstantProfile/> </Main>} />
+                    <Route path="/dashboard/editprofile" element={<Main> <EditAssistantProfile/> </Main>} />
+                    <Route path="/admin/shop/*" element={<Main> <Shop/> </Main>} />
+                    <Route path="/dashboard/forum/section/:id" element={<Main> <SectionThreads/> </Main>} />
+                    <Route path="/dashboard/forum/thread/:id" element={<Main> <Thread/> </Main>} />
+                    <Route path="/dashboard/forum" element={<Main> <ForumWelcome/> </Main>} />
+                    <Route path="/dashboard/forum/create-thread" element={<Main> <CreateThread/> </Main>} />
+                    <Route path="/articles" element={<Main> <Articles/> </Main>} />
+                    <Route path="/articleDetails" element={<Main> <ArticleDetailsDashboard/> </Main>} />
+                    <Route path="/articleForm" element={<Main> <ArticleForm/> </Main>} />
 
-
-        <Route
-            path="/signUp"
-            render={(props) => <SignUp {...props} />}
-        />
-        <Route
-            path="/medical-signUp"
-            render={(props) => <MedicalSignUp {...props} />}
-        />
-          
-        {/*this section is for dashboard routes*/}
-        <Main>
-
-          <Route exact
-            path="/dashboard/forum/section/:id"
-            render={(props) => <SectionThreads {...props} />}
-            />
-
-          <Route exact
-            path="/dashboard/forum/thread/:id"
-            render={(props) => <Thread {...props} />}
-            />
-
-          <Route exact
-            path="/dashboard/forum"
-            render={(props) => <ForumWelcome {...props} />}
-            />
-
-          <Route exact
-            path="/dashboard/forum/create-thread"
-            render={(props) => <CreateThread {...props} />}
-            />
-
-          <Route exact path="/dashboard" component={Home} />
-          <Route exact path="/articles" component={Articles} />
-          <Route exact path="/articleDetails" component={ArticleDetailsDashboard} />
-          <Route exact path="/articleForm" component={ArticleForm} />
-          <Route exact path="/tables" component={Tables} />
-          <Route exact path="/billing" component={Billing} />
-          <Route exact path="/rtl" component={Rtl} />
-          <Route exact path="/profile" component={Profile} />
- 
-        </Main>
-
-        </Switch>
-      </Switch>
-  </BrowserRouter>,
-  document.getElementById("root")
+                </Routes>
+            </BrowserRouter>
+        </AlertProvider>
+    </CartProvider>,
+    document.getElementById("root")
 );

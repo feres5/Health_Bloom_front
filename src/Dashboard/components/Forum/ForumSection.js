@@ -24,8 +24,8 @@ const ForumSection  = (props) =>
 
         const sub_arr = props.topics.slice(i*2,i*2+2);
 
-        const cols = sub_arr.map((item) => 
-            <Col span={24/2}> <ForumSectionTopic section={item} ></ForumSectionTopic> </Col>
+        const cols = sub_arr.map((item,index) =>
+            <Col span={24/2}> <ForumSectionTopic section={item} key={index} ></ForumSectionTopic> </Col>
         )
 
         tops.push(

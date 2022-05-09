@@ -44,7 +44,7 @@ function ForumWelcome() {
     const [sections, setSections] = useState([])
 
     const fetchSections = async () => {
-      const url = "http://localhost:3002/forum/get-sections";
+      const url = process.env.REACT_APP_BackEnd_url+"/forum/get-sections";
       //const urlId= url+idArticle
       const reponse = await fetch(url);
       const newSections = await reponse.json();

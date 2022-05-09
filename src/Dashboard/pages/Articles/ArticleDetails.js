@@ -46,7 +46,7 @@ function ArticleDetailsDashboard() {
     const location = useLocation();
     const idArticle = location.state.idArticle
     const [ArticleDetails, setArticleDetails] = useState([])
-    const url = "http://localhost:3002/articles/"
+    const url = process.env.REACT_APP_BackEnd_url+"/articles/"
 
     const fetchArticleDetails = async () => {
         const urlId = url + idArticle;
@@ -68,7 +68,7 @@ function ArticleDetailsDashboard() {
   var decodedTOKEN = jwt_decode(user,{payload : true});
 
   const idAuthor=ArticleDetails.author
-  const urlAuthor = "http://localhost:3002/articles/Author/"
+  const urlAuthor = process.env.REACT_APP_BackEnd_url+"/articles/Author/"
   const fetchAuthor = async () => {
       const urlId = urlAuthor + idAuthor;
 
@@ -137,7 +137,7 @@ function ArticleDetailsDashboard() {
         };
         
         
-        fetch(`http://localhost:3002/articles/updateArticle`, {
+        fetch(process.env.REACT_APP_BackEnd_url+`/articles/updateArticle`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -162,7 +162,7 @@ function ArticleDetailsDashboard() {
 
     const deleteArticle = async (id) => {
 
-        fetch(`http://localhost:3002/articles/delete/${id}`, {
+        fetch(process.env.REACT_APP_BackEnd_url+`/articles/delete/${id}`, {
             method: 'GET'
         })
             .then(async response => {

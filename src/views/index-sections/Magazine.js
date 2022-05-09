@@ -16,7 +16,7 @@ function Magazine() {
 
   const [articles, setarticles] = useState([])
   const fetcharticles = async () => {
-    const url = 'http://localhost:3002/articles/bestArticles'
+    const url = process.env.REACT_APP_BackEnd_url+'/articles/bestArticles'
     const reponse = await fetch(url)
     const newarticles = await reponse.json()
     setarticles(newarticles)
@@ -55,6 +55,8 @@ function Magazine() {
           <div className="title">
           <h3 className="title"><i className="now-ui-icons sport_trophy"></i> Our best articles</h3>
           </div>
+          <br/>
+          <br/>
           <Row className="justify-content-center">
             <Col lg="8" md="12">
               <Carousel
@@ -75,7 +77,7 @@ function Magazine() {
 
                       key={require("assets/img/bg1.jpg").default}
                     >
-                      <img src={process.env.PUBLIC_URL+ item.image} alt={item.title} />
+                      <img height={400} width={1000} src={process.env.PUBLIC_URL+ item.image} alt={item.title} />
                       <div className="carousel-caption d-none d-md-block">
                       <Link to={{
                             pathname: "/article",
