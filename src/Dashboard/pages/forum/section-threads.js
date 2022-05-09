@@ -68,6 +68,7 @@ const SectionThreads = () =>
       if(_mounted)
       setAllThreads(newThreads);
     }
+    
     useEffect(() => {
         let isMounted = true;  
         
