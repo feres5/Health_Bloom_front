@@ -52,6 +52,8 @@ import SectionThreads from "./Dashboard/pages/forum/section-threads";
 import ForumWelcome from "./Dashboard/pages/forum/forum-welcome";
 import CreateThread from "./Dashboard/pages/forum/create-thread";
 import Thread from "./Dashboard/pages/forum/thread";
+import ContactUs from "./views/Assistant profile/ContactUs";
+import FrontAssistantProfile from "./views/Assistant profile/FrontAssistantProfile";
 
 const options = {
     // you can also just use 'bottom center'
@@ -85,6 +87,8 @@ ReactDOM.render(
                     <Route path="/signUp" element={<SignUp/>} />
                     <Route path="/medical-signUp" element={<MedicalSignUp/>} />
                     <Route path="/completeProfile/:userId" element={<CompleteProfile/>} />
+                    <Route exact path="/Assistantprofile" element={<FrontAssistantProfile/>}/>
+                    <Route exact path="/ContactUs" element={<ContactUs/>}/>
 
                     <Route path=""  element={<Navigate replace to="index"/>} />
 
