@@ -22,7 +22,7 @@ function Articles() {
     }
 
     const fetcharticles = async () => {
-        const url = 'http://localhost:3002/articles'
+        const url = process.env.REACT_APP_BackEnd_url+'/articles'
         const reponse = await fetch(url)
         const newarticles = await reponse.json()
         setarticles(newarticles)
@@ -87,12 +87,10 @@ function Articles() {
                                     <div className="card-tag" height={170}>Published On: {item.dateCreation}</div>
                                     <Row gutter={[6, 0]} className="card-footer">
                                         <Col span={5}>
-                                            <Link to={{
-                                                pathname: "/articleDetails",
-                                                state: {
-                                                    idArticle: item._id
-                                                }
-                                            }} >
+                                            <Link
+                                                to={{pathname: "/articleDetails"}}
+                                                state={{idArticle: item._id}}
+                                            >
                                                 <Button type="button">VIEW ARTICLE</Button>
                                             </Link>
 

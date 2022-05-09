@@ -56,7 +56,7 @@ function Info(props){
     async function EditAssistant(){
         console.log(formData);
         await fetch(
-            "http://127.0.0.1:3002/users/updateUser/"+id,
+            process.env.REACT_APP_BackEnd_url+"/users/updateUser/"+id,
             {
                 method:"POST",
                 headers:{

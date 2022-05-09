@@ -16,7 +16,7 @@ function AsisstantProfile2()  {
   var decodedTOKEN = jwt_decode(token,{payload : true});
   let pageHeader = React.createRef();
   const [data,setData]= useState(null);
-  const url = "http://localhost:3002/articles/"
+  const url = process.env.REACT_APP_BackEnd_url+"/articles/"
   React.useEffect( () => {
     document.body.classList.add("profile-page");
     document.body.classList.add("sidebar-collapse");
@@ -29,7 +29,7 @@ function AsisstantProfile2()  {
     };
   });
   const [user, setuser] = useState([])
-  const url1 = "http://127.0.0.1:3002/articles/Author/"
+  const url1 = process.env.REACT_APP_BackEnd_url+"/articles/Author/"
 
 
 

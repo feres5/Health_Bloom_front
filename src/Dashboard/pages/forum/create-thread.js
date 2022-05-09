@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from "react";
-//import { useHistory  } from "react-router-dom";
+//import { useNavigate   } from "react-router-dom";
 
 import Switch from "react-bootstrap-switch";
 // plugin that creates slider
@@ -40,14 +40,14 @@ function CreateThread() {
       };
     });
 
-    //const history = useHistory();
+    //const history = useNavigate ();
     
     const handleSubmit = e => {
         e.preventDefault();
         // get our form data out of state
         const title =  e.target.elements.title.value;
         const body =  e.target.elements.body.value;
-        axios.post("http://localhost:3002/forum/create-thread", {title, body }).then((res) => {
+        axios.post(process.env.REACT_APP_BackEnd_url+"/forum/create-thread", {title, body }).then((res) => {
             console.log(res.data)
             //history.push("/forum/section/1");
         }).catch((error) => {

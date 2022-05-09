@@ -74,7 +74,7 @@ function Profile() {
     //   var newPhone = user.Phone
     // };
 
-    // fetch('http://127.0.0.1:3002/users/updateUser/'+user._id, {
+    // fetch(process.env.REACT_APP_BackEnd_url+'/users/updateUser/'+user._id, {
     //   method: 'GET',
     //   headers: { 'Content-Type': 'application/json' },
     //   body: JSON.stringify({
@@ -97,7 +97,7 @@ function Profile() {
   }
 
 
-  const url = "http://127.0.0.1:3002/articles/Author/"
+  const url = process.env.REACT_APP_BackEnd_url+"/articles/Author/"
 
   var usertoken = localStorage.getItem("user_info");
   var decodedTOKEN = jwt_decode(usertoken,{payload : true});
@@ -118,7 +118,7 @@ function Profile() {
   }
   //new get user function
   const fetchData = async ()=>{
-    await axios.get('http://127.0.0.1:3002/users/getById/'+decodedTOKEN.user_id)
+    await axios.get(process.env.REACT_APP_BackEnd_url+'/users/getById/'+decodedTOKEN.user_id)
         .then(result=>{
           console.log(result.data);
           setData(result.data);
@@ -161,7 +161,7 @@ function Profile() {
   //const[Assistant,setAssistant]= useState([])
 
   const fetchAssistant = async () => {
-    const urlA = "http://127.0.0.1:3002/users/getassistants/"
+    const urlA = process.env.REACT_APP_BackEnd_url+"/users/getassistants/"
     const idA= localStorage.getItem("idAssistant")
 
     const urlAssistant = urlA +idA

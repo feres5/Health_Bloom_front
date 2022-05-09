@@ -29,7 +29,7 @@ function MagazineHeader() {
   }
   const [Author, setAuthor] = useState([])
 
-  const url = "http://localhost:3002/articles/Author/"
+  const url = process.env.PUBLIC_URL+"/articles/Author/"
 
   const fetchAuthor = async () => {
       const urlId = url + decodedTOKEN.user_id;
@@ -45,7 +45,7 @@ function MagazineHeader() {
 
   const unsubscribe = async (id) => {
 
-    fetch(`http://localhost:3002/articles/unsubscribe/${id}`, {
+    fetch(process.env.PUBLIC_URL+`/articles/unsubscribe/${id}`, {
       method: 'PUT'
     })
       .then(async response => {
@@ -69,7 +69,7 @@ function MagazineHeader() {
 
   const subscribe = async (id) => {
 
-    fetch(`http://localhost:3002/articles/subscribe/${id}`, {
+    fetch(process.env.PUBLIC_URL+`/articles/subscribe/${id}`, {
       method: 'PUT'
     })
       .then(async response => {

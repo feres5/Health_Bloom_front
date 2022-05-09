@@ -40,7 +40,7 @@ const SectionThreads = () =>
     const [threads, setThreads] = useState(null)
 
     const fetchSections = async (_mounted) => {
-      const url = "http://localhost:3002/forum/get-threads";
+      const url = process.env.REACT_APP_BackEnd_url+"/forum/get-threads";
       //const urlId= url+idArticle
       const reponse = await fetch(url);
       const newThreads = await reponse.json();

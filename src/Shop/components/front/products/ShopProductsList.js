@@ -19,10 +19,11 @@ const ShopProductsList = props => {
                                 name={product.name}
                                 description={product.description}
                                 price={product.price}
+                                item={product}
                             />
                         ))
 
-                    }}
+                    }
                 </>}
             {!props.grid &&
                 <>
@@ -35,10 +36,11 @@ const ShopProductsList = props => {
                                 name={product.name}
                                 description={product.description}
                                 price={product.price}
+                                item={product}
                             />
                         ))
 
-                    }}
+                    }
                 </>}
         </>
     );

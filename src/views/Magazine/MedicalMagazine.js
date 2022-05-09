@@ -20,7 +20,7 @@ function MedicalMagazine() {
   const [articles, setarticles] = useState([])
   const [searchTerm, setsearchTerm] = useState("")
   const fetcharticles = async () => {
-    const url = 'http://localhost:3002/articles'
+    const url = process.env.REACT_APP_BackEnd_url+'/articles'
     const reponse = await fetch(url)
     const newarticles = await reponse.json()
     setarticles(newarticles)
@@ -87,12 +87,10 @@ function MedicalMagazine() {
               <h4 className="card__title">{item.title}</h4>
               {/* <p className="card__description">{item.author}</p> */}
             </div>
-            <Link to={{
-                            pathname: "/article",
-                            state: {
-                              idArticle: item._id
-                            }
-                          }} >
+            <Link
+                to={{pathname: "/article"}}
+                state={{idArticle: item._id}}
+            >
             <button className="card__btn">Read Article</button>
             </Link>
           </div>

@@ -1,12 +1,13 @@
 import "../../../assets/css/plugins/animate.min.css";
 import "../../../assets/css/main.scoped.css";
 import React from "react";
-import {Link, useRouteMatch} from "react-router-dom";
+import {Link, useMatch } from "react-router-dom";
+import {useCart} from "react-use-cart";
 
 const ShopProductsItemGrid = props => {
 
-    const {path, url} = useRouteMatch();
-
+    const {path, url} = useMatch();
+    const {addItem} = useCart();
     return (
         <div className="product-cart-wrap">
             <div className="product-img-action-wrap">
@@ -14,9 +15,11 @@ const ShopProductsItemGrid = props => {
                     <div className="product-img-inner">
                         <Link exact="true" to={`${path}/${props.id}`}>
                             <img className="default-img"
-                                 src={`http://localhost:3002/${props.image}`} alt=""/>
+                                 src={process.env.REACT_APP_BackEnd_url+`/${props.image}`}
+                                 alt=""/>
                             <img className="hover-img"
-                                 src={`http://localhost:3002/${props.image}`} alt=""/>
+                                 src={process.env.REACT_APP_BackEnd_url+`/${props.image}`}
+                                 alt=""/>
                         </Link>
                     </div>
                 </div>
@@ -38,9 +41,9 @@ const ShopProductsItemGrid = props => {
             </div>
             <div className="product-content-wrap">
                 <div className="product-category">
-                    <a href="shop-grid-right.html">Hodo Foods</a>
+                    <a href={`${path}/${props.id}`}>Hodo Foods</a>
                 </div>
-                <h2><a href="shop-product-right.html">{props.name}</a></h2>
+                <h2><a href={`${path}/${props.id}`}>{props.name}</a></h2>
                 <div className="product-rate-cover">
                     <div className="product-rate d-inline-block">
                         <div className="product-rating"
@@ -58,7 +61,12 @@ const ShopProductsItemGrid = props => {
 
                 <div className="mt-30 d-flex align-items-center">
                     <a aria-label="Buy now" className="btn"
-                       href="shop-cart.html"><i
+                       href="shop-cart.html"
+                       onClick={(e) => {
+                           e.preventDefault()
+                           addItem(props.item)
+                       }}
+                    ><i
                         className="fi-rs-shopping-cart mr-5"></i>Add to Cart</a>
                     <a href="#"
                        className="add-wishlish ml-30 text-body font-sm font-heading font-weight-bold"><i

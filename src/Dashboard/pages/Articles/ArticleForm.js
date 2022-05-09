@@ -29,7 +29,7 @@ function ArticleForm() {
     const [Image, setImage] = useState()
 
     console.log("title is" + Title)
-    const url = "http://localhost:3002/articles/Author/"
+    const url = process.env.REACT_APP_BackEnd_url+"/articles/Author/"
 
     const fetchAuthor = async () => {
         const urlId = url + id;
@@ -47,7 +47,7 @@ function ArticleForm() {
     const onSubmit = () => {
         var newImage = Image.replace("C:\\fakepath\\", "");
         console.log(newImage)
-        fetch(`http://localhost:3002/articles/addArticle`, {
+        fetch(process.env.REACT_APP_BackEnd_url+`/articles/addArticle`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

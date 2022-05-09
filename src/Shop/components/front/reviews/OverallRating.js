@@ -1,6 +1,6 @@
 import "../../../assets/css/plugins/animate.min.css";
 import "../../../assets/css/main.scoped.css";
-const overallRating = () => {
+const overallRating = props => {
 
     return (
         <div className="col-lg-4">
@@ -12,19 +12,19 @@ const overallRating = () => {
                     className="product-rate d-inline-block mr-15">
                     <div
                         className="product-rating"
-                        style={{width: "90%"}}></div>
+                        style={{width: `${props.average * 20}%`}}></div>
                 </div>
-                <h6>4.8 out of 5</h6>
+                <h6>{props.average} out of 5</h6>
             </div>
             <div className="progress">
                 <span>5 star</span>
                 <div
                     className="progress-bar"
                     role="progressbar"
-                    style={{width: "50%"}}
-                    aria-valuenow="50"
+                    style={{width: `${props.star5 /props.total * 100}%`}}
+                    aria-valuenow={(props.star5 / props.total * 100).toFixed(0)}
                     aria-valuemin="0"
-                    aria-valuemax="100">50%
+                    aria-valuemax="100">{(props.star5 / props.total * 100).toFixed(0)}%
                 </div>
             </div>
             <div className="progress">
@@ -32,10 +32,10 @@ const overallRating = () => {
                 <div
                     className="progress-bar"
                     role="progressbar"
-                    style={{width: "25%"}}
-                    aria-valuenow="25"
+                    style={{width: `${props.star4 /props.total * 100}%`}}
+                    aria-valuenow={(props.star4 / props.total * 100).toFixed(0)}
                     aria-valuemin="0"
-                    aria-valuemax="100">25%
+                    aria-valuemax="100">{(props.star4 / props.total * 100).toFixed(0)}%
                 </div>
             </div>
             <div className="progress">
@@ -43,10 +43,10 @@ const overallRating = () => {
                 <div
                     className="progress-bar"
                     role="progressbar"
-                    style={{width: "45%"}}
-                    aria-valuenow="45"
+                    style={{width: `${props.star3 /props.total * 100}%`}}
+                    aria-valuenow={(props.star3 / props.total * 100).toFixed(0)}
                     aria-valuemin="0"
-                    aria-valuemax="100">45%
+                    aria-valuemax="100">{(props.star3 / props.total * 100).toFixed(0)}%
                 </div>
             </div>
             <div className="progress">
@@ -54,10 +54,10 @@ const overallRating = () => {
                 <div
                     className="progress-bar"
                     role="progressbar"
-                    style={{width: "85%"}}
-                    aria-valuenow="65"
+                    style={{width: `${props.star2 /props.total * 100}%`}}
+                    aria-valuenow={(props.star2 / props.total * 100).toFixed(0)}
                     aria-valuemin="0"
-                    aria-valuemax="100">65%
+                    aria-valuemax="100">{(props.star2 / props.total * 100).toFixed(0)}%
                 </div>
             </div>
             <div
@@ -66,10 +66,10 @@ const overallRating = () => {
                 <div
                     className="progress-bar"
                     role="progressbar"
-                    style={{width: "85%"}}
-                    aria-valuenow="85"
+                    style={{width:`${props.star1 /props.total * 100}%`}}
+                    aria-valuenow={(props.star1 / props.total * 100).toFixed(0)}
                     aria-valuemin="0"
-                    aria-valuemax="100">85%
+                    aria-valuemax="100">{(props.star1 / props.total * 100).toFixed(0)}%
                 </div>
             </div>
             <a href="#"

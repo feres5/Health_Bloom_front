@@ -5,13 +5,13 @@ import { Form } from 'react-bootstrap';
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import moment from "moment";
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function GeneralInfo(props) {
-    const navigate = useHistory();
+    const navigate = useNavigate();
    console.log(props.info.user);
     // console.log(props.info.patient);
-    const url = "http://localhost:3002/users/";
+    const url = process.env.REACT_APP_BackEnd_url+"/users/";
 
     const getFormattedDate = (dateStr) => {
         return moment(dateStr).toDate();
@@ -24,11 +24,12 @@ function GeneralInfo(props) {
         Email: props.info.user.Email,
         Address:props.info.user.Address,
         Phone:props.info.user.Phone,
+        Password: props.info.user.Password,
         assistant:props.info._assistant,
         //Speciality : props.info.assistant.Speciality,
         //Description : props.info.assistant.Description,
     });
-    const {id,FirstName,LastName,Email,Address,Phone,assistant} = formData;
+    const {id,FirstName,LastName,Email,Address,Phone,Password,assistant} = formData;
 
     const onChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
