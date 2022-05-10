@@ -11,10 +11,6 @@ import * as yup from 'yup';
 import TransparentFooter from "components/Footers/TransparentFooter.js";
 import jwt_decode from "jwt-decode";
 import {InputBase} from "@mui/material";
-import ReCAPTCHA from "react-google-recaptcha";
-function onChangecap(value) {
-  console.log("Captcha value:", value);
-}
 
 function LoginPage() {
   const navigate = useNavigate ()
@@ -186,10 +182,6 @@ function LoginPage() {
                         />
                       </div>
                     </Row>
-                    <ReCAPTCHA
-                        sitekey="6LcVqJ4fAAAAALRy-bRXCRkyMdG0990Vu9pOxCw5"
-                        onChange={onChangecap()}
-                    />
                   </CardBody>
                   <CardFooter className="text-center">
                     <div className="pull-left">

@@ -54,6 +54,8 @@ import CreateThread from "./Dashboard/pages/forum/create-thread";
 import Thread from "./Dashboard/pages/forum/thread";
 import ContactUs from "./views/Assistant profile/ContactUs";
 import FrontAssistantProfile from "./views/Assistant profile/FrontAssistantProfile";
+import CreateSection from "./Dashboard/pages/forum/create-section";
+
 
 const options = {
     // you can also just use 'bottom center'
@@ -103,8 +105,9 @@ ReactDOM.render(
                     <Route path="/admin/shop/*" element={<Main> <Shop/> </Main>} />
                     <Route path="/dashboard/forum/section/:id" element={<Main> <SectionThreads/> </Main>} />
                     <Route path="/dashboard/forum/thread/:id" element={<Main> <Thread/> </Main>} />
+                    <Route path="/dashboard/forum/section/:sectionId/create-thread" element={<Main> <CreateThread/> </Main>} />
+                    <Route path="/dashboard/forum/create-section" element={<Main> <CreateSection/> </Main>} />
                     <Route path="/dashboard/forum" element={<Main> <ForumWelcome/> </Main>} />
-                    <Route path="/dashboard/forum/create-thread" element={<Main> <CreateThread/> </Main>} />
                     <Route path="/articles" element={<Main> <Articles/> </Main>} />
                     <Route path="/articleDetails" element={<Main> <ArticleDetailsDashboard/> </Main>} />
                     <Route path="/articleForm" element={<Main> <ArticleForm/> </Main>} />
