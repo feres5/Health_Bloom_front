@@ -7,17 +7,15 @@ import {Descriptions} from "antd";
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import DarkFooter from "components/Footers/DarkFooter.js";
 import GeneralInfo from "./generalInfo";
-
 // imports for popup
 import 'reactjs-popup/dist/index.css';
 import {Dialog, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 //pdf
+import {PDFDownloadLink } from '@react-pdf/renderer';
 import PdfMFile from "./PdfMFile";
 import MedicalFileView from "./medicalFileView";
 //cloudinary
 import {Image} from "cloudinary-react";
-
-
 function Profile()  {
     const token = localStorage.getItem("user_info");
     var decodedTOKEN = jwt_decode(token,{payload : true});
@@ -154,29 +152,37 @@ function Profile()  {
         SocialHistory : [SocialHistory],
         Habits : [Habits]
     });
-    const [medf,setMedf]= useState(null);
-    useEffect(async () => {
+    useEffect(() => {
         //for getting the users info & medical file
-        await axios.get(url + "getById/" + decodedTOKEN.user_id)
+        axios.get(url + "getById/" + decodedTOKEN.user_id)
             .then((response) => {
                 setData(response.data);
+                axios({
+                    method: "GET",
+                    url: process.env.REACT_APP_BackEnd_url+"/medicalFile/getById/" + response.data.patient._id,
+                }).then(async response => {
+                    SetMedicalFile(response.data);
+                });
             })
             .catch(err => {
                 console.log(err)
             });
-        await axios({
-            method: "GET",
-            url: process.env.REACT_APP_BackEnd_url + "/medicalFile/getById/" + decodedTOKEN.restUserInfo,
-        }).then((response) => {
-            setMedf(response.data);
-            SetMedicalFile(response.data);
-            //console.log(response.data);
-            //console.log(medf);
-            //console.log(MedicalFile);
-        });
     },[]);
+    //pdf doc
 
-    if( medf===null)
+    function printToPdf(){
+        // ReactPDF.render(<MyDocument/>, `Bureau/example.pdf`)
+        //     .then(r =>{
+        //         console.log("printing pdf");
+        //         console.log(r);
+        //     })
+        //     .catch(err=>{
+        //         console.log(err);
+        //     })
+        //);
+
+    }
+    if(data===null)
     {
         return (
             <p>loading profile data...</p>
@@ -202,6 +208,7 @@ function Profile()  {
                             <Container>
                                 <div className="photo-container">
                                     <Image cloudName="dgwq7xcnk" publicId={data.user.Picture} />
+                                    {/*<img alt="..." src={require("assets/img/ryan.jpg").default}></img>*/}
                                 </div>
                                 <h3 className="title" style={{color: "white",fontFamily: "helvetica"}}>
                                     {data.user.FirstName} {data.user.LastName}
@@ -227,13 +234,17 @@ function Profile()  {
                             {/*medical file section*/}
                             <div>
                                 here goes medical file section
-                                <>
+                                <Row>
                                     <Button className="btn-round" color="info" onClick={handleClickOpen} outline type="button">Upload</Button>
                                     <Button className="btn-round" color="info" onClick={openViewDialog} outline type="button">View</Button>
-                                    <PdfMFile medicalFile={medf} name={data.user.FirstName+" "+data.user.LastName} />
-                                </>
+                                    <PDFDownloadLink document={<PdfMFile medicalFile={MedicalFile} />} fileName="FROM">
+                                        {({loading})=>(
+                                            loading?
+                                                <Button className="btn-round" color="danger" outline type="button" >loading document...</Button>:
+                                                <Button className="btn-round" color="info" outline type="button">Download</Button>)}
+                                    </PDFDownloadLink>
+                                </Row>
                             </div>
-
                             {/*history section*/}
                             <div>
                                 <Row>

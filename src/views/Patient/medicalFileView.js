@@ -1,144 +1,130 @@
 import React, {useState} from "react";
+import {Descriptions} from "antd";
 import { StyleSheet } from '@react-pdf/renderer';
 
-const styles = StyleSheet.create({
-    table: {
-        display: "table",
-        width: "auto",
-        borderStyle: "#bfbfbf",
-        borderColor: "solid",
-    }
-});
-
 function MedicalFileView(props) {
-        const [MedicalFile,setMedicalFile]=useState(props.medicalFile);
+    const [MedicalFile,setMedicalFile]=useState(props.medicalFile)
 
     return(
         <>
             <br/>
-            <h5>Surgical : </h5>
-            <table className="table table-hover" style={styles.table}>
-                <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Motif</th>
-                    <th>Outcomes</th>
-                    <th>Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                {MedicalFile.Surgical?.map((surgical,index)=>(
-                    <tr>
-                        <td>{surgical.title}</td>
-                        <td>{surgical.motif}</td>
-                        <td>{surgical.outcomes}</td>
-                        <td>{surgical.date}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+
+            <Descriptions title="surgical :"   >
+                {
+
+                    MedicalFile.Surgical?.map((surgical,index)=>(
+                        <>
+
+                            <Descriptions.Item  label="title" span={3} >
+                                    {surgical.title} {"\n"}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="motif" span={3} >
+                                {surgical.motif} {"\n"}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="outcomes" span={3}>
+                                {surgical.outcomes} {"\n"}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="date" span={3}>
+                                {surgical.date} {"\n"}
+                            </Descriptions.Item>
+                        </>
+                    ))
+                }
+            </Descriptions>
+                {"\n"}
             <br/>
-            <h5>Obstetric : </h5>
-            <table className="table table-hover" style={styles.table}>
-                <thead>
-                <tr>
-                    <th>Outcomes</th>
-                    <th>Pregnancy Date</th>
-                    <th>Child Birth Date</th>
-                    <th>Baby Gender</th>
-                </tr>
-                </thead>
-                <tbody>
-                {MedicalFile.Obstetric?.map((obstetric,index)=>(
-                    <tr>
-                        <td>{obstetric.outcomes}</td>
-                        <td>{obstetric.pregnancyDate}</td>
-                        <td>{obstetric.childBirthDate}</td>
-                        <td>{obstetric.babyGender}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-            <br/>
-            <h5>Medications : </h5>
-            <table className="table table-hover" style={styles.table}>
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Dose</th>
-                    <th>From</th>
-                    <th>Until</th>
-                </tr>
-                </thead>
-                <tbody>
-                {MedicalFile.Medications?.map((medications,index)=>(
-                    <tr>
-                        <td>{medications.name}</td>
-                        <td>{medications.dose}</td>
-                        <td>{medications.from}</td>
-                        <td>{medications.until}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-            <br/>
-            <h5>Family History : </h5>
-            <table className="table table-hover" style={styles.table}>
-                <thead>
-                <tr>
-                    <th>Family Member</th>
-                    <th>Disease</th>
-                    <th>Treatments</th>
-                    <th>Outcomes</th>
-                </tr>
-                </thead>
-                <tbody>
-                {MedicalFile.FamilyHistory?.map((familyHistory,index)=>(
-                    <tr>
-                        <td>{familyHistory.familyMember}</td>
-                        <td>{familyHistory.disease}</td>
-                        <td>{familyHistory.treatments}</td>
-                        <td>{familyHistory.outcomes}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-            <br/>
-            <h5>Social History : </h5>
-            <table className="table table-hover" style={styles.table}>
-                <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Info</th>
-                </tr>
-                </thead>
-                <tbody>
-                {MedicalFile.SocialHistory?.map((socialHistory,index)=>(
-                    <tr>
-                        <td>{socialHistory.title}</td>
-                        <td>{socialHistory.info}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-            <br/>
-            <h5>Habits : </h5>
-            <table className="table table-hover" style={styles.table}>
-                <thead>
-                <tr>
-                    <th>Habit</th>
-                    <th>State</th>
-                </tr>
-                </thead>
-                <tbody>
-                {MedicalFile.Habits?.map((habits,index)=>(
-                    <tr>
-                        <td>{habits.habit}</td>
-                        <td>{habits.state}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+            <Descriptions title="Obstetric :">
+                {
+                    MedicalFile.Obstetric?.map((obstetric,index)=>(
+                        <>
+                            <Descriptions.Item label="outcomes" span={3}>
+                                {obstetric.outcomes} {"\n"}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="pregnancy Date" span={3}>
+                                {obstetric.pregnancyDate} {"\n"}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="childBirth Date" span={3}>
+                                {obstetric.childBirthDate} {"\n"}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="baby Gender" span={3}>
+                                {obstetric.babyGender} {"\n"}
+                            </Descriptions.Item>
+                        </>
+                    ))
+                }
+            </Descriptions>
+            <br/>{"\n"}
+            <Descriptions title="Medications :">
+                {
+                    MedicalFile.Medications?.map((medications,index)=>(
+                        <>
+                            <Descriptions.Item label="name" span={3}>
+                                {medications.name} {"\n"}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="dose" span={3}>
+                                {medications.dose} {"\n"}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="from" span={3}>
+                                {medications.from} {"\n"}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="until" span={3}>
+                                {medications.until} {"\n"}
+                            </Descriptions.Item>
+                        </>
+                    ))
+                }
+            </Descriptions>
+            <br/>{"\n"}
+            <Descriptions title="Family History :">
+                {
+                    MedicalFile.FamilyHistory?.map((familyHistory,index)=>(
+                        <>
+                            <Descriptions.Item label="family Member" span={3}>
+                                {familyHistory.familyMember} {"\n"}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="disease" span={3}>
+                                {familyHistory.disease} {"\n"}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="treatments" span={3}>
+                                {familyHistory.treatments} {"\n"}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="outcomes" span={3}>
+                                {familyHistory.outcomes} {"\n"}
+                            </Descriptions.Item>
+                        </>
+                    ))
+                }
+            </Descriptions>
+            <br/>{"\n"}
+            <Descriptions title="Social History :">
+                {
+                    MedicalFile.SocialHistory?.map((socialHistory,index)=>(
+                        <>
+                            <Descriptions.Item label="title" span={3}>
+                                {socialHistory.title} {"\n"}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="info" span={3}>
+                                {socialHistory.info} {"\n"}
+                            </Descriptions.Item>
+                        </>
+                    ))
+                }
+            </Descriptions>
+            <br/>{"\n"}
+            <Descriptions title="Habits :">
+                {
+                    MedicalFile.Habits?.map((habits,index)=>(
+                        <>
+                            <Descriptions.Item label="habit" span={3}>
+                                {habits.habit} {"\n"}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="state" span={3}>
+                                {habits.state} {"\n"}
+                            </Descriptions.Item>
+                        </>
+                    ))
+                }
+            </Descriptions>{"\n"}
         </>
     );
 }
