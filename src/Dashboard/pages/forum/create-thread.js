@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from "react";
-import { useNavigate, useParams } from "react-router-dom";
+//import { useNavigate   } from "react-router-dom";
 
 import Switch from "react-bootstrap-switch";
 // plugin that creates slider
@@ -8,9 +8,6 @@ import Slider from "nouislider";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro' 
-
-import { FilledInput, Box ,Grid, IconButton} from "@mui/material";
-import ArrowBackIosNew from '@mui/icons-material/ArrowBackIosNew';
 
 
 // reactstrap components
@@ -22,104 +19,62 @@ import {
   Container,
   Form
 } from "reactstrap";
-
-
 import { Link } from "react-router-dom";
 import ForumSection from './../../components/Forum/ForumSection'
-import { Redirect } from "react-router-dom";
-import jwt_decode from "jwt-decode";
-
 
 const axios = require('axios');
 
 
 function CreateThread() {
 
+    useEffect(() => {
+      document.body.classList.add("index-page");
+      document.body.classList.add("sidebar-collapse");
+      document.documentElement.classList.remove("nav-open");
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
+      return function cleanup() {
+        document.body.classList.remove("index-page");
+        document.body.classList.remove("sidebar-collapse");
+        
+      };
+    });
 
-    const {sectionId} = useParams()
-
-    const history = useNavigate();
-
-    const [title, setTitle] = useState('')
-    const [body, setBody] = useState('')
-    const [userData, setUserData] = useState({})
-
-
-    const onTitleChange = (e) => setTitle(e.target.value);
-    const onBodyChange = (e) => setBody(e.target.value);
+    //const history = useNavigate ();
     
-    const handleSubmit = () => {
-       
-      if(title === "" || body ==="" ) return;
-      
-        let userId = userData.user._id;
-        axios.post(process.env.REACT_APP_BackEnd_url + "/forum/create-thread", {title, body,sectionId,userId }).then((res) => {
+    const handleSubmit = e => {
+        e.preventDefault();
+        // get our form data out of state
+        const title =  e.target.elements.title.value;
+        const body =  e.target.elements.body.value;
+        axios.post(process.env.REACT_APP_BackEnd_url+"/forum/create-thread", {title, body }).then((res) => {
             console.log(res.data)
-            history("/dashboard/forum/section/" + sectionId);
+            //history.push("/forum/section/1");
         }).catch((error) => {
             console.log(error)
         });
     };
-    
-    useEffect(() => {
-      fetchUser();
-    }, [])
 
-    var usertoken = localStorage.getItem("user_info");
-    var decodedTOKEN;
-    if(usertoken)
-    decodedTOKEN = jwt_decode(usertoken,{payload : true});
-
-    const fetchUser = async () => 
-    {
-      if(usertoken)
-      {
-        const urluser = process.env.REACT_APP_BackEnd_url + "/users/getById/" + decodedTOKEN.user_id
-    
-        const reponse = await fetch(urluser)
-        const newuser = await reponse.json()
-
-        setUserData(newuser)
-        //alert(JSON.stringify(userData.user.Role))
-      }
-    }
-
-    if(!usertoken)
-    {
-      return(<>
-        <p>Not logged in !!</p>
-      </>)
-    }
-    else
-    {
-      if(userData.user)
-      if(userData.user.Role !== "Doctor")
-      return(<>
-        <p>Forum can only be accessed by a doctor.</p>
-      </>)
-    }
-  
     return (
       <>
+
         <div className="wrapper">
-            <div className="container forum-create-thread">
-            <Link to={`/dashboard/forum/section/${sectionId}`}> <IconButton onClick={() => {}} > <ArrowBackIosNew /></IconButton>
-                    </Link>
-                <Box>                    
-                  <Grid>
-                    <Grid item>
-                      <FilledInput className="create-thread-title-input" required label='title' placeholder="title"  onChange={onTitleChange} value={title}/>
-                    </Grid>
-                    
-                    <Grid item>
-                      <FilledInput  className="create-thread-body-input"  required label='body' placeholder="body content"  onChange={onBodyChange} value={body} minRows={6} multiline />
-                    </Grid>
+            <Container className="forum-create-thread">
+                <Form onSubmit={handleSubmit}>
+                    <FormGroup>
+                    <Label for="threadTitle">Title</Label>
+                    <Input type="text" name="title" id="threadTitle" placeholder="" />
+                    </FormGroup>
 
-                    <Button variant="contained"  onClick={() => {handleSubmit()} } >Create Thread</Button>
-                    </Grid>
-                </Box>
+                    <FormGroup>
+                    <Label for="threadBody"></Label>
+                    <Input type="textarea" name="body" id="threadBody" />
+                    </FormGroup>
 
-            </div>
+                    <Button>Submit</Button>
+                </Form>
+
+            </Container>
 
         </div>
       </>

@@ -8,12 +8,11 @@ import {
   } from "reactstrap";
   
   import { Link } from 'react-router-dom';
-import { LinkedCamera } from "@mui/icons-material";
 
 const SectionThreadsCard = (props) => 
 {
     const thread = props.thread;
-    //alert(JSON.stringify(thread))
+
     return(
         <>
         <tr className='section-thread-table-row'> 
@@ -21,20 +20,22 @@ const SectionThreadsCard = (props) =>
                 <Container className='section-thread-card'>
                     <Link className='section-thread-card-title' to={"/dashboard/forum/thread/"+thread._id}>{thread.title}</Link>
                     <Container  className='section-thread-card-infos'>
-                        <span>By:</span> <Link to={props.thread.user ? `/doctor/front-profile/${props.thread.user._id}` : "/dashboard"}> {props.thread.user ? props.thread.user.FirstName + " " + props.thread.user.LastName : ""} </Link>
+                        <span>By:</span>
+                        <a>Foulen</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <i>{thread.dateCreated != null ?  thread.dateCreated : 'No date'}</i>
+                        <a>15-12-2021</a>
                     </Container>
                 </Container>
             </td>
                 <td>
-                    {thread.comments.length} Replies
+                    52 Comments
                 </td>
             <td>
                 <Container  className='section-thread-card-infos'>
-                        <span>By:</span> <Link to={props.thread.user ? `/doctor/front-profile/${props.thread.user._id}` : "/dashboard"}>{thread.comments[thread.comments.length-1]  != null && thread.comments[thread.comments.length-1].user  != null? thread.comments[thread.comments.length-1].user.FirstName + " " + thread.comments[thread.comments.length-1].user.LastName : ""}</Link>
+                        <span>By:</span>
+                    <a>Foulen</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <i>{ thread.comments[thread.comments.length-1]  != null? thread.comments[thread.comments.length-1].dateCreated : 'No replies'}</i>
+                        <a>15-12-2021</a>
                 </Container>
             </td>
         </tr>

@@ -223,7 +223,7 @@
 
 .thread-content
 {
-    padding: 0 !important;
+    padding: 0;
 }
 
 .thread-title
@@ -239,13 +239,9 @@
 
 .thread-title-row
 {
-    background-color: $color-g56;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-
-    min-height: 40px;
+    background-color: $color-pistachio;
+    
     margin: 0 !important;
-
 }
 
 .thread-title-row > div
@@ -253,54 +249,21 @@
     padding: 0;
 }
 
+
 .thread-content-card
 {
-    min-height: 50px;
+    min-height: 250px;
     width: 100%;
 }
 
-
 .thread-content-card > div
 {
-    min-height: 50px;
-    border-bottom: 2px solid $color-g8;
-    
+    min-height: 250px;
 }
 
 .thread-comment-content
 {
-    color:$color-forest-green;
     padding: 25px;
-    position: relative;
-}
-
-.thread-main-content
-{
-    border-left: 2px solid $color-g8;
-
-    background: 
-    linear-gradient(to top right,#0000 50%,#282828 50.1%) top right/40px 40px no-repeat,
-    black; 
-    overflow: hidden;
-}
-
-.thread-comment-content > h3
-{
-    color:$color-forest-green-dark;
-}
-
-.thread-comment-content > p
-{
-    font-size: 1.2em;
-
-}
-
-.thread-comment-control
-{
-    padding: 25px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
 }
 
 .thread-comment-content p
@@ -310,15 +273,12 @@
 
 .thread-profile-info
 {
-    background-color: $color-g24;
+    background-color: brown;
     padding: 15px;
-    
-
 }
 
 .thread-profile-info > div
 {
-    border-right: 2px solid $color-g8;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -329,20 +289,7 @@
 {
     width: 70%;
     position: relative;
-    border: 1px solid $color-g56;
-    border-radius: 5%;
 }
-
-.thread-profile-info a
-{
-    font-weight: 700;
-    color: $color-g56;
-    &:hover,
-    &:focus{
-      color: $color-forest-green-dark;
-    }
-}
-
 
 .thread-profile-info h5
 {
@@ -354,37 +301,7 @@
 
 .thread-comment-content
 {
-    background-color: $color-g24;
-}
-
-
-.thread-comment-input
-{
-    margin-top: 25px !important;
-    width: 100%;
-    font-size: 1.2em;
-}
-.thread-comment
-{
-    position: relative;
-}
-.thread-comment-button
-{
-    margin:25px !important;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-}
-
-.comment-like-count
-{
-    position: relative;
-    top: 3px;
-    right: 7px;
-    display:inline;
-    font-size: 1.2em;
-    font-weight: bold !important;
-    color:#c2185b;
+    background-color: coral;
 }
 
 .section-threads-links-container
@@ -394,31 +311,4 @@
 
 }
 
-.news-carroussel-title
-{
-    margin-top: 15px;
-    color: white !important;
-    text-shadow: 1px 1px black;
-    padding: 0 15px !important;
-}
 
-.news-carroussel-description
-{
-    font-size: 1.2em;
-    display: block  !important;
-    color: white !important;
-    text-shadow: 1px 1px black;
-    padding: 0 15px !important;
-}
-
-.create-thread-title-input
-{
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-.create-thread-body-input
-{
-    width: 100%;
-    margin-bottom: 15px;
-}

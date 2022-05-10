@@ -16,20 +16,14 @@ import {
 
 import ReactPaginate from 'react-paginate';
 
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import SectionThreadsContent from './../../components/Forum/SectionThreadsContent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro' 
 
-import ArrowBackIosNew from '@mui/icons-material/ArrowBackIosNew';
 
-import {
-
-  IconButton
-} from "@mui/material";
-
-import jwt_decode from "jwt-decode";
+//const items = [...Array(33).keys()];
 
 
 const SectionThreads = () =>
@@ -45,36 +39,19 @@ const SectionThreads = () =>
     const [allThreads, setAllThreads] = useState([])
     const [threads, setThreads] = useState(null)
 
-    const [section, setSection] = useState({})
-    const [userData, setUserData] = useState({})
-
-    const { id } = useParams();
-
-    const fetchSectionData = async () => 
-    {
-      const url = process.env.REACT_APP_BackEnd_url +  "/forum/get-section-by-id/";
-      const urlId= url+id
-      const reponse = await fetch(urlId);
-      let section = await reponse.json();
-      setSection(section)
-    }
-
     const fetchSections = async (_mounted) => {
-      const url = process.env.REACT_APP_BackEnd_url + "/forum/get-threads-by-section/";
-      const urlId= url+id
-      const reponse = await fetch(urlId);
-      let newThreads = await reponse.json();
-      newThreads = newThreads.reverse()
+      const url = process.env.REACT_APP_BackEnd_url+"/forum/get-threads";
+      //const urlId= url+idArticle
+      const reponse = await fetch(url);
+      const newThreads = await reponse.json();
       if(_mounted)
       setAllThreads(newThreads);
     }
-    
     useEffect(() => {
         let isMounted = true;  
         
         fetchSections(isMounted)
-        fetchSectionData(isMounted)
-        fetchUser()
+        
         return () => { isMounted = false };
     },[]);
   
@@ -95,54 +72,23 @@ const SectionThreads = () =>
       console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
       setItemOffset(newOffset);
     };
-    
-    var usertoken = localStorage.getItem("user_info");
-    var decodedTOKEN;
-    if(usertoken)
-    decodedTOKEN = jwt_decode(usertoken,{payload : true});
+  
 
-    const fetchUser = async () => 
-    {
-      if(usertoken)
-      {
-        const urluser = process.env.REACT_APP_BackEnd_url + "/users/getById/" + decodedTOKEN.user_id
-    
-        const reponse = await fetch(urluser)
-        const newuser = await reponse.json()
-
-        setUserData(newuser)
-        //alert(JSON.stringify(userData.user.Role))
-      }
-    }
-
-    if(!usertoken)
-    {
-      return(<>
-        <p>Not logged in !!</p>
-      </>)
-    }
-    else
-    {
-      if(userData.user)
-      if(userData.user.Role !== "Doctor")
-      return(<>
-        <p>Forum can only be accessed by a doctor.</p>
-      </>)
-    }
     return (
         <>
         <div className="wrapper">
             <div className="section-threads">
-            <Link to={`/dashboard/forum/`}> <IconButton onClick={() => {}} > <ArrowBackIosNew /></IconButton> </Link> <h4>Section : {section.title}</h4>
-
+                              
               <Card className="section-threads-links-container">
                
-               <Link className="section-threads-create-thread" to={`/dashboard/forum/section/${id}/create-thread`}>
+               <Link className="section-threads-create-thread" to={"/dashboard/forum/create-thread"}>
                  <FontAwesomeIcon icon={solid('plus')} size="lg" />&nbsp; New Thread
                </Link>
 
                 </Card>
-                    <Card className="section-thread-content">
+
+                
+                    <Card title='Section Title' className="section-thread-content">
 
 
                         <table className="section-threads-table">

@@ -20,30 +20,27 @@ import ForumSectionTopic from "./ForumSectionTopic";
 const ForumSection  = (props) => 
 {
     var tops = [];
-    var ind_row = props.topics.length + 1;
     for (let i = 0; i < props.topics.length/2; i++) {
 
         const sub_arr = props.topics.slice(i*2,i*2+2);
 
-        const cols = sub_arr.map((item, index) => 
-            <Col key={index} span={24/2}> <ForumSectionTopic section={item} ></ForumSectionTopic> </Col>
+        const cols = sub_arr.map((item,index) =>
+            <Col span={24/2}> <ForumSectionTopic section={item} key={index} ></ForumSectionTopic> </Col>
         )
 
         tops.push(
-        <Row key={ind_row}>
+        <Row>
             {cols}
         </Row>);
-        ind_row ++;
     }
 
     return (
         <>
             <div className="forum-section">
                  
-                <Card title='  ' size='small' headStyle={{ backgroundColor:'skyblue',minHeight:0 }} className="forum-section-content">
-                    {tops}
-                </Card>
-
+                    <Card title='  ' size='small' headStyle={{ backgroundColor:'skyblue',minHeight:0 }} className="forum-section-content">
+                        {tops}
+                    </Card>
             </div>
         </>
     );

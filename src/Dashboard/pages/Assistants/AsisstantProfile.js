@@ -10,6 +10,11 @@
   * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 import {useEffect, useState} from "react";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import React from "react";
+import axios from "axios";
+import Info from "./Info"
 import {
   Row,
   Col,
@@ -49,6 +54,9 @@ function AssistantProfile() {
 
   const [imageURL, setImageURL] = useState(false);
   const [, setLoading] = useState(false);
+  const [data,setData] = useState(null);
+  const [user, setuser] = useState(null)
+  const[Assistant,setAssistant]= useState(null)
 
   const getBase64 = (img, callback) => {
     const reader = new FileReader();
@@ -56,7 +64,7 @@ function AssistantProfile() {
     reader.readAsDataURL(img);
   };
 
-  const [user, setuser] = useState([])
+
   const url = process.env.REACT_APP_BackEnd_url+"/articles/Author/"
 
   var usertoken = localStorage.getItem("user_info");
@@ -64,42 +72,57 @@ function AssistantProfile() {
 
   
 
-  const fetchuser = async () => {
-    const urluser = url + decodedTOKEN.user_id
+  // const fetchuser = async () => {
+  //   const urluser = url + decodedTOKEN.user_id
+  //
+  //   const reponse = await fetch(urluser)
+  //   const newuser = await reponse.json()
+  //   setuser(newuser)
+  //   console.log("==========>"+newuser._assistant)
+  //   localStorage.setItem('idAssistant', newuser._assistant);
+  //
+  //
+  //   return newuser;
+  // }
 
-    const reponse = await fetch(urluser)
-    const newuser = await reponse.json()
-    setuser(newuser)
-    console.log("==========>"+newuser._assistant)
-    localStorage.setItem('idAssistant', newuser._assistant);
-
-
-    return newuser;
+  const fetchData = async ()=>{
+    await axios.get(process.env.REACT_APP_BackEnd_url+'/users/getById/'+decodedTOKEN.user_id)
+        .then(result=>{
+          //console.log(result.data);
+          setData(result.data);
+          setuser(result.data.user)
+          setAssistant(result.data.assistant);
+          //console.log(data);
+          //console.log("hello assistant"+Assistant.Speciality);
+        })
+        .catch(err=>{
+          console.log(err);
+        })
   }
+
   useEffect(() => {
-    fetchuser();
-    fetchAssistant();
+    fetchData();
+    //fetchuser();
+    //fetchAssistant();
   }, [])
 
 
-  const[Assistant,setAssistant]= useState([])
-
-  const fetchAssistant = async () => {
-    const urlA = process.env.REACT_APP_BackEnd_url+"/users/getassistants/"
-    const idA= localStorage.getItem("idAssistant")
-
-    const urlAssistant = urlA +idA
-    console.log("=======>"+urlAssistant)
-    const reponse = await fetch(urlAssistant)
-    const newAssistant = await reponse.json();
-    console.log(newAssistant)
-    setAssistant(newAssistant)
 
 
-    return newAssistant;
-  }
-
-  console.log("hello assistant"+Assistant.Speciality);
+  // const fetchAssistant = async () => {
+  //   const urlA = process.env.REACT_APP_BackEnd_url+"/users/getassistants/"
+  //   const idA= localStorage.getItem("idAssistant")
+  //
+  //   const urlAssistant = urlA +idA
+  //   console.log("=======>"+urlAssistant)
+  //   const reponse = await fetch(urlAssistant)
+  //   const newAssistant = await reponse.json();
+  //   console.log(newAssistant)
+  //   setAssistant(newAssistant)
+  //
+  //
+  //   return newAssistant;
+  // }
 
   const EditAssistant = async (id) => {
     console.log("here" +  id);
@@ -198,8 +221,100 @@ function AssistantProfile() {
     },
   ];
 
+  const handleClose = () => setShow(false);
+  const handleOpen = () => setShow(true);
+  const [show, setShow] = React.useState(false);
+
+  if(data ===null || user=== null || Assistant==null){
+    return (
+        <p>loading data...</p>
+    );
+  }
   return (
+
     <>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit your Profile</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3 " controlId="firstNamefield">
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                  value={user.FirstName}
+                  type="text"
+                  name="firstNamefield"
+                  placeholder="First Name"
+                  autoFocus
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3 " controlId="lastNamefield">
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                  type="text"
+                  name="lastNamefield"
+                  placeholder="Last Name"
+                  autoFocus
+                  value={user.LastName}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="phoneField">
+              <Form.Label>Phone</Form.Label>
+              <Form.Control
+                  type="number"
+                  placeholder="Phone"
+                  name="phoneField"
+                  autoFocus
+                  value={user.Phone}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="emailField">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                  name="emailField"
+                  type="email"
+                  placeholder="name@example.com"
+                  value={user.Email}
+                  autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="specialityField">
+              <Form.Label>Speciality</Form.Label>
+              <Form.Control
+                  name="specialityField"
+                  type="text"
+                  placeholder="Speciality"
+                  autoFocus
+                  value={Assistant.Speciality}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="descriptionFiled">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                  autoFocus
+                  name="descriptionFiled"
+                  as="textarea"
+                  rows={4}
+                  value={Assistant.Description}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
       <div
         className="profile-nav-bg"
@@ -253,46 +368,7 @@ function AssistantProfile() {
           </Card>
         </Col>
         <Col span={24} md={16} className="mb-24">
-          <Card
-            bordered={false}
-            title={<h6 className="font-semibold m-0">Profile Information</h6>}
-            className="header-solid h-full card-profile-information"
-            extra={<Button type="link">{pencil}</Button>}
-            bodyStyle={{ paddingTop: 0, paddingBottom: 16 }}
-          >
-            <p className="text-dark">
-
-              {" "}
-              {Assistant.Description}
-              {" "}
-            </p>
-            <hr className="my-25" />
-            <Descriptions title="General Info">
-              <Descriptions.Item label="Full Name" span={3}>
-                {user.FirstName} {user.LastName}
-              </Descriptions.Item>
-              <Descriptions.Item label="Mobile" span={3}>
-                {user.Phone}
-              </Descriptions.Item>
-              <Descriptions.Item label="Email" span={3}>
-                {user.Email}
-              </Descriptions.Item>
-              <Descriptions.Item label="Adress" span={3}>
-                {user.Address}
-              </Descriptions.Item>
-              <Descriptions.Item label="Social" span={3}>
-                <a href="#pablo" className="mx-1 px-4">
-                  {<TwitterOutlined />}
-                </a>
-                <a href="#pablo" className="mx-1 px-4">
-                  {<FacebookOutlined style={{ color: "#344e86" }} />}
-                </a>
-                <a href="#pablo" className="mx-1 px-4">
-                  {<InstagramOutlined style={{ color: "#e1306c" }} />}
-                </a>
-              </Descriptions.Item>
-            </Descriptions>
-          </Card>
+          <Info info={data} ></Info>
         </Col>
         <Col span={24} md={8} className="mb-24">
 

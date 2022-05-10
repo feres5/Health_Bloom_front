@@ -14,7 +14,6 @@
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
-    "@mui/icons-material":"^5.6.2",
     "@mui/material": "^5.5.1",
     "@react-pdf/renderer": "^2.1.1",
     "@stripe/stripe-js": "^1.29.0",
@@ -67,8 +66,6 @@
     "react-simple-star-rating": "^4.0.5",
     "react-textarea-autosize": "^8.3.3",
     "react-use-cart": "^1.13.0",
-    "react-material-ui-carousel": "^3.3.3",
-
     "reactjs-popup": "^2.0.5",
     "reactstrap": "8.9.0",
     "semantic-ui-react": "^2.1.2",

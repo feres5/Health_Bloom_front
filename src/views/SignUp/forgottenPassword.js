@@ -10,7 +10,7 @@ import TransparentFooter from "components/Footers/TransparentFooter.js";
 function ForgottenPassword() {
     const navigate = useNavigate ()
     const [email, setEmail]= useState("");
-    const redirectUrl = process.env.REACT_APP_BackEnd_url+"/resetPassword";
+    const redirectUrl = "https://health-bloom.vercel.app/resetPassword";
     const [firstFocus, setFirstFocus] = React.useState(false);
     React.useEffect(() => {
         document.body.classList.add("login-page");
