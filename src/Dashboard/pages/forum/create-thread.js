@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Switch from "react-bootstrap-switch";
 // plugin that creates slider
@@ -38,7 +38,7 @@ function CreateThread() {
 
     const {sectionId} = useParams()
 
-    const history = useHistory();
+    const history = useNavigate();
 
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
@@ -53,9 +53,9 @@ function CreateThread() {
       if(title === "" || body ==="" ) return;
       
         let userId = userData.user._id;
-        axios.post("http://localhost:3002/forum/create-thread", {title, body,sectionId,userId }).then((res) => {
+        axios.post(process.env.REACT_APP_BackEnd_url + "/forum/create-thread", {title, body,sectionId,userId }).then((res) => {
             console.log(res.data)
-            history.push("/dashboard/forum/section/" + sectionId);
+            history("/dashboard/forum/section/" + sectionId);
         }).catch((error) => {
             console.log(error)
         });
@@ -74,7 +74,7 @@ function CreateThread() {
     {
       if(usertoken)
       {
-        const urluser = "http://localhost:3002/users/getById/" + decodedTOKEN.user_id
+        const urluser = process.env.REACT_APP_BackEnd_url + "/users/getById/" + decodedTOKEN.user_id
     
         const reponse = await fetch(urluser)
         const newuser = await reponse.json()

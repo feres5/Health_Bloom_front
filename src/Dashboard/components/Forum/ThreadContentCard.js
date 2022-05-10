@@ -9,13 +9,13 @@ import Favorite from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ThreadContentCard = (props) => 
 {
     //const [comments,setComments] = useState([])
     const {id}= useParams()
-    const history = useHistory()
+    const history = useNavigate()
     const [userData, setUserData] = useState(null)
     //alert(JSON.stringify(props.thread.user))
 
@@ -34,17 +34,17 @@ const ThreadContentCard = (props) =>
 
     const OnDeleteThread = (id) => 
     {
-        const url = 'http://localhost:3002/forum/delete-thread/'
+        const url = process.env.REACT_APP_BackEnd_url + '/forum/delete-thread/'
         const urlId = url + id;
         axios.delete(urlId).then(() => {
-            history.push("/dashboard/forum/section/" + props.thread.section);
+            history("/dashboard/forum/section/" + props.thread.section);
             
         })
     }
 
     const OnDeleteComment = (commentId) => {
 
-        const url = 'http://localhost:3002/forum/delete-comment-from-thread/'
+        const url = process.env.REACT_APP_BackEnd_url +  '/forum/delete-comment-from-thread/'
         const urlId = url + commentId;
         axios.delete(urlId).then(() => {
                     props.onCommentDelete(commentId)
@@ -54,7 +54,7 @@ const ThreadContentCard = (props) =>
     const OnCommentLike = (event,userId, commentId) => {
         if(event.target.checked)
         {
-            const url = 'http://localhost:3002/forum/add-like-to-comment'
+            const url = process.env.REACT_APP_BackEnd_url +  '/forum/add-like-to-comment'
             
                 axios.post(url,{commentId:commentId, userId:userId }).then(() => {
                     
@@ -65,7 +65,7 @@ const ThreadContentCard = (props) =>
         }
         else
         {
-            const url = 'http://localhost:3002/forum/delete-like-from-comment/'
+            const url =  process.env.REACT_APP_BackEnd_url +  '/forum/delete-like-from-comment/'
             const urlId = url + userId + "/" + commentId ;
             axios.delete(urlId).then(() => {
                 props.onCommentLike()
@@ -83,7 +83,7 @@ const ThreadContentCard = (props) =>
                 <Col className='thread-profile-info' sm="3">
                     <Container>
                         <img src= {require("assets/img/eva.jpg").default}  alt="" />
-                        <Link to={"#"}> {props.thread.user ? props.thread.user.FirstName + " " + props.thread.user.LastName : ""} </Link>
+                        <a href="#"> {props.thread.user ? props.thread.user.FirstName + " " + props.thread.user.LastName : ""} </a>
                         <h5>{props.thread.user ? props.thread.user._doctor.Speciality : ""}</h5>
                     </Container>   
                 </Col>
@@ -100,21 +100,21 @@ const ThreadContentCard = (props) =>
                         <IconButton onClick={() => {OnDeleteThread(id)} }><DeleteIcon /></IconButton>
                     }
                     <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />}  sx={{
-          color: pink[800],
-          '&.Mui-checked': {
+            color: pink[800],
+            '&.Mui-checked': {
             color: pink[600],
-          },
-        }} checked={props.initContent.likes != null && userData && props.initContent.likes.map((item) => {return item.user}).includes(userData.user._id)} onChange={ (event) =>{ if(userData) OnCommentLike(event,userData.user._id,props.initContent._id) }} />
-        <p className='comment-like-count'>{props.initContent.likes != null ? JSON.stringify(props.initContent.likes.length) :  "0"}</p>
+            },
+            }} checked={props.initContent.likes != null && userData && props.initContent.likes.map((item) => {return item.user}).includes(userData.user._id)} onChange={ (event) =>{ if(userData) OnCommentLike(event,userData.user._id,props.initContent._id) }} />
+                <p className='comment-like-count'>{props.initContent.likes != null ? JSON.stringify(props.initContent.likes.length) :  "0"}</p>
                 </div>
                 </Col>
-            </Row>
+            </Row> 
             {props.comments.map((item) => { return(
             <Row key={item._id}>
                 <Col className='thread-profile-info' sm="3">
                     <Container>
                         <img src= {require("assets/img/eva.jpg").default}  alt="" />
-                        <Link to={"#"}>{item.user ? item.user.FirstName + " " + item.user.LastName : ""} </Link>
+                        <a href="#">{item.user ? item.user.FirstName + " " + item.user.LastName : ""} </a>
                         <h5>{props.thread.user ? props.thread.user._doctor.Speciality : ""}</h5>
                     </Container>
                     

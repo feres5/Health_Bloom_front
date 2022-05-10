@@ -1,0 +1,15 @@
+#CartHeader{
+    min-height: initial;
+    min-width: initial;
+    padding: 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #ececec;
+    font-family: "Quicksand", sans-serif;
+    height: initial;
+}
+#tablecart{
+
+}
+#payment {
+    justify-content: initial;
+}

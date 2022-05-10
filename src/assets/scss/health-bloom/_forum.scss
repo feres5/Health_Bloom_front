@@ -223,7 +223,7 @@
 
 .thread-content
 {
-    padding: 0;
+    padding: 0 !important;
 }
 
 .thread-title
@@ -253,7 +253,6 @@
     padding: 0;
 }
 
-
 .thread-content-card
 {
     min-height: 50px;
@@ -265,6 +264,7 @@
 {
     min-height: 50px;
     border-bottom: 2px solid $color-g8;
+    
 }
 
 .thread-comment-content

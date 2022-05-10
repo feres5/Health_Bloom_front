@@ -174,7 +174,7 @@ function ForumWelcome() {
     }
 
     const fetchSections = async () => {
-      const url = "http://localhost:3002/forum/get-sections";
+      const url = process.env.REACT_APP_BackEnd_url +  "/forum/get-sections";
       //const urlId= url+idArticle
       const reponse = await fetch(url);
       const newSections = await reponse.json();
@@ -190,7 +190,7 @@ function ForumWelcome() {
     {
       if(usertoken)
       {
-        const urluser = "http://localhost:3002/users/getById/" + decodedTOKEN.user_id
+        const urluser = process.env.REACT_APP_BackEnd_url + "/users/getById/" + decodedTOKEN.user_id
     
         const reponse = await fetch(urluser)
         const newuser = await reponse.json()
@@ -234,16 +234,21 @@ function ForumWelcome() {
             </Carousel>
 
             <Card className="forum-welcome">
-              
+            
+            
               <Card className="criclebox h-full forum-links-container">
-               
+                <Link className="section-threads-create-thread" to={`/dashboard/forum/create-section`}>
+                  <FontAwesomeIcon icon={solid('plus')} size="lg" />&nbsp; New Section
+                </Link>
+
                 <Link className="forum-link" to={"#"}>
                   <FontAwesomeIcon icon={solid('user')} size="lg" />Profile
                 </Link>
                 
-                <Link className="forum-link" to={"#"}>
+                {/* <Link className="forum-link" to={"#"}>
                   <FontAwesomeIcon icon={solid('bell')} size="lg" />Notifications
-                </Link>
+                </Link> */}
+                
               </Card>
 
               <ForumSection topics={sections}></ForumSection>

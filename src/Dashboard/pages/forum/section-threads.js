@@ -52,7 +52,7 @@ const SectionThreads = () =>
 
     const fetchSectionData = async () => 
     {
-      const url = "http://localhost:3002/forum/get-section-by-id/";
+      const url = process.env.REACT_APP_BackEnd_url +  "/forum/get-section-by-id/";
       const urlId= url+id
       const reponse = await fetch(urlId);
       let section = await reponse.json();
@@ -60,7 +60,7 @@ const SectionThreads = () =>
     }
 
     const fetchSections = async (_mounted) => {
-      const url = "http://localhost:3002/forum/get-threads-by-section/";
+      const url = process.env.REACT_APP_BackEnd_url + "/forum/get-threads-by-section/";
       const urlId= url+id
       const reponse = await fetch(urlId);
       let newThreads = await reponse.json();
@@ -105,7 +105,7 @@ const SectionThreads = () =>
     {
       if(usertoken)
       {
-        const urluser = "http://localhost:3002/users/getById/" + decodedTOKEN.user_id
+        const urluser = process.env.REACT_APP_BackEnd_url + "/users/getById/" + decodedTOKEN.user_id
     
         const reponse = await fetch(urluser)
         const newuser = await reponse.json()
@@ -115,6 +115,20 @@ const SectionThreads = () =>
       }
     }
 
+    if(!usertoken)
+    {
+      return(<>
+        <p>Not logged in !!</p>
+      </>)
+    }
+    else
+    {
+      if(userData.user)
+      if(userData.user.Role !== "Doctor")
+      return(<>
+        <p>Forum can only be accessed by a doctor.</p>
+      </>)
+    }
     return (
         <>
         <div className="wrapper">
@@ -128,8 +142,6 @@ const SectionThreads = () =>
                </Link>
 
                 </Card>
-
-                
                     <Card className="section-thread-content">
 
 

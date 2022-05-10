@@ -61,7 +61,7 @@ function Thread()
     {
       if(usertoken)
       {
-        const urluser = "http://localhost:3002/users/getById/" + decodedTOKEN.user_id
+        const urluser = process.env.REACT_APP_BackEnd_url + "/users/getById/" + decodedTOKEN.user_id
     
         const reponse = await fetch(urluser)
         const newuser = await reponse.json()
@@ -75,15 +75,6 @@ function Thread()
       fetchUser()
     }, [])
 
-
-
-    const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-        ...theme.typography.body2,
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-      }));
       
     const goToLastPage = () => 
     {
@@ -123,7 +114,7 @@ function Thread()
     };
 
     const fetchThread = async () => {
-    const url = "http://localhost:3002/forum/get-thread/";
+    const url = process.env.REACT_APP_BackEnd_url + "/forum/get-thread/";
     
     const urlId= url+id;
     //const reponse = await fetch(urlId);
@@ -146,6 +137,12 @@ function Thread()
     const onCommentAdded = (commentText) => {
 
         if(commentText === "") return;
+            var banDelay = parseInt(Date.now()) - parseInt(localStorage.getItem('banned'));
+            if( banDelay <= 0)
+            {
+                alert(`you are still banned from posting for ${parseInt((-banDelay)/(60*1000))} minutes due to spam`)
+                return;
+            }
             
             if(localStorage.getItem('lastPosted') != null)
             {
@@ -159,9 +156,11 @@ function Thread()
                     {
                         localStorage.setItem('postStrike', JSON.stringify(parseInt(localStorage.getItem('postStrike')) + 1));
 
-                        if(parseInt(localStorage.getItem('postStrike')) > 3 )
+                        if(parseInt(localStorage.getItem('postStrike')) > 2 )
                         {
-                            alert('stop spam')
+                            localStorage.setItem('banned',JSON.stringify(Date.now() + (3*60*60*1000)))
+                            alert(`you are prohibited from posting for 3 hours due to spam`)
+                            return;
                         }
                     }
                     else
@@ -176,7 +175,7 @@ function Thread()
             }
         
         let userId = userData.user._id;
-        axios.post("http://localhost:3002/forum/add-comment-to-thread", { body: commentText , threadId: id, userId:userId})
+        axios.post(process.env.REACT_APP_BackEnd_url + "/forum/add-comment-to-thread", { body: commentText , threadId: id, userId:userId})
         .then((res) => {
             localStorage.setItem('lastPosted',JSON.stringify(Date.now()))
 
@@ -245,7 +244,7 @@ function Thread()
                 </Grid>
                 
                 <div className="thread-content container">
-                    <ThreadContentCard userData={userData} onCommentLike={OnCommentLike} onCommentDelete={onCommentDelete} thread={thread} initContent={initContent} comments={comments} ></ThreadContentCard>
+                    <ThreadContentCard currentPageIndex={currentPageIndex} userData={userData} onCommentLike={OnCommentLike} onCommentDelete={onCommentDelete} thread={thread} initContent={initContent} comments={comments} ></ThreadContentCard>
                 </div>
 
 

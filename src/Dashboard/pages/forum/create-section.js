@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Switch from "react-bootstrap-switch";
 // plugin that creates slider
@@ -37,7 +37,7 @@ const axios = require('axios');
 
 function CreateSection() {
 
-    const history = useHistory();
+    const history = useNavigate();
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
@@ -52,9 +52,9 @@ function CreateSection() {
     
     const handleSubmit = () => {
        
-        axios.post("http://localhost:3002/forum/add-section", {title, description}).then((res) => {
+        axios.post(process.env.REACT_APP_BackEnd_url + "/forum/add-section", {title, description}).then((res) => {
             console.log(res.data)
-            history.push("/dashboard/forum/");
+            history("/dashboard/forum/");
         }).catch((error) => {
             console.log(error)
         });
@@ -69,7 +69,7 @@ function CreateSection() {
     {
       if(usertoken)
       {
-        const urluser = "http://localhost:3002/users/getById/" + decodedTOKEN.user_id
+        const urluser = process.env.REACT_APP_BackEnd_url + "/users/getById/" + decodedTOKEN.user_id
     
         const reponse = await fetch(urluser)
         const newuser = await reponse.json()

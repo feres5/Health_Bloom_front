@@ -20,9 +20,9 @@ const SectionThreadsCard = (props) =>
                 <Container className='section-thread-card'>
                     <Link className='section-thread-card-title' to={"/dashboard/forum/thread/"+thread._id}>{thread.title}</Link>
                     <Container  className='section-thread-card-infos'>
-                        <span>By:</span> <Link to={"#"}>{thread.user ? thread.user.FirstName + " " + thread.user.LastName : ""}</Link>
+                        <span>By:</span> <a href="#">{thread.user ? thread.user.FirstName + " " + thread.user.LastName : ""}</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Link to={"#"}>{thread.dateCreated != null ?  thread.dateCreated : 'No date'}</Link>
+                        <a href="#">{thread.dateCreated != null ?  thread.dateCreated : 'No date'}</a>
                     </Container>
                 </Container>
             </td>
@@ -31,9 +31,9 @@ const SectionThreadsCard = (props) =>
                 </td>
             <td>
                 <Container  className='section-thread-card-infos'>
-                        <span>By:</span> <Link to={"#"}>{thread.comments[thread.comments.length-1]  != null && thread.comments[thread.comments.length-1].user  != null? thread.comments[thread.comments.length-1].user.FirstName + " " + thread.comments[thread.comments.length-1].user.LastName : ""}</Link>
+                        <span>By:</span> <a href="#">{thread.comments[thread.comments.length-1]  != null && thread.comments[thread.comments.length-1].user  != null? thread.comments[thread.comments.length-1].user.FirstName + " " + thread.comments[thread.comments.length-1].user.LastName : ""}</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Link>{ thread.comments[thread.comments.length-1]  != null? thread.comments[thread.comments.length-1].dateCreated : 'No data'}</Link>
+                        <a href="#">{ thread.comments[thread.comments.length-1]  != null? thread.comments[thread.comments.length-1].dateCreated : 'No data'}</a>
                 </Container>
             </td>
         </tr>
