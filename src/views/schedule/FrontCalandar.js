@@ -35,7 +35,7 @@ function FrontCalandar(props) {
   const getAppointments = async () => {
     console.log("aa : ", props.info);
     const reponse = await fetch(
-      `http://127.0.0.1:3002/api/appointments/${props.info}`
+        process.env.REACT_APP_BackEnd_url+`/api/appointments/${props.info}`
     );
     const infoRes = await reponse.json();
     var d = [];

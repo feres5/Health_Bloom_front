@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 
 // reactstrap components
 import {
@@ -53,66 +53,69 @@ function Index() {
       document.body.classList.remove("sidebar-collapse");
     };
   });
-  
+
   return (
-    <>
-      <IndexNavbar />
-      <div className="wrapper">
-        <IndexHeader />
-        <div className="main">
-          <Search/>
-     
-          {/*articles section from magazine*/}
-          <Magazine/>
-          {/*ask a medical question*/}
-          <div className="section section-tabs" >
-            <Container>
-              <Row style={{display : "flex"}}>
-                <h3 className="title">Medical questions</h3>
-                <Button className="btn-round" style={{marginLeft:"auto", height:"50px" }} color="primary" outline type="button">Ask question ?</Button>
-                <Button className="btn-round" style={{height:"50px" }} color="success" outline type="button">Find an answer</Button>
+      <>
+        <IndexNavbar />
+        <div className="wrapper">
+          <IndexHeader />
+          <div className="main">
+            <Search/>
 
-              </Row>
-              <Row >
-              {
-                subject.map((subject,index) => (
-                    <Faq subject={subject} key={index}></Faq>
-                ))
-              }
-              </Row>
-            </Container>
+            {/*articles section from magazine*/}
+            <Magazine/>
+            {/*ask a medical question*/}
+            <div className="section section-tabs" >
+              <Container>
+                <Row style={{display : "flex"}}>
+                  <h3 className="title">Medical questions</h3>
+                  <Button className="btn-round" style={{marginLeft:"auto", height:"50px" }} color="primary" outline type="button">Ask question ?</Button>
+                  <Button className="btn-round" style={{height:"50px" }} color="success" outline type="button">Find an answer</Button>
+
+                </Row>
+                <Row >
+                  {
+                    subject.map((subject,index) => (
+                        <Faq subject={subject} key={index}></Faq>
+                    ))
+                  }
+                </Row>
+              </Container>
+            </div>
+
+            {/*products section from shop */}
+            <div className="section section-basic" >
+              <Container>
+                <h3 className="title">Products</h3>
+                <ProductsWrapper>
+                  {
+                    products.map((product,index) =>(
+                        <Products product={product} key={index} ></Products>
+                    ))
+                  }
+                </ProductsWrapper>
+              </Container>
+            </div>
+
+
+
+
+            <BasicElements />
+            <Navbars />
+            <Tabs />
+            <Pagination />
+            <Notifications />
+            <Typography />
+            <Javascript />
+            <Carousel />
+            <NucleoIcons />
+            <CompleteExamples />
+            <SignUp />
+
           </div>
-
-          {/*products section from shop */}
-          <div className="section section-basic" >
-            <Container>
-              <h3 className="title">Products</h3>
-              <ProductsWrapper>
-                {
-                  products.map((product,index) =>(
-                      <Products product={product} key={index} ></Products>
-                  ))
-                }
-              </ProductsWrapper>
-            </Container>
-          </div>
-
-          {/*<BasicElements />*/}
-          {/*<Navbars />*/}
-          {/*<Tabs />*/}
-          {/*<Pagination />*/}
-          {/*<Notifications />*/}
-          {/*<Typography />*/}
-          {/*<Javascript />*/}
-          {/*<Carousel />*/}
-          {/*<NucleoIcons />*/}
-          {/*<CompleteExamples />*/}
-          {/*<SignUp />*/}
-
+          <DarkFooter />
         </div>
-        <DarkFooter />
-      </div>
-    </>
+      </>
   );
 }
 

@@ -20,7 +20,7 @@ function IndexNavbar() {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
-  const url = process.env.REACT_APP_BackEnd_url+"/users/";
+  const url = "http://localhost:3002/users/";
   //console.log(localStorage.getItem("user_info"))
   var token = localStorage.getItem("user_info");
   var decodedTOKEN = null;
@@ -35,13 +35,13 @@ function IndexNavbar() {
   React.useEffect(() => {
     const updateNavbarColor = () => {
       if (
-        document.documentElement.scrollTop > 399 ||
-        document.body.scrollTop > 399
+          document.documentElement.scrollTop > 399 ||
+          document.body.scrollTop > 399
       ) {
         setNavbarColor("");
       } else if (
-        document.documentElement.scrollTop < 400 ||
-        document.body.scrollTop < 400
+          document.documentElement.scrollTop < 400 ||
+          document.body.scrollTop < 400
       ) {
         setNavbarColor("navbar-transparent");
       }
@@ -98,247 +98,247 @@ function IndexNavbar() {
   }
   return (
       token ?(
-    <>
-      {collapseOpen ? (
-        <div
-          id="bodyClick"
-          onClick={() => {
-            document.documentElement.classList.toggle("nav-open");
-            setCollapseOpen(false);
-          }}
-        />
-      ) : null}
-      <Navbar className={"fixed-top " + navbarColor} expand="lg" color="info">
-        <Container>
-          <div className="navbar-translate">
-            <NavbarBrand href="/index" id="navbar-brand">
-              <img src={require("assets/img/logoNav1.png").default}
-                   width="70"
-                   className="d-inline-block align-top"
-              />
-            </NavbarBrand>
-            <UncontrolledTooltip target="#navbar-brand">
-              Head To Home Page
-            </UncontrolledTooltip>
-            <button
-              className="navbar-toggler navbar-toggler"
-              onClick={() => {
-                document.documentElement.classList.toggle("nav-open");
-                setCollapseOpen(!collapseOpen);
-              }}
-              aria-expanded={collapseOpen}
-              type="button"
-            >
-              <span className="navbar-toggler-bar top-bar"></span>
-              <span className="navbar-toggler-bar middle-bar"></span>
-              <span className="navbar-toggler-bar bottom-bar"></span>
-            </button>
-          </div>
-
-
-          <Collapse
-            className="justify-content-end"
-            isOpen={collapseOpen}
-            navbar
-          >
-            <Nav navbar>
-
-              <NavItem>
-                <NavLink
-                    href="/medical-magazine"
-                >
-                  <i className="now-ui-icons business_bulb-63 mr-1"></i>
-                  <p>Medical Magazine</p>
-                </NavLink>
-              </NavItem>
-
-              <NavItem>
-                <NavLink
-                    href="#pablo"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document
-                          .getElementById("download-section")
-                          .scrollIntoView();
+          <>
+            {collapseOpen ? (
+                <div
+                    id="bodyClick"
+                    onClick={() => {
+                      document.documentElement.classList.toggle("nav-open");
+                      setCollapseOpen(false);
                     }}
-                >
-                  <i className="now-ui-icons files_paper mr-1"></i>
-                  <p>Forum</p>
-                </NavLink>
-              </NavItem>
+                />
+            ) : null}
+            <Navbar className={"fixed-top " + navbarColor} expand="lg" color="info">
+              <Container>
+                <div className="navbar-translate">
+                  <NavbarBrand href="/index" id="navbar-brand">
+                    <img src={require("assets/img/logoNav1.png").default}
+                         width="70"
+                         className="d-inline-block align-top"
+                    />
+                  </NavbarBrand>
+                  <UncontrolledTooltip target="#navbar-brand">
+                    Head To Home Page
+                  </UncontrolledTooltip>
+                  <button
+                      className="navbar-toggler navbar-toggler"
+                      onClick={() => {
+                        document.documentElement.classList.toggle("nav-open");
+                        setCollapseOpen(!collapseOpen);
+                      }}
+                      aria-expanded={collapseOpen}
+                      type="button"
+                  >
+                    <span className="navbar-toggler-bar top-bar"></span>
+                    <span className="navbar-toggler-bar middle-bar"></span>
+                    <span className="navbar-toggler-bar bottom-bar"></span>
+                  </button>
+                </div>
 
-              <NavItem>
-                <NavLink
-                    href="#pablo"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document
-                          .getElementById("download-section")
-                          .scrollIntoView();
-                    }}
-                >
-                  <i className="now-ui-icons shopping_basket mr-1"></i>
-                  <p>Shop</p>
-                </NavLink>
-              </NavItem>
 
-              <NavItem>
-                <NavLink
-                    href="#pablo"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document
-                          .getElementById("download-section")
-                          .scrollIntoView();
-                    }}
+                <Collapse
+                    className="justify-content-end"
+                    isOpen={collapseOpen}
+                    navbar
                 >
-                  <i className="now-ui-icons shopping_cart-simple mr-1"></i>
-                  <p>Cart</p>
-                </NavLink>
-              </NavItem>
+                  <Nav navbar>
 
-              <NavItem>
-                <NavLink
-                  href="#pablo"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document
-                      .getElementById("download-section")
-                      .scrollIntoView();
-                  }}
-                >
-                  <p>About Us?</p>
-                </NavLink>
-              </NavItem>
-              {/*for inbox messages*/}
-              <NavItem>
-                <NavLink
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                >
-                  <i
-                      aria-hidden={true}
-                      className="now-ui-icons ui-1_send"
-                  ></i>
-                </NavLink>
-              </NavItem>
-              {/*for profile */}
-              <NavItem>
-                <NavLink
-                    href="/profile-page"
-                >
-                  <i
-                      aria-hidden={true}
-                      className="now-ui-icons users_single-02"
-                  ></i>
-                </NavLink>
-              </NavItem>
-            {/*  for parameters*/}
+                    <NavItem>
+                      <NavLink
+                          href="/medical-magazine"
+                      >
+                        <i className="now-ui-icons business_bulb-63 mr-1"></i>
+                        <p>Medical Magazine</p>
+                      </NavLink>
+                    </NavItem>
 
-              <UncontrolledDropdown nav>
-                <DropdownToggle
-                    caret
-                    color="default"
-                    href="#pablo"
-                    nav
-                    onClick={(e) => e.preventDefault()}
-                >
-                  <i
-                      aria-hidden={true}
-                      className="now-ui-icons ui-1_settings-gear-63"
-                  ></i>
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem header tag="a">
-                    Dropdown header
-                  </DropdownItem>
-                  <DropdownItem
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                  >
-                    Action
-                  </DropdownItem>
-                  <DropdownItem
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                  >
-                    Another action
-                  </DropdownItem>
-                  <DropdownItem
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                  >
-                    Something else here
-                  </DropdownItem>
-                  <div className="divider"></div>
-                  <DropdownItem
-                      href="#pablo"
-                      onClick={handleClickOpen}
-                  >
-                    change password
-                  </DropdownItem>
-                  <div className="divider"></div>
-                  <DropdownItem
-                      href="#pablo"
-                      onClick={LogOut}
-                  >
-                    Log out
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            </Nav>
-          </Collapse>
-        </Container>
-      </Navbar>
-      <Dialog open={open} onClose={()=>handleClose()} >
-        <DialogTitle>change your password</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            please fill the fields under in order to change your password
-          </DialogContentText>
-          <form action="" className="form" method="">
-            <InputGroup
-                className={
-                  "no-border" + (firstFocus ? " input-group-focus" : "")
-                }>
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText>
-                  <i className="now-ui-icons objects_key-25"></i>
-                </InputGroupText>
-              </InputGroupAddon>
-              <Input
-                  defaultValue={newPassword}
-                  placeholder="New Password"
-                  type="password"
-                  name="newPassword"
-                  onChange={(e)=>onChangePassword(e)}
-              ></Input>
-            </InputGroup>
-            <InputGroup
-                className={
-                  "no-border" + (firstFocus ? " input-group-focus" : "")
-                }>
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText>
-                  <i className="now-ui-icons objects_key-25"></i>
-                </InputGroupText>
-              </InputGroupAddon>
-              <Input
-                  defaultValue={confirmNewPassword}
-                  placeholder="confirm Password"
-                  type="password"
-                  name="confirmNewPassword"
-                  onChange={(e)=>onChangePassword(e)}
-              ></Input>
-            </InputGroup>
-          </form>
-          <DialogActions>
-            <Button onClick={()=>handleClose}>Cancel</Button>
-            <Button onClick={()=>changePassword()}>Change</Button>
-          </DialogActions>
-        </DialogContent>
-      </Dialog>
-    </>
+                    <NavItem>
+                      <NavLink
+                          href="#pablo"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            document
+                                .getElementById("download-section")
+                                .scrollIntoView();
+                          }}
+                      >
+                        <i className="now-ui-icons files_paper mr-1"></i>
+                        <p>Forum</p>
+                      </NavLink>
+                    </NavItem>
+
+                    <NavItem>
+                      <NavLink
+                          href="#pablo"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            document
+                                .getElementById("download-section")
+                                .scrollIntoView();
+                          }}
+                      >
+                        <i className="now-ui-icons shopping_basket mr-1"></i>
+                        <p>Shop</p>
+                      </NavLink>
+                    </NavItem>
+
+                    <NavItem>
+                      <NavLink
+                          href="#pablo"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            document
+                                .getElementById("download-section")
+                                .scrollIntoView();
+                          }}
+                      >
+                        <i className="now-ui-icons shopping_cart-simple mr-1"></i>
+                        <p>Cart</p>
+                      </NavLink>
+                    </NavItem>
+
+                    <NavItem>
+                      <NavLink
+                          href="#pablo"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            document
+                                .getElementById("download-section")
+                                .scrollIntoView();
+                          }}
+                      >
+                        <p>About Us?</p>
+                      </NavLink>
+                    </NavItem>
+                    {/*for inbox messages*/}
+                    <NavItem>
+                      <NavLink
+                          href="#pablo"
+                          onClick={(e) => e.preventDefault()}
+                      >
+                        <i
+                            aria-hidden={true}
+                            className="now-ui-icons ui-1_send"
+                        ></i>
+                      </NavLink>
+                    </NavItem>
+                    {/*for profile */}
+                    <NavItem>
+                      <NavLink
+                          href="/profile-page"
+                      >
+                        <i
+                            aria-hidden={true}
+                            className="now-ui-icons users_single-02"
+                        ></i>
+                      </NavLink>
+                    </NavItem>
+                    {/*  for parameters*/}
+
+                    <UncontrolledDropdown nav>
+                      <DropdownToggle
+                          caret
+                          color="default"
+                          href="#pablo"
+                          nav
+                          onClick={(e) => e.preventDefault()}
+                      >
+                        <i
+                            aria-hidden={true}
+                            className="now-ui-icons ui-1_settings-gear-63"
+                        ></i>
+                      </DropdownToggle>
+                      <DropdownMenu right>
+                        <DropdownItem header tag="a">
+                          Dropdown header
+                        </DropdownItem>
+                        <DropdownItem
+                            href="#pablo"
+                            onClick={(e) => e.preventDefault()}
+                        >
+                          Action
+                        </DropdownItem>
+                        <DropdownItem
+                            href="#pablo"
+                            onClick={(e) => e.preventDefault()}
+                        >
+                          Another action
+                        </DropdownItem>
+                        <DropdownItem
+                            href="#pablo"
+                            onClick={(e) => e.preventDefault()}
+                        >
+                          Something else here
+                        </DropdownItem>
+                        <div className="divider"></div>
+                        <DropdownItem
+                            href="#pablo"
+                            onClick={handleClickOpen}
+                        >
+                          change password
+                        </DropdownItem>
+                        <div className="divider"></div>
+                        <DropdownItem
+                            href="#pablo"
+                            onClick={LogOut}
+                        >
+                          Log out
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
+                  </Nav>
+                </Collapse>
+              </Container>
+            </Navbar>
+            <Dialog open={open} onClose={()=>handleClose()} >
+              <DialogTitle>change your password</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  please fill the fields under in order to change your password
+                </DialogContentText>
+                <form action="" className="form" method="">
+                  <InputGroup
+                      className={
+                        "no-border" + (firstFocus ? " input-group-focus" : "")
+                      }>
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="now-ui-icons objects_key-25"></i>
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                        defaultValue={newPassword}
+                        placeholder="New Password"
+                        type="password"
+                        name="newPassword"
+                        onChange={(e)=>onChangePassword(e)}
+                    ></Input>
+                  </InputGroup>
+                  <InputGroup
+                      className={
+                        "no-border" + (firstFocus ? " input-group-focus" : "")
+                      }>
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="now-ui-icons objects_key-25"></i>
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                        defaultValue={confirmNewPassword}
+                        placeholder="confirm Password"
+                        type="password"
+                        name="confirmNewPassword"
+                        onChange={(e)=>onChangePassword(e)}
+                    ></Input>
+                  </InputGroup>
+                </form>
+                <DialogActions>
+                  <Button onClick={()=>handleClose}>Cancel</Button>
+                  <Button onClick={()=>changePassword()}>Change</Button>
+                </DialogActions>
+              </DialogContent>
+            </Dialog>
+          </>
       ):(
           <>
             {collapseOpen ? (

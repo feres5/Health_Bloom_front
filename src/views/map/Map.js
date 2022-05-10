@@ -22,7 +22,7 @@ export default function Map() {
   });
   const getInfo = async () => {
     const reponse = await fetch(
-      `http://localhost:3002/users/getById/${decodedTOKEN.user_id}`
+        process.env.REACT_APP_BackEnd_url+`/users/getById/${decodedTOKEN.user_id}`
     );
     const infoRes = await reponse.json();
     setdoctorInfo(infoRes.doctor);
@@ -51,7 +51,7 @@ export default function Map() {
   };
   async function mapClick(e) {
     let result = await fetch(
-      `http://localhost:3002/doctor/setMapPos/${decodedTOKEN.restUserInfo}`,
+        process.env.REACT_APP_BackEnd_url+`/doctor/setMapPos/${decodedTOKEN.restUserInfo}`,
       {
         method: "POST",
         headers: {

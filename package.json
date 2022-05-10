@@ -5,6 +5,8 @@
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@craco/craco": "^6.4.3",
+    "@devexpress/dx-react-scheduler": "^3.0.2",
+    "@devexpress/dx-react-scheduler-material-ui": "^3.0.2",
     "@emailjs/browser": "^3.6.2",
     "@emotion/core": "^10.1.1",
     "@emotion/react": "^11.9.0",
@@ -38,6 +40,7 @@
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.23",
     "jwt-decode": "^3.1.2",
+    "mapbox-gl": "^2.8.2",
     "markdown-to-jsx": "^7.1.7",
     "mdb-react-ui-kit": "^3.0.0",
     "mdbreact": "^5.2.0",
@@ -57,6 +60,7 @@
     "react-google-login": "^5.2.2",
     "react-google-recaptcha": "^2.1.0",
     "react-icons": "^4.3.1",
+    "react-map-gl": "^7.0.11",
     "react-paginate": "^8.1.2",
     "react-router": "5.2.0",
     "react-router-dom": "^6.3.0",
@@ -72,7 +76,10 @@
     "stripe": "^8.219.0",
     "styled-components": "^5.3.3",
     "web-vitals": "^1.1.2",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "react-map-gl": "^4.1.2",
+    "react-map-gl": "^4.1.2",
+    "@devexpress/dx-react-core": "^3.0.2"
   },
   "scripts": {
     "start": "craco start",

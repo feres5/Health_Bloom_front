@@ -29,7 +29,7 @@ function ProfilePage() {
   const [data, setData] = useState(null);
   const [docId, setDocId] = useState(null);
   const getInfo = async () => {
-    const reponse = await fetch(`http://localhost:3002/users/getById/${id}`);
+    const reponse = await fetch(process.env.REACT_APP_BackEnd_url+`/users/getById/${id}`);
     const infoRes = await reponse.json();
     setData(infoRes);
 
