@@ -78,7 +78,6 @@
     "web-vitals": "^1.1.2",
     "yup": "^0.32.11",
     "react-map-gl": "^4.1.2",
-    "react-map-gl": "^4.1.2",
     "@devexpress/dx-react-core": "^3.0.2"
   },
   "scripts": {
