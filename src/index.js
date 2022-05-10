@@ -180,42 +180,10 @@ ReactDOM.render(
           </Main>
         }
       />
-      <Route
-        path="/dashboard/tables"
-        element={
-          <Main>
-            {" "}
-            <Tables />{" "}
-          </Main>
-        }
-      />
-      <Route
-        path="/dashboard/billing"
-        element={
-          <Main>
-            {" "}
-            <Billing />{" "}
-          </Main>
-        }
-      />
-      <Route
-        path="/dashboard/rtl"
-        element={
-          <Main>
-            {" "}
-            <Rtl />{" "}
-          </Main>
-        }
-      />
-      <Route
-        path="/dashboard/profile"
-        element={
-          <Main>
-            {" "}
-            <Profile />{" "}
-          </Main>
-        }
-      />
+      <Route path="/dashboard/tables" element={<Main><Tables /></Main>}/>
+      <Route path="/dashboard/billing" element={<Main><Billing /></Main>}/>
+      <Route path="/dashboard/rtl" element={<Main><Rtl /></Main>}/>
+      <Route path="/dashboard/profile" element={<Main><Profile/></Main>}/>
     </Routes>
   </BrowserRouter>,
   document.getElementById("root")
