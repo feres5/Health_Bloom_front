@@ -23,7 +23,7 @@ export default function MapFront() {
     zoom: 100,
   });
   const getInfo = async () => {
-    const reponse = await fetch(`http://127.0.0.1:3002/doctor/getAll`);
+    const reponse = await fetch(process.env.REACT_APP_BackEnd_url+`/doctor/getAll`);
     const infoRes = await reponse.json();
     setDoctors(infoRes);
   };
