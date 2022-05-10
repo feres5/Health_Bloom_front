@@ -2,30 +2,35 @@ import DefaultFooter from "components/Footers/DefaultFooter";
 import ArticleHeader from "components/Headers/ArticleHeader";
 import IndexNavbar from "components/Navbars/IndexNavbar";
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardHeader, MDBCardSubTitle, MDBCardFooter } from 'mdb-react-ui-kit';
+import { useSpeechSynthesis } from "react-speech-kit";
+
 
 import {
   Button,
-  Container
+  Carousel,
+  Col,
+  Container,
+  CarouselItem,
+  CarouselIndicators,
+  Row
 } from "reactstrap";
 import ArticleComments from "./ArticleComments";
 import CommentBox from "./CommentBox";
-import { red } from "@mui/material/colors";
-
 
 
 function ArticleDetails(props) {
+  var synth = window.speechSynthesis;
   const [Author, setAuthor] = useState([])
+  const [Articles, setArticles] = useState([])
   const [Like, setLike] = useState()
   const[nbLikes,setNblikes] =useState()
   const[nbComments,setnbComments] =useState()
-
   const location = useLocation();
   console.log(location);
   const idArticle = location.state.idArticle
-  
+  const { speak ,pause} = useSpeechSynthesis();
   const [ArticleDetails, setArticleDetails] = useState([])
   const url = process.env.REACT_APP_BackEnd_url+"/articles/"
 
@@ -37,6 +42,8 @@ function ArticleDetails(props) {
     setArticleDetails(newArticleDetails)
     setNblikes(newArticleDetails.nbLikes)
     setnbComments(newArticleDetails.nbComments)
+    localStorage.setItem("category",newArticleDetails.category)
+
   }
   useEffect(() => {
     fetchArticleDetails()
@@ -73,6 +80,20 @@ function ArticleDetails(props) {
       fetchAuthor()
   }, [])
 
+  const urlArticles = "http://localhost:3002/articles/getArticleByCategory/"
+  const category= localStorage.getItem("category");
+  console.log("category is ===>"+category)
+  const fetchArticles = async () => {
+      console.log("start")
+      const url = urlArticles+category;
+      const reponse = await fetch(url)
+      const newArticles= await reponse.json()
+      setArticles(newArticles)
+      return newArticles;
+  }
+  useEffect(() => {
+    fetchArticles()
+  }, [])
 
 
 
@@ -90,7 +111,28 @@ function ArticleDetails(props) {
       fetchLike()
   }, [])
 
- 
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const [animating, setAnimating] = React.useState(false);
+  const onExiting = () => {
+    setAnimating(true);
+  };
+  const onExited = () => {
+    setAnimating(false);
+  };
+  const next = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === Articles.length - 1 ? 0 : activeIndex + 1;
+    setActiveIndex(nextIndex);
+  };
+  const previous = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === 0 ? Articles.length - 1 : activeIndex - 1;
+    setActiveIndex(nextIndex);
+  };
+  const goToIndex = (newIndex) => {
+    if (animating) return;
+    setActiveIndex(newIndex);
+  };
 
   const like = async (article,user) => {
 
@@ -142,8 +184,8 @@ function ArticleDetails(props) {
 
   }
 
-  
 
+ 
   return (
 
     <>
@@ -154,11 +196,12 @@ function ArticleDetails(props) {
           author={"Dr."+Author.FirstName+ " "+Author.LastName}
           image={ArticleDetails.image}
           nbComments={nbComments}
-          nbLikes={nbLikes} />
+          nbLikes={nbLikes} category={ArticleDetails.category}/>
         <div className="section">
           <Container>
             
             <div className="button-container">
+
               <Button hidden={Like}  onClick={() => { like(ArticleDetails._id,decodedTOKEN.user_id) }} className="btn-round" color="info" size="lg">
                 <i class="now-ui-icons ui-2_favourite-28"></i>
                 Like
@@ -168,16 +211,108 @@ function ArticleDetails(props) {
                 Unlike
               </Button>
             </div>
+            <Button class='btn btn-primary btn-lg' className="btn-round" color="info" size="lg"
+       onClick={() =>synth.speak(new SpeechSynthesisUtterance(ArticleDetails.description))}>
+                         <i class="now-ui-icons tech_headphones"></i>
+            Read for me
+             </Button>
+             <Button class='btn btn-primary btn-lg' className="btn-round" color="warning" size="lg"
+       onClick={() => synth.pause()}>
+                         <i class="now-ui-icons media-1_button-pause"></i>
+           Pause
+             </Button>
+             <Button class='btn btn-primary btn-lg' className="btn-round" color="success" size="lg"
+       onClick={() => synth.resume()}>
+                         <i class="now-ui-icons media-1_button-play"></i>
+           Resume
+             </Button>
+             <Button class='btn btn-primary btn-lg' className="btn-round" color="danger" size="lg"
+       onClick={() => synth.cancel()}>
+                         <i class="now-ui-icons media-1_button-power"></i>
+           Stop
+             </Button>
             <h4 className="title">{ArticleDetails.description}</h4>
          
-          <div align="right">
+          <br/>
+          <br/>
+       
+            <div style={
+      {
+       border: '2px solid green'
+      }
+    } align="left">
+      <br/>
+                 <h4 align="center"> List of comments </h4>
+            <br/>
             <CommentBox idArticle={idArticle} />
-            </div>  
-         
-            <div   align="center">
-              <ArticleComments id={idArticle}/>
+            <br/>
+            <ArticleComments id={idArticle}/>
+            <br/>
             </div>
+            <br/>
+            <br/>
+            <h4 className="title"> Suggestions:  Read More on {ArticleDetails.category}   </h4>
+            <Row  className="justify-content-center">
+            <Col lg="8" md="12">
+              <Carousel
+                activeIndex={activeIndex}
+                next={next}
+                previous={previous}
+              >
+                <CarouselIndicators 
+                  items={Articles}
+                  activeIndex={activeIndex}
+                  onClickHandler={goToIndex}
+                />
+                {Articles.map((item) => {
+                  return (
+                    <CarouselItem
+                      onExiting={onExiting}
+                      onExited={onExited}
+
+                      key={require("assets/img/bg1.jpg").default}
+                    >
+                      <img height={400} width={1000} src={process.env.PUBLIC_URL+ item.image} alt={item.title} />
+                      <div className="carousel-caption d-none d-md-block">
+                      <Link to={{
+                            pathname: "/article",
+                            state: {
+                              idArticle: item._id
+                            }
+                          }} ><h5>{item.title}</h5></Link>   
+                      </div>
+                      
+                    </CarouselItem>
+                  );
+                })}
+                <a
+                  className="carousel-control-prev"
+                  data-slide="prev"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    previous();
+                  }}
+                  role="button"
+                >
+                  <i className="now-ui-icons arrows-1_minimal-left"></i>
+                </a>
+                <a
+                  className="carousel-control-next"
+                  data-slide="next"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    next();
+                  }}
+                  role="button"
+                >
+                  <i className="now-ui-icons arrows-1_minimal-right"></i>
+                </a>
+              </Carousel>
+            </Col>
+          </Row>
+
             </Container>
+
           </div>
 
         <DefaultFooter />
