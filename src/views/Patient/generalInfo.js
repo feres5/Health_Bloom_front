@@ -87,7 +87,6 @@ function GeneralInfo(props) {
             <Card className="col col-md-8" style={{margin : "10px"}} >
                 <CardHeader>
                     <Row>
-
                         <h3>General Information :</h3>
                         <Button className="btn-round" onClick={changeCard} style={{marginLeft:"auto", height:"50px" }} color="info" outline type="button">update</Button>
                     </Row>
