@@ -202,7 +202,7 @@ function ForumWelcome() {
 
     useEffect(() => {
       fetchSections()
-      //fetchNewsItems()
+      fetchNewsItems()
       fetchUser()
     }, [])
     
@@ -241,7 +241,7 @@ function ForumWelcome() {
                   <FontAwesomeIcon icon={solid('plus')} size="lg" />&nbsp; New Section
                 </Link>
 
-                <Link className="forum-link" to={"#"}>
+                <Link className="forum-link" to={"/dashboard"}>
                   <FontAwesomeIcon icon={solid('user')} size="lg" />Profile
                 </Link>
                 

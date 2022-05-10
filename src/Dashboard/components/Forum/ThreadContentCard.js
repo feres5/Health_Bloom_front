@@ -83,7 +83,7 @@ const ThreadContentCard = (props) =>
                 <Col className='thread-profile-info' sm="3">
                     <Container>
                         <img src= {require("assets/img/eva.jpg").default}  alt="" />
-                        <a href="#"> {props.thread.user ? props.thread.user.FirstName + " " + props.thread.user.LastName : ""} </a>
+                        <Link to={props.thread.user ? `/doctor/front-profile/${props.thread.user._id}` : "/dashboard"}> {props.thread.user ? props.thread.user.FirstName + " " + props.thread.user.LastName : ""} </Link>
                         <h5>{props.thread.user ? props.thread.user._doctor.Speciality : ""}</h5>
                     </Container>   
                 </Col>
@@ -114,8 +114,8 @@ const ThreadContentCard = (props) =>
                 <Col className='thread-profile-info' sm="3">
                     <Container>
                         <img src= {require("assets/img/eva.jpg").default}  alt="" />
-                        <a href="#">{item.user ? item.user.FirstName + " " + item.user.LastName : ""} </a>
-                        <h5>{props.thread.user ? props.thread.user._doctor.Speciality : ""}</h5>
+                        <Link to={item.user ? `/doctor/front-profile/${item.user._id}` : "/dashboard"}> {item.user ? item.user.FirstName + " " + item.user.LastName : ""} </Link>
+                        <h5>{item.user && item.user._doctor ? item.user._doctor.Speciality : ""}</h5>
                     </Container>
                     
                 </Col>

@@ -70,8 +70,8 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build && gulp licenses",
+    "start": "craco start && react-scripts --max_old_space_size=4096 build",
+    "build": "craco build && gulp licenses && react-scripts --max_old_space_size=4096 build",
     "test": "craco test",
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
