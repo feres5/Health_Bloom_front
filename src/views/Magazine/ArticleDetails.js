@@ -211,22 +211,22 @@ function ArticleDetails(props) {
                 Unlike
               </Button>
             </div>
-            <Button class='btn btn-primary btn-lg' className="btn-round" color="info" size="lg"
+            <Button class='btn btn-primary btn-lg' className="btn-round" color="info" size="md"
        onClick={() =>synth.speak(new SpeechSynthesisUtterance(ArticleDetails.description))}>
                          <i class="now-ui-icons tech_headphones"></i>
             Read for me
              </Button>
-             <Button class='btn btn-primary btn-lg' className="btn-round" color="warning" size="lg"
+             <Button class='btn btn-primary btn-lg' className="btn-round" color="warning" size="md"
        onClick={() => synth.pause()}>
                          <i class="now-ui-icons media-1_button-pause"></i>
            Pause
              </Button>
-             <Button class='btn btn-primary btn-lg' className="btn-round" color="success" size="lg"
+             <Button class='btn btn-primary btn-lg' className="btn-round" color="success" size="md"
        onClick={() => synth.resume()}>
                          <i class="now-ui-icons media-1_button-play"></i>
            Resume
              </Button>
-             <Button class='btn btn-primary btn-lg' className="btn-round" color="danger" size="lg"
+             <Button class='btn btn-primary btn-lg' className="btn-round" color="danger" size="md"
        onClick={() => synth.cancel()}>
                          <i class="now-ui-icons media-1_button-power"></i>
            Stop
