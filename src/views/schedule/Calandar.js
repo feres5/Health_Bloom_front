@@ -209,7 +209,11 @@ const appointmentComponent = (props) => {
 };
 /****************************************************  end Drag and Drop  *********************************************** */
 var token = localStorage.getItem("user_info");
-var decoded = jwt_decode(token);
+var decoded= null;
+if (token){
+  decoded = jwt_decode(token);
+}
+
 var l = [];
 
 export default class Demo extends React.PureComponent {
