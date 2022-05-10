@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 // reactstrap components
 import "../../assets/scss/magazine.scss";
+import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardHeader, MDBCardSubTitle, MDBCardFooter } from 'mdb-react-ui-kit';
 import jwt_decode from "jwt-decode";
-import Filter from 'bad-words';
 
 // core components
-
-import { Comment, Form, Header } from 'semantic-ui-react'
+import IndexNavbar from "components/Navbars/IndexNavbar.js";
+import DarkFooter from "components/Footers/DarkFooter.js";
+import MagazineHeader from "components/Headers/MagazineHeader";
 import {
   Button,
-  Container
+  Label,
+  FormGroup,
+  Input,
+  Container,
+  Row,
+  Col,
 } from "reactstrap";
+
 
 function ArticleComments(props) {
   const idArticle = props.id;
@@ -19,9 +27,7 @@ function ArticleComments(props) {
   const refreshPage = () => {
     window.location.reload();
   }
-  const filter = new Filter();
-  console.log(filter.clean("Don't be an ash0le")); //Don't be an ******
-
+ 
   const [comments, setcomments] = useState([])
   const fetchcomments = async () => {
     const url = process.env.REACT_APP_BackEnd_url+"/articles/comments/"
@@ -69,49 +75,28 @@ function ArticleComments(props) {
 
 
   return (
-    <div align="left" border="2px">
-        { comments.map((item)=>{
+    <div>
+      { comments.map((item)=>{
         var current= item.dateTime
+
         return(
-     <Comment.Group>
-       <div style={
-      {
-       width: '800px',
-      }
-    } align="left" >
-        <Comment>
-        
-        <Comment.Content>
-        <div style={
-      {
-        height:"20px",
-       marginInlineStart:'200px',
-      }
-    }>
+          <MDBCard background='info' className='text-white mb-3' style={{ maxWidth: '60rem' }}>
+          <MDBCardHeader padding={200} > Written by  {item.emailUser}</MDBCardHeader>
+          <MDBCardText>
+             {current}
+            </MDBCardText>
+          <MDBCardBody  frameBorder={10}>
+            
+            <MDBCardTitle ><h5>{item.content}</h5></MDBCardTitle>
+            
+            <Button disabled={item.idUser!=decodedTOKEN.user_id} onClick={() => {deleteComment(item._id)} } class="btn-round btn btn-danger">Delete</Button>
+          </MDBCardBody>
+        </MDBCard>        )
+
+      })}
 
 
-      <Button disabled={item.idUser!=decodedTOKEN.user_id} onClick={() => {deleteComment(item._id)} } ><i class="now-ui-icons ui-1_simple-remove"></i></Button>
-    </div>
-        <Comment.Avatar as='a' height={50} src='https://marketplace-cdn.atlassian.com/files/0a5f21f1-69fd-4ca9-b2f1-e7e3d19f3d81?fileType=image&mode=full-fit' />
-          <Comment.Author as='b'>  {item.emailUser}</Comment.Author>         
-         
-
-          <Comment.Metadata>
-            <span class="mr-1 badge badge-success">{current}</span>
-          </Comment.Metadata>
-          <Comment.Text>{filter.clean(item.content)}</Comment.Text>
-
-        </Comment.Content>
-     
-
-         </Comment>
-      </div>
-
-      <br/>
-    </Comment.Group>
-        )
- })}
-
+     {/*    */}
     </div>
   );
 }

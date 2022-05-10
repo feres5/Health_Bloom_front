@@ -54,11 +54,12 @@ function ArticleDetailsDashboard() {
         const reponse = await fetch(urlId)
         const newArticleDetails = await reponse.json()
         setArticleDetails(newArticleDetails)
-        localStorage.setItem("author",newArticleDetails.author)
     }
     useEffect(() => {
         fetchArticleDetails()
        
+    }, ()=>{
+        fetchAuthor()
     })
 
     const [Author, setAuthor] = useState([])
@@ -69,15 +70,12 @@ function ArticleDetailsDashboard() {
   const idAuthor=ArticleDetails.author
   const urlAuthor = process.env.REACT_APP_BackEnd_url+"/articles/Author/"
   const fetchAuthor = async () => {
-    const idAuthor = localStorage.getItem("author");
-
       const urlId = urlAuthor + idAuthor;
 
       const reponse = await fetch(urlId)
-      console.log(urlId)
       const newAuthor = await reponse.json()
       setAuthor(newAuthor)
-      console.log("======>"+newAuthor)
+      console.log(newAuthor)
       return newAuthor;
   }
   useEffect(() => {

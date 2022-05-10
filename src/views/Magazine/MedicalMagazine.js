@@ -14,15 +14,11 @@ import {
   NavbarText,
 } from "reactstrap";
 import jwt_decode from "jwt-decode";
-import { Button } from "react-bootstrap";
-
-
 
 function MedicalMagazine() {
 
   const [articles, setarticles] = useState([])
   const [searchTerm, setsearchTerm] = useState("")
-  console.log(searchTerm)
   const fetcharticles = async () => {
     const url = process.env.REACT_APP_BackEnd_url+'/articles'
     const reponse = await fetch(url)
@@ -63,40 +59,26 @@ function MedicalMagazine() {
         <MagazineHeader />
         <br/>
         <br/>
-     
-              <Col lg="12" >
-              <div>    
-              </div>
+       
+              <Col md="6" sm="6">
                 <FormGroup>
-                <Button  value="Dermatology" className="btn-round" color="info" size="lg">
-                <i class="now-ui-icons ui-2_favourite-28"></i>
-                Dermatology
-               </Button>
-               <Button  onClick={() => {}} className="btn-round" color="info" size="lg">
-                <i class="now-ui-icons ui-2_favourite-28"></i>
-                Allergy and immunology
-               </Button>
-               <Button  onClick={() => {}} className="btn-round" color="info" size="lg">
-                <i class="now-ui-icons ui-2_favourite-28"></i>
-                Cardiology
-               </Button>
-               <Button  onClick={() => {}} className="btn-round" color="info" size="lg">
-                <i class="now-ui-icons ui-2_favourite-28"></i>
-                Obstetrics and gynecology
-               </Button>
-               <Button  onClick={() => {}} className="btn-round" color="info" size="lg">
-                <i class="now-ui-icons ui-2_favourite-28"></i>
-                Ophthalmology
-               </Button>
-               <Button  onClick={() => {}} className="btn-round" color="info" size="lg">
-                <i class="now-ui-icons ui-2_favourite-28"></i>
-                Emergency medicine
-               </Button>   
+                  <h6>Search for a specific article</h6>
+                  <Input
+                    onChange={(e) =>{handleSearchTerm(e)}}
+                    placeholder="Search articles"
+                    type="text"
+                    
+                  ></Input>
                 </FormGroup>
               </Col>
         <div className="wrapperArticles">
               
-        {articles.map((item) => {
+        {articles.filter((val) => {
+            return val.title
+            .toString()
+            .toLowerCase()
+            .includes(searchTerm.toString().toLowerCase())
+                  }).map((item) => {
                      
           return(
             <div className="card">

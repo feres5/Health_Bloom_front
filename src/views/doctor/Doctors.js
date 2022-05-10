@@ -36,7 +36,7 @@ function Doctors() {
   const doctorsPerPage = 4;
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_BackEnd_url+`/doctor/getAll`)
+      .get(`http://localhost:3002/doctor/getAll`)
       .then((response) => {
         setDoctors(response.data);
       })

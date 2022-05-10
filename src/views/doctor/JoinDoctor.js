@@ -42,7 +42,7 @@ function SignUp() {
     LaborTime: "",
     Description: "",
   });
-  var url = process.env.REACT_APP_BackEnd_url+`/doctor/join/${doctorId}`;
+  var url = `http://127.0.0.1:3002/doctor/join/${doctorId}`;
 
   const {
     Speciality,

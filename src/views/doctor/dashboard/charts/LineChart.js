@@ -27,7 +27,7 @@ function LineChart() {
   var decodedTOKEN = null;
   const getChartData = async () => {
     const reponse = await fetch(
-        process.env.REACT_APP_BackEnd_url+`/api/appointments/${decodedTOKEN.restUserInfo}`
+      `http://127.0.0.1:3002/api/appointments/${decodedTOKEN.restUserInfo}`
     );
     const infoRes = await reponse.json();
     /*------------------------------------------------------------ */
@@ -69,7 +69,7 @@ function LineChart() {
     }
 
     const reponse1 = await fetch(
-        process.env.REACT_APP_BackEnd_url+`/added/${decodedTOKEN.restUserInfo}`
+      `http://127.0.0.1:3002/added/${decodedTOKEN.restUserInfo}`
     );
     const infoRes1 = await reponse1.json();
     var data1 = [];

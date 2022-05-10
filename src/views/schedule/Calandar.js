@@ -209,13 +209,7 @@ const appointmentComponent = (props) => {
 };
 /****************************************************  end Drag and Drop  *********************************************** */
 var token = localStorage.getItem("user_info");
-
-var decoded = null;
-if(token){
-  decoded = jwt_decode(token);
-  //console.log(decodedTOKEN);
-}
-    //jwt_decode(token);
+var decoded = jwt_decode(token);
 var l = [];
 
 export default class Demo extends React.PureComponent {
@@ -260,7 +254,7 @@ export default class Demo extends React.PureComponent {
     this.changeEditingAppointment = this.changeEditingAppointment.bind(this);
 
     axios
-      .get(process.env.REACT_APP_BackEnd_url+`/api/appointments/${decoded.restUserInfo}`)
+      .get(`http://127.0.0.1:3002/api/appointments/${decoded.restUserInfo}`)
       .then((response) => {
         var d = [];
         this.setState({ adam: response.data });
@@ -282,7 +276,7 @@ export default class Demo extends React.PureComponent {
 
     axios
       .get(
-          process.env.REACT_APP_BackEnd_url+`/doctor/getDoctorPatients/${decoded.restUserInfo}`
+        `http://127.0.0.1:3002/doctor/getDoctorPatients/${decoded.restUserInfo}`
       )
       .then((response) => {
         response.data.map((item, index) => {
@@ -343,7 +337,7 @@ export default class Demo extends React.PureComponent {
           data.length > 0 ? data[data.length - 1].id + 1 : 0;
         data = [...data, { id: startingAddedId, ...added }];
 
-        axios.post(process.env.REACT_APP_BackEnd_url+"/api/appointments/", {
+        axios.post("http://127.0.0.1:3002/api/appointments/", {
           title: data[data.length - 1].title,
           _doctor: decoded.restUserInfo,
           _patient: l[data[data.length - 1].members - 1],
@@ -362,7 +356,7 @@ export default class Demo extends React.PureComponent {
             console.log(appointment.id);
             let myId = this.state.adam[appointment.id]._id;
             axios.put(
-                process.env.REACT_APP_BackEnd_url+`/api/appointments/${myId}`,
+              `http://127.0.0.1:3002/api/appointments/${myId}`,
               changed[appointment.id]
             );
             return { ...appointment, ...changed[appointment.id] };
@@ -371,7 +365,7 @@ export default class Demo extends React.PureComponent {
       }
       if (deleted !== undefined) {
         let myId = this.state.adam[deleted]._id;
-        axios.delete(process.env.REACT_APP_BackEnd_url+`/api/appointments/${myId}`);
+        axios.delete(`http://127.0.0.1:3002/api/appointments/${myId}`);
         data = data.filter((appointment) => appointment.id !== deleted);
       }
       return { data };

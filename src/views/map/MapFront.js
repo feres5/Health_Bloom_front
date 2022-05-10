@@ -28,7 +28,7 @@ export default function MapFront(props) {
   });
   const getInfo = async () => {
     const reponse = await fetch(
-        process.env.REACT_APP_BackEnd_url+`/users/getById/${decodedTOKEN.user_id}`
+      `http://localhost:3002/users/getById/${decodedTOKEN.user_id}`
     );
     const infoRes = await reponse.json();
     setdoctorInfo(infoRes.doctor);

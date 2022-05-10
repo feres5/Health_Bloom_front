@@ -140,7 +140,7 @@ function DoctorProfileBack() {
 
   const getPatients = async () => {
     const reponse = await fetch(
-        process.env.REACT_APP_BackEnd_url+`/doctor/getDoctorPatients/${decodedTOKEN.restUserInfo}`
+      `http://127.0.0.1:3002/doctor/getDoctorPatients/${decodedTOKEN.restUserInfo}`
     );
     const infoRes = await reponse.json();
     const data = [];
@@ -157,7 +157,7 @@ function DoctorProfileBack() {
   const getStats = async () => {
     /*******************New Patients Section ************************** */
     const reponse = await fetch(
-        process.env.REACT_APP_BackEnd_url+`/added/${decodedTOKEN.restUserInfo}`
+      `http://127.0.0.1:3002/added/${decodedTOKEN.restUserInfo}`
     );
     const infoRes = await reponse.json();
     var currentMonth = new Date().getMonth();
@@ -220,7 +220,7 @@ function DoctorProfileBack() {
     /******************* End new Patients Section ************************** */
     /*******************Appointments Section ******************************* */
     const reponse1 = await fetch(
-        process.env.REACT_APP_BackEnd_url+`/api/appointments/${decodedTOKEN.restUserInfo}`
+      `http://127.0.0.1:3002/api/appointments/${decodedTOKEN.restUserInfo}`
     );
 
     var d = new Date();
@@ -293,7 +293,7 @@ function DoctorProfileBack() {
 
   const getInfo = async () => {
     const reponse = await fetch(
-        process.env.REACT_APP_BackEnd_url+`/users/getById/${decodedTOKEN.user_id}`
+      `http://localhost:3002/users/getById/${decodedTOKEN.user_id}`
     );
     const infoRes = await reponse.json();
     setData(infoRes);

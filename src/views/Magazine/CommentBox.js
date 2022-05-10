@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import cn from "classnames";
 import "../../assets/css/CommentBox.css";
+import qs from 'querystring';
 import jwt_decode from "jwt-decode";
-import Filter from 'bad-words';
 
 const INITIAL_HEIGHT = 46;
 
@@ -11,10 +11,10 @@ const INITIAL_HEIGHT = 46;
  * https://letsbuildui.dev/articles/how-to-build-an-expandable-comment-box
  */
 export default function CommentBox(props) {
-    
+
     const [content, setContent] = useState("");
     const [idArticle, setIdArticle] = useState("");
-    const [Author, setAuthor] = useState([])
+
     const [isExpanded, setIsExpanded] = useState(false);
 
     const [commentValue, setCommentValue] = useState("");
@@ -31,7 +31,7 @@ export default function CommentBox(props) {
     const textRef = useRef(null);
     const containerRef = useRef(null);
     useDynamicHeightField(textRef, commentValue);
-   
+
     const onExpand = () => {
         if (!isExpanded) {
             outerHeight.current = containerRef.current.scrollHeight;
@@ -51,23 +51,6 @@ export default function CommentBox(props) {
     };
     var user = localStorage.getItem("user_info");
     var decodedTOKEN = jwt_decode(user,{payload : true});
-
-
-    const urlAuthor = "http://localhost:3002/articles/Author/"
-  const fetchAuthor = async () => {
-      const urlId = urlAuthor + decodedTOKEN.user_id
-
-      const reponse = await fetch(urlId)
-      const newAuthor = await reponse.json()
-      setAuthor(newAuthor)
-      console.log(newAuthor)
-      return newAuthor;
-  }
-  useEffect(() => {
-      fetchAuthor()
-  }, [])
-
- const AuthorName= Author.FirstName+ " "+Author.LastName;
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -107,7 +90,7 @@ export default function CommentBox(props) {
                             src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/df/df7789f313571604c0e4fb82154f7ee93d9989c6.jpg"
                             alt="User avatar"
                         />
-                        <span>{AuthorName}</span>
+                        <span>{decodedTOKEN.Email}</span>
                     </div>
                 </div>
                 <textarea

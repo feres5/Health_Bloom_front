@@ -106,7 +106,7 @@ function InfoProfile(props) {
 
   async function EditDoctor() {
     console.log(formData);
-    await fetch(process.env.REACT_APP_BackEnd_url+"/users/updateUser/" + id, {
+    await fetch("http://127.0.0.1:3002/users/updateUser/" + id, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
