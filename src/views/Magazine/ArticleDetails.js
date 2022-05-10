@@ -28,10 +28,11 @@ function ArticleDetails(props) {
   const[nbLikes,setNblikes] =useState()
   const[nbComments,setnbComments] =useState()
   const location = useLocation();
+  console.log(location);
   const idArticle = location.state.idArticle
   const { speak ,pause} = useSpeechSynthesis();
   const [ArticleDetails, setArticleDetails] = useState([])
-  const url = "http://localhost:3002/articles/"
+  const url = process.env.REACT_APP_BackEnd_url+"/articles/"
 
   const fetchArticleDetails = async () => {
     const urlId = url + idArticle;
@@ -65,7 +66,7 @@ function ArticleDetails(props) {
   var user = localStorage.getItem("user_info");
   var decodedTOKEN = jwt_decode(user,{payload : true});
 
-  const urlAuthor = "http://localhost:3002/articles/Author/"
+  const urlAuthor = process.env.REACT_APP_BackEnd_url+"/articles/Author/"
   const fetchAuthor = async () => {
       const urlId = urlAuthor + decodedTOKEN.user_id
 
@@ -96,7 +97,7 @@ function ArticleDetails(props) {
 
 
 
-  const urlLike = "http://localhost:3002/articles/getLike/"
+  const urlLike = process.env.REACT_APP_BackEnd_url+"/articles/getLike/"
 
   const fetchLike = async () => {
       const urlId = urlLike + idArticle+"/"+ decodedTOKEN.user_id
@@ -135,7 +136,7 @@ function ArticleDetails(props) {
 
   const like = async (article,user) => {
 
-    fetch(`http://localhost:3002/articles/likeArticle/${article}/${user}`, {
+    fetch(process.env.REACT_APP_BackEnd_url+`/articles/likeArticle/${article}/${user}`, {
       method: 'POST'
     })
       .then(async response => {
@@ -160,7 +161,7 @@ function ArticleDetails(props) {
 
   const unlike = async (article,user) => {
 
-    fetch(`http://localhost:3002/articles/unlikeArticle/${article}/${user}`, {
+    fetch(process.env.REACT_APP_BackEnd_url+`/articles/unlikeArticle/${article}/${user}`, {
       method: 'DELETE'
     })
       .then(async response => {

@@ -71,22 +71,19 @@ export default function CommentBox(props) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        fetch(`http://localhost:3002/articles/addComment`, {
+        fetch(process.env.REACT_APP_BackEnd_url+`/articles/addComment`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ content:commentValue, idArticle: props.idArticle, idUser:decodedTOKEN.user_id 
-            , emailUser:AuthorName})
-            }).then(
-                (result) => {
-            result.json().then((resp) => {
-            console.warn(resp)
-            console.log(resp.success)
-            const message=resp.message;
-
-refreshPage()        })
-                            }
-                                
-                            )
+            body: JSON.stringify({ content: commentValue, idArticle: props.idArticle, idUser:decodedTOKEN.user_id 
+            , emailUser:decodedTOKEN.Email})
+            }).then((result) => {
+                result.json().then((resp) => {
+                    console.warn(resp)
+                    console.log(resp.success)
+                    const message=resp.message;
+                    refreshPage()
+                })
+            })
 }
 
 

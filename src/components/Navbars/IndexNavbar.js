@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useHistory } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -15,12 +15,12 @@ import {Dialog, DialogContent, DialogContentText, DialogTitle, DialogActions, Al
 import {InputGroup} from "react-bootstrap";
 
 function IndexNavbar() {
-  const navigate = useHistory()
+  const navigate = useNavigate()
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
-  const url = "http://localhost:3002/users/";
+  const url = process.env.REACT_APP_BackEnd_url+"/users/";
   //console.log(localStorage.getItem("user_info"))
   var token = localStorage.getItem("user_info");
   var decodedTOKEN = null;
@@ -28,9 +28,9 @@ function IndexNavbar() {
   useEffect(()=>{
     if(token){
       decodedTOKEN = jwt_decode(token,{payload : true});
-      console.log(decodedTOKEN);
+      //console.log(decodedTOKEN);
     }
-  })
+  },[])
 
   React.useEffect(() => {
     const updateNavbarColor = () => {

@@ -97,20 +97,17 @@ function Index() {
             </Container>
           </div>
 
-
-
-
-          <BasicElements />
-          <Navbars />
-          <Tabs />
-          <Pagination />
-          <Notifications />
-          <Typography />
-          <Javascript />
-          <Carousel />
-          <NucleoIcons />
-          <CompleteExamples />
-          <SignUp />
+          {/*<BasicElements />*/}
+          {/*<Navbars />*/}
+          {/*<Tabs />*/}
+          {/*<Pagination />*/}
+          {/*<Notifications />*/}
+          {/*<Typography />*/}
+          {/*<Javascript />*/}
+          {/*<Carousel />*/}
+          {/*<NucleoIcons />*/}
+          {/*<CompleteExamples />*/}
+          {/*<SignUp />*/}
 
         </div>
         <DarkFooter />

@@ -24,7 +24,7 @@ function ArticleComments(props) {
 
   const [comments, setcomments] = useState([])
   const fetchcomments = async () => {
-    const url = "http://localhost:3002/articles/comments/"
+    const url = process.env.REACT_APP_BackEnd_url+"/articles/comments/"
     const urlId = url + idArticle
     const reponse = await fetch(urlId)
     const newcomments = await reponse.json()
@@ -39,7 +39,7 @@ function ArticleComments(props) {
 
   const deleteComment = async (id) => {
 
-    fetch(`http://localhost:3002/articles/deleteComment/${id}`, {
+    fetch(process.env.REACT_APP_BackEnd_url+`/articles/deleteComment/${id}`, {
       method: 'GET'
     })
       .then(async response => {

@@ -1,8 +1,68 @@
 import "../../assets/css/plugins/animate.min.css";
 import "../../assets/css/main.scoped.css";
 import React from "react";
+import {useNavigate, useMatch, useLocation} from "react-router-dom";
+import QuickCartItem from "./cart/QuickCartItem";
+import cartData from "./cart/CartData";
+import {useCart} from "react-use-cart";
+import jwt_decode from "jwt-decode";
 
 const ShopHeader = () => {
+
+    const token = localStorage.getItem("user_info");
+    let wishlist = localStorage.getItem("wishlist");
+
+    let products = []
+    let signInOut;
+    if (token) {
+
+        const decodedTOKEN = jwt_decode(token, {payload: true});
+        if (wishlist) {
+            wishlist = JSON.parse(wishlist);
+             wishlist.map((item) => {
+                if (item.userId === decodedTOKEN.user_id) {
+                    products = item.products;
+                }
+            });
+            console.log(products);
+        }
+    } else {
+        products = [];
+    }
+
+    const history = useNavigate ();
+    const logOut = (e) => {
+        e.preventDefault();
+        localStorage.removeItem("user_info");
+        history.replace("/shop");
+    };
+
+    signInOut = token ?
+        (
+            <a href="/shop/home" onClick={logOut}><i
+                className="fi fi-rs-sign-out mr-10"></i>Sign
+                out</a>
+        ) :
+        (
+            <a href="/login-page"><i
+                className="fi fi-rs-sign-in mr-10"></i>Sign
+                in</a>
+        )
+
+
+    const {
+        isEmpty,
+        totalUniqueItems,
+        items,
+        updateItemQuantity,
+        removeItem,
+        cartTotal,
+        emptyCart
+    } = useCart();
+
+
+    //const {path, url} = useMatch();
+    let path = useLocation().pathname;
 
     return (
         <header className="header-area header-style-1 header-height-2">
@@ -49,7 +109,7 @@ const ShopHeader = () => {
                 <div className="container">
                     <div className="header-wrap">
                         <div className="d-inline-block">
-                            <a href="index.html"><img
+                            <a href="/index"><img
                                 style={{marginRight: '40px'}}
                                 src={require("assets/img/logoNav1.png").default}
                                 width="70"
@@ -72,7 +132,7 @@ const ShopHeader = () => {
                                         <option>Ice cream</option>
                                     </select>
                                     <input type="text"
-                                           placeholder="Search for items..."/>
+                                           placeholder="Search ..."/>
                                 </form>
                             </div>
                             <div className="header-action-right">
@@ -101,100 +161,69 @@ const ShopHeader = () => {
                                     </div>
 
                                     <div className="header-action-icon-2">
-                                        <a href="shop-wishlist.html">
+                                        <a href={`${path}/wishlist`}>
                                             <img className="svgInject"
                                                  alt="Nest"
                                                  src="assets/imgs/theme/icons/icon-heart.svg"/>
                                             <span
-                                                className="pro-count blue">6</span>
+                                                className="pro-count blue">{products.length}</span>
                                         </a>
-                                        <a href="shop-wishlist.html"><span
+                                        <a href={`${path}/wishlist`}><span
                                             className="lable">Wishlist</span></a>
                                     </div>
                                     <div className="header-action-icon-2">
                                         <a className="mini-cart-icon"
-                                           href="shop-cart.html">
+                                           href={`${path}/cart`}>
                                             <img alt="Nest"
                                                  src="assets/imgs/theme/icons/icon-cart.svg"/>
                                             <span
-                                                className="pro-count blue">2</span>
+                                                className="pro-count blue">{totalUniqueItems}</span>
                                         </a>
-                                        <a href="shop-cart.html"><span
+                                        <a href={`${path}/cart`}><span
                                             className="lable">Cart</span></a>
                                         <div
                                             className="cart-dropdown-wrap cart-dropdown-hm2">
                                             <ul>
-                                                <li>
-                                                    <div
-                                                        className="shopping-cart-img">
-                                                        <a href="shop-product-right.html"><img
-                                                            alt="Nest"
-                                                            src="assets/imgs/shop/thumbnail-3.jpg"/></a>
-                                                    </div>
-                                                    <div
-                                                        className="shopping-cart-title">
-                                                        <h4><a
-                                                            href="shop-product-right.html">Daisy
-                                                            Casual Bag</a>
-                                                        </h4>
-                                                        <h4>
-                                                            <span>1 × </span>$800.00
-                                                        </h4>
-                                                    </div>
-                                                    <div
-                                                        className="shopping-cart-delete">
-                                                        <a href="#"><i
-                                                            className="fi-rs-cross-small"></i></a>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div
-                                                        className="shopping-cart-img">
-                                                        <a href="shop-product-right.html"><img
-                                                            alt="Nest"
-                                                            src="assets/imgs/shop/thumbnail-2.jpg"/></a>
-                                                    </div>
-                                                    <div
-                                                        className="shopping-cart-title">
-                                                        <h4><a
-                                                            href="shop-product-right.html">Corduroy
-                                                            Shirts</a></h4>
-                                                        <h4>
-                                                            <span>1 × </span>$3200.00
-                                                        </h4>
-                                                    </div>
-                                                    <div
-                                                        className="shopping-cart-delete">
-                                                        <a href="#"><i
-                                                            className="fi-rs-cross-small"></i></a>
-                                                    </div>
-                                                </li>
+                                                {items.map((item, index) => {
+                                                    return (
+                                                        <QuickCartItem
+                                                            image={item.image}
+                                                            name={item.name}
+                                                            quantity={item.quantity}
+                                                            price={item.price}
+                                                            key={index}
+                                                            item={item}
+                                                            id={item.id}
+                                                            onRemove={removeItem}
+                                                        />
+                                                    );
+                                                })}
                                             </ul>
                                             <div
                                                 className="shopping-cart-footer">
                                                 <div
                                                     className="shopping-cart-total">
-                                                    <h4>Total <span>$4000.00</span>
+                                                    <h4>Total <span>${cartTotal}</span>
                                                     </h4>
                                                 </div>
                                                 <div
                                                     className="shopping-cart-button">
-                                                    <a href="shop-cart.html"
+                                                    <a href={`${path}/cart`}
                                                        className="outline">View
                                                         cart</a>
-                                                    <a href="shop-checkout.html">Checkout</a>
+                                                    <a href={`${path}/checkout`}>Checkout</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="header-action-icon-2">
-                                        {/*<a href="page-account.html">*/}
-                                        {/*    <img className="svgInject"*/}
-                                        {/*         alt="Nest"*/}
-                                        {/*         src="assets/imgs/theme/icons/icon-user.svg"/>*/}
-                                        {/*</a>*/}
-                                        {/*<a href="page-account.html"><span*/}
-                                        {/*    className="lable ml-0">Account</span></a>*/}
+                                        <a href="page-account.html">
+                                            <img className="svgInject"
+                                                 alt="Nest"
+                                                 src="assets/imgs/theme/icons/icon-user.svg"/>
+                                        </a>
+                                        <a href="page-account.html"><span
+                                            className="lable ml-0">Account</span></a>
                                         <div
                                             className="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                             <ul>
@@ -214,7 +243,7 @@ const ShopHeader = () => {
                                                         Voucher</a>
                                                 </li>
                                                 <li>
-                                                    <a href="shop-wishlist.html"><i
+                                                    <a href={`${path}/cart`}><i
                                                         className="fi fi-rs-heart mr-10"></i>My
                                                         Wishlist</a>
                                                 </li>
@@ -223,9 +252,7 @@ const ShopHeader = () => {
                                                         className="fi fi-rs-settings-sliders mr-10"></i>Setting</a>
                                                 </li>
                                                 <li>
-                                                    <a href="page-login.html"><i
-                                                        className="fi fi-rs-sign-out mr-10"></i>Sign
-                                                        out</a>
+                                                    {signInOut}
                                                 </li>
                                             </ul>
                                         </div>
@@ -391,7 +418,10 @@ const ShopHeader = () => {
                                             href="shop-grid-right.html">Hot
                                             Deals</a></li>
                                         <li>
-                                            <a href="page-about.html">Home</a>
+                                            <a href="/shop">Home</a>
+                                        </li>
+                                        <li>
+                                            <a href="/shop/products">Products</a>
                                         </li>
 
                                     </ul>
@@ -417,7 +447,7 @@ const ShopHeader = () => {
                             className="header-action-right d-block d-lg-none">
                             <div className="header-action-2">
                                 <div className="header-action-icon-2">
-                                    <a href="shop-wishlist.html">
+                                    <a href={`${path}/cart`}>
                                         <img alt="Nest"
                                              src="assets/imgs/theme/icons/icon-heart.svg"/>
                                         <span

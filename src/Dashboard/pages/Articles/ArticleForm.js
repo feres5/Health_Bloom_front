@@ -25,9 +25,8 @@ function ArticleForm() {
   const [Image, setImage] = useState()
   const [Category, setCategory] = useState()
 
-  console.log("title is" + Title)
-  console.log("description :" + Description)
-  const url = "http://localhost:3002/articles/Author/"
+    console.log("title is" + Title)
+    const url = process.env.REACT_APP_BackEnd_url+"/articles/Author/"
 
   const fetchAuthor = async () => {
     const urlId = url + id;
@@ -42,22 +41,22 @@ function ArticleForm() {
   }, [])
 
 
-  const onSubmit = () => {
-    var newImage = Image.replace("C:\\fakepath\\", "");
-    console.log(newImage)
-    fetch(`http://localhost:3002/articles/addArticle`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        title: Title, author: id,
-        description: finalTranscript, category:Category, image: newImage
-      })
-    }).then(
-      (result) => {
-        result.json().then((resp) => {
-          console.warn(resp)
-          console.log(resp.success)
-          const message = resp.message;
+    const onSubmit = () => {
+        var newImage = Image.replace("C:\\fakepath\\", "");
+        console.log(newImage)
+        fetch(process.env.REACT_APP_BackEnd_url+`/articles/addArticle`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                title: Title, author: id,
+                description: Description, image: newImage
+            })
+        }).then(
+            (result) => {
+                result.json().then((resp) => {
+                    console.warn(resp)
+                    console.log(resp.success)
+                    const message = resp.message;
 
           alert({ message: 'This article has been added Successfully', type: 'success' })
         })
