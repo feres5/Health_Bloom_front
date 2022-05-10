@@ -1,0 +1,42 @@
+.margin-bottom {
+    margin-bottom: 30px;
+  }
+  
+  .margin-right {
+    margin-right: 5rem;
+  }
+  
+  .gap-top {
+    margin-top: 100px;
+  }
+  
+  .btn-show {
+    display: block;
+    margin: 15px auto 0;
+  }
+  
+  .card-header-flex {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .card-body-flex {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .space-between {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  @media screen and (max-width: 900px) {
+    .card-header-flex {
+      flex-direction: column;
+    }
+  
+    .card-body-flex {
+      flex-direction: column;
+    }
+  }
+  

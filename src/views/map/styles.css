@@ -1,0 +1,13 @@
+.mapFront{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.mapboxgl-marker {
+    width: 25px;
+    height: 5px;
+    border-radius: 50%;
+    border:1px solid gray;
+    background-color:lightblue;
+}
