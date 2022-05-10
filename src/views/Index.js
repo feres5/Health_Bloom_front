@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 // reactstrap components
 import {
@@ -97,20 +97,17 @@ function Index() {
               </Container>
             </div>
 
-
-
-
-            <BasicElements />
-            <Navbars />
-            <Tabs />
-            <Pagination />
-            <Notifications />
-            <Typography />
-            <Javascript />
-            <Carousel />
-            <NucleoIcons />
-            <CompleteExamples />
-            <SignUp />
+            {/*<BasicElements />*/}
+            {/*<Navbars />*/}
+            {/*<Tabs />*/}
+            {/*<Pagination />*/}
+            {/*<Notifications />*/}
+            {/*<Typography />*/}
+            {/*<Javascript />*/}
+            {/*<Carousel />*/}
+            {/*<NucleoIcons />*/}
+            {/*<CompleteExamples />*/}
+            {/*<SignUp />*/}
 
           </div>
           <DarkFooter />
