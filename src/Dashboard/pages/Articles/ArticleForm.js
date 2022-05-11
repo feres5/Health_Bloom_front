@@ -39,21 +39,27 @@ function ArticleForm() {
     fetchAuthor()
   }, [])
 
+  
 
     const onSubmit = () => {
         var newImage = Image.replace("C:\\fakepath\\", "");
         console.log(newImage)
+        console.log(Title+id+transcript+Category+newImage)
         fetch(process.env.REACT_APP_BackEnd_url+`/articles/addArticle`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 title: Title, author: id,
-                description: Description, image: newImage
+                description:transcript, category:Category,image: newImage
             })
         }).then(
             (result) => {
                 result.json().then((resp) => {
                     console.warn(resp)
+                    console.log(JSON.stringify({
+                        title: Title, author: id,
+                        description:transcript, category:Category,image: newImage
+                    }))
                     console.log(resp.success)
                     const message = resp.message;
 
