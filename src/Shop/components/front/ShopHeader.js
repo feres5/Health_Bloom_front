@@ -1,7 +1,7 @@
 import "../../assets/css/plugins/animate.min.css";
 import "../../assets/css/main.scoped.css";
 import React from "react";
-import {useNavigate, useMatch, useLocation} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 import QuickCartItem from "./cart/QuickCartItem";
 import cartData from "./cart/CartData";
 import {useCart} from "react-use-cart";
@@ -161,25 +161,25 @@ const ShopHeader = () => {
                                     </div>
 
                                     <div className="header-action-icon-2">
-                                        <a href={`${path}/wishlist`}>
+                                        <a href={"shop/wishlist"}>
                                             <img className="svgInject"
                                                  alt="Nest"
                                                  src="assets/imgs/theme/icons/icon-heart.svg"/>
                                             <span
                                                 className="pro-count blue">{products.length}</span>
                                         </a>
-                                        <a href={`${path}/wishlist`}><span
+                                        <a href={"shop/wishlist"}><span
                                             className="lable">Wishlist</span></a>
                                     </div>
                                     <div className="header-action-icon-2">
                                         <a className="mini-cart-icon"
-                                           href={`${path}/cart`}>
+                                           href={"shop/cart"}>
                                             <img alt="Nest"
                                                  src="assets/imgs/theme/icons/icon-cart.svg"/>
                                             <span
                                                 className="pro-count blue">{totalUniqueItems}</span>
                                         </a>
-                                        <a href={`${path}/cart`}><span
+                                        <a href={"shop/cart"}><span
                                             className="lable">Cart</span></a>
                                         <div
                                             className="cart-dropdown-wrap cart-dropdown-hm2">
@@ -208,10 +208,10 @@ const ShopHeader = () => {
                                                 </div>
                                                 <div
                                                     className="shopping-cart-button">
-                                                    <a href={`${path}/cart`}
+                                                    <a href={"shop/cart"}
                                                        className="outline">View
                                                         cart</a>
-                                                    <a href={`${path}/checkout`}>Checkout</a>
+                                                    <a href={"shop/checkout"}>Checkout</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -228,7 +228,7 @@ const ShopHeader = () => {
                                             className="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                             <ul>
                                                 <li>
-                                                    <a href="page-account.html"><i
+                                                    <a href={"shop/account"}><i
                                                         className="fi fi-rs-user mr-10"></i>My
                                                         Account</a>
                                                 </li>
@@ -243,7 +243,7 @@ const ShopHeader = () => {
                                                         Voucher</a>
                                                 </li>
                                                 <li>
-                                                    <a href={`${path}/cart`}><i
+                                                    <a href={"shop/wishlist"}><i
                                                         className="fi fi-rs-heart mr-10"></i>My
                                                         Wishlist</a>
                                                 </li>

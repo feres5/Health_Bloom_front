@@ -30,6 +30,8 @@ import Checkout from "./components/front/cart/Checkout";
 import Invoice from "./components/front/cart/Invoice";
 import WishList from "./components/front/cart/WishList";
 import jwt_decode from "jwt-decode";
+import {ToastContainer} from "react-toastify";
+import UserDashboard from "./pages/front/UserDashboard";
 import Index from "../views/Index";
 import Main from "../Dashboard/components/layout/Main";
 import Home from "../Dashboard/pages/Home";
@@ -90,6 +92,7 @@ const HomeShop = () => {
 
     return (
         <React.Fragment>
+            <ToastContainer />
             <Routes>
                 <Route path="/invoice" element={<Invoice/>} />
                 <Route path="/home" element={<HomeLayout><HomePage/></HomeLayout>} />
@@ -98,6 +101,7 @@ const HomeShop = () => {
                 <Route path="/checkout" element={<HomeLayout><Checkout/></HomeLayout>} />
                 <Route path="/wishlist" element={<HomeLayout><WishList/></HomeLayout>} />
                 <Route path="/cart" element={<HomeLayout><Cart/></HomeLayout>} />
+                <Route path="/account" element={<HomeLayout><UserDashboard/></HomeLayout>} />
                 <Route path="/*" element={<HomeLayout><Shop404Page/></HomeLayout>} />
                 <Route path=""  element={<Navigate replace to={path+"/home"} />} />
             </Routes>

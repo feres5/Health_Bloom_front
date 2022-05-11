@@ -12,9 +12,11 @@ import "assets/demo/nucleo-icons-page-styles.css?v=1.5.0";
 // pages for this kit
 import Index from "views/Index.js";
 import NucleoIcons from "views/NucleoIcons.js";
+
 import LoginPage from "views/examples/LoginPage.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
+
 import SignUp from "./views/SignUp/SignUp";
 import MedicalSignUp from "./views/index-sections/MedicalSignUp";
 import MedicalMagazine from "views/Magazine/MedicalMagazine";
@@ -65,6 +67,7 @@ import CreateThread from "./Dashboard/pages/forum/create-thread";
 import Thread from "./Dashboard/pages/forum/thread";
 import ContactUs from "./views/Assistant profile/ContactUs";
 import FrontAssistantProfile from "./views/Assistant profile/FrontAssistantProfile";
+import HomeCoupons from "./Shop/coupon/HomeCoupons";
 
 const options = {
     // you can also just use 'bottom center'
@@ -214,6 +217,7 @@ ReactDOM.render(
                     <Route path="/articles" element={<Main> <Articles/> </Main>} />
                     <Route path="/articleDetails" element={<Main> <ArticleDetailsDashboard/> </Main>} />
                     <Route path="/articleForm" element={<Main> <ArticleForm/> </Main>} />
+                    <Route path="/admin/coupons/*" element={<Main> <HomeCoupons/> </Main>} />
 
                 </Routes>
             </BrowserRouter>

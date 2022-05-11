@@ -2,13 +2,13 @@
     'use strict';
     /*Product Details*/
     var productDetails = function () {
-        $('.product-image-slider').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: false,
-            fade: false,
-            asNavFor: '.slider-nav-thumbnails',
-        });
+        // $('.product-image-slider').slick({
+        //     slidesToShow: 1,
+        //     slidesToScroll: 1,
+        //     arrows: false,
+        //     fade: false,
+        //     asNavFor: '.slider-nav-thumbnails',
+        // });
 
         $('.slider-nav-thumbnails').slick({
             slidesToShow: 4,

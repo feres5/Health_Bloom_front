@@ -1,6 +1,6 @@
 import "../../../assets/css/plugins/animate.min.css";
 import "../../../assets/css/main.scoped.css";
-import {useNavigate , useMatch } from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 import {useCart} from "react-use-cart";
 import jwt_decode from "jwt-decode";
 import emailjs from "emailjs-com";
@@ -9,14 +9,14 @@ import {useAlert} from "react-alert";
 const WishListItem = props => {
 
     const alert = useAlert()
-    const {path, url} = useMatch();
+    let path = useLocation().pathname;
     const {addItem} = useCart();
     const token = localStorage.getItem("user_info");
     const decodedTOKEN = jwt_decode(token, {payload: true});
     console.log(decodedTOKEN);
     let wishlist = JSON.parse(localStorage.getItem("wishlist"))
 
-    const history = useNavigate ();
+    const history = useNavigate();
 
     const wishlistRemoveHandler = (e) => {
         e.preventDefault()
@@ -28,7 +28,7 @@ const WishListItem = props => {
                 localStorage.setItem("wishlist", JSON.stringify(wishlist));
 
         }
-        history.push('/shop/wishlist');
+        history('/shop/wishlist');
 
     }
 

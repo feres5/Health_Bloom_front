@@ -84,10 +84,13 @@ const ShopProducts = () => {
                     <div className="col-lg-4-5" style={{paddingLeft: "15px"}}>
                         <div className="shop-product-fillter">
                             <div className="totall-product">
-                                <p>We found <strong
-                                    className="text-brand">29</strong> items for
-                                    you!
-                                </p>
+                                {loadedProducts &&
+                                    <p>We found <strong
+                                        className="text-brand">{loadedProducts.length}</strong> items
+                                        for
+                                        you!
+                                    </p>
+                                }
                             </div>
                             <div className="search-style-1">
                                 <form action="#">
@@ -150,7 +153,6 @@ const ShopProducts = () => {
                                                       term={searchTerm}
                                     />}
                             </div>}
-
 
 
                     </div>

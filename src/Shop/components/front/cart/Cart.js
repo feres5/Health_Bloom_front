@@ -4,10 +4,17 @@ import "./cart.css";
 import {useCart} from "react-use-cart";
 import CartItem from "./CartItem";
 import QuickCartItem from "./QuickCartItem";
-import React from "react";
-import {useLocation, useMatch} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useRouteMatch} from "react-router-dom";
+import {useHttpClient} from "../../../../shared/hooks/http-hook";
+import {useLocation} from "react-router-dom";
 
 const Cart = () => {
+    const [couponName, setCouponName] = useState("");
+    const {isLoading, error, sendRequest, clearError} = useHttpClient();
+    const [coupon, setCoupon] = useState();
+    const [discount, setDiscount] = useState(0);
+
     const {
         isEmpty,
         totalUniqueItems,
@@ -15,8 +22,56 @@ const Cart = () => {
         updateItemQuantity,
         removeItem,
         cartTotal,
-        emptyCart
+        emptyCart,
+        setCartMetadata
     } = useCart();
+    useEffect(() => {
+        setCartMetadata({finalPrice: cartTotal, discount: 0});
+    }, []);
+
+
+    const couponSubmitHandler = event => {
+
+        const fetchCoupon = async () => {
+            try {
+
+                const responseData = await sendRequest(
+                    process.env.REACT_APP_BackEnd_url+`/api/coupons/name/${couponName}`
+                );
+                if (responseData.coupon) {
+                    setCoupon(responseData.coupon);
+                    setDiscount(cartTotal * responseData.coupon.percentage / 100)
+                    setCartMetadata({
+                        finalPrice: (cartTotal - (cartTotal * responseData.coupon.percentage / 100)).toFixed(2),
+                        discount: responseData.coupon.percentage
+                    })
+                } else {
+                    setCouponName("");
+                    setDiscount(0);
+                    setCartMetadata({
+                        finalPrice: cartTotal,
+                        discount: 0
+                    })
+                }
+                console.log(responseData);
+
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        fetchCoupon();
+    };
+
+    const changeHandler = event => {
+        setCouponName(event.target.value);
+
+    }
+    const clearCoupon = () => {
+        setCouponName("");
+        setCoupon(undefined);
+        setDiscount(0);
+        setCartMetadata({finalPrice: cartTotal, discount: 0})
+    }
     //const {path, url} = useMatch();
     let path = useLocation().pathname;
     return (
@@ -94,7 +149,8 @@ const Cart = () => {
                         <div className="divider-2 mb-30"></div>
                         <div
                             className="cart-action d-flex justify-content-between">
-                            <a className="btn" href="/shop/products" style={{color: "#fff"}}><i
+                            <a className="btn" href="/shop/products"
+                               style={{color: "#fff"}}><i
                                 className="fi-rs-arrow-left mr-10"></i>Continue
                                 Shopping</a>
                             <a className="btn  mr-10 mb-sm-15"
@@ -113,18 +169,24 @@ const Cart = () => {
                                     <p className="mb-30"><span
                                         className="font-lg text-muted">Using A Promo Code?</span>
                                     </p>
-                                    <form action="#">
-                                        <div
-                                            className="d-flex justify-content-between">
-                                            <input
-                                                className="font-medium mr-15 coupon"
-                                                name="Coupon"
-                                                placeholder="Enter Your Coupon"/>
-                                            <button className="btn"><i
-                                                className="fi-rs-label mr-10"></i>Apply
-                                            </button>
-                                        </div>
-                                    </form>
+
+                                    <div
+                                        className="d-flex justify-content-between">
+                                        <input
+                                            disabled={coupon ? true : false}
+                                            className="font-medium mr-15 coupon"
+                                            name="Coupon"
+                                            value={couponName}
+                                            onChange={changeHandler}
+                                            placeholder="Enter Your Coupon"/>
+                                        <button
+                                            className={coupon ? "btn-outline-danger" : "btn"}
+                                            onClick={coupon ? clearCoupon : couponSubmitHandler}>
+                                            <i
+                                                className="fi-rs-label mr-10"></i>{coupon ? "Remove" : "Apply"}
+                                        </button>
+                                    </div>
+
                                 </div>
                                 <table className="table no-border">
                                     <tbody>
@@ -144,10 +206,11 @@ const Cart = () => {
                                     </tr>
                                     <tr>
                                         <td className="cart_total_label">
-                                            <h6 className="text-muted">Shipping</h6>
+                                            <h6 className="text-muted">Coupon
+                                                Discount</h6>
                                         </td>
                                         <td className="cart_total_amount">
-                                            <h5 className="text-heading text-end">Free</h5>
+                                            <h5 className="text-heading text-end">{discount}$</h5>
                                         </td>
                                     </tr>
                                     <tr>
@@ -170,13 +233,14 @@ const Cart = () => {
                                             <h6 className="text-muted">Total</h6>
                                         </td>
                                         <td className="cart_total_amount">
-                                            <h4 className="text-brand text-end">${cartTotal}</h4>
+                                            <h4 className="text-brand text-end">${(cartTotal - discount).toFixed(2)}</h4>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <a href="/shop/checkout" className="btn mb-20 w-100">Proceed To
+                            <a href="/shop/checkout"
+                               className="btn mb-20 w-100">Proceed To
                                 CheckOut<i className="fi-rs-sign-out ml-15"></i></a>
                         </div>
                     </div>

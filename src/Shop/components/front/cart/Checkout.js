@@ -2,7 +2,7 @@ import "../../../assets/css/plugins/animate.min.css";
 import "../../../assets/css/main.scoped.css";
 import "./cart.css"
 import CheckoutItem from "./CheckoutItem";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useCart} from "react-use-cart";
 import {loadStripe} from "@stripe/stripe-js";
 import {useHttpClient} from "../../../../shared/hooks/http-hook";
@@ -10,7 +10,14 @@ import {useHttpClient} from "../../../../shared/hooks/http-hook";
 
 const Checkout = () => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+    useEffect(() => {
+        const token = localStorage.getItem("user_info");
+        if (token) {
+            setIsLoggedIn(true);
+        }
+    }, []);
     const {
         isEmpty,
         totalUniqueItems,
@@ -18,9 +25,9 @@ const Checkout = () => {
         updateItemQuantity,
         removeItem,
         cartTotal,
-        emptyCart
+        emptyCart,
+        metadata
     } = useCart();
-
     const checkoutSubmitHandler = async event => {
         event.preventDefault();
 
@@ -30,7 +37,8 @@ const Checkout = () => {
            const data =  await sendRequest(process.env.REACT_APP_BackEnd_url+'/api/products/checkout',
                 'POST',
                 JSON.stringify({
-                    items
+                    items,
+                    discount: metadata.discount
                 }),
                 {
                     'Content-Type': 'application/json'
@@ -210,15 +218,7 @@ const Checkout = () => {
                     </div>
                     <div className="col-lg-5">
                         <div className="border p-40 cart-totals ml-30 mb-50">
-                            <div
-                                className="d-flex align-items-end justify-content-between mb-30">
-                                <h4>Your Order</h4>
 
-                                <div>
-                                    <h4 className="text-brand"
-                                    >${cartTotal}</h4>
-                                </div>
-                            </div>
                             <div className="divider-2 mb-30"></div>
                             <div
                                 className="table-responsive order_table checkout">
@@ -239,6 +239,15 @@ const Checkout = () => {
 
                                     </tbody>
                                 </table>
+                            </div>
+                            <div
+                                className="d-flex align-items-end justify-content-between mb-30">
+                                <h4>Your Order</h4>
+
+                                <div>
+                                    <h4 className="text-brand"
+                                    >${metadata.finalPrice}</h4>
+                                </div>
                             </div>
                         </div>
                         <div className="payment ml-30">
@@ -301,6 +310,7 @@ const Checkout = () => {
                             </div>
 
                             <a href="#"
+                               //disabled
                                onClick={checkoutSubmitHandler}
                                className="btn btn-fill-out mt-30">Place
                                 an
