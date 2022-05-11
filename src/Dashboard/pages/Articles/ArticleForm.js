@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 
 import 'react-custom-alert/dist/index.css';
