@@ -53,7 +53,7 @@ export default function CommentBox(props) {
     var decodedTOKEN = jwt_decode(user,{payload : true});
 
 
-    const urlAuthor = "http://localhost:3002/articles/Author/"
+    const urlAuthor = process.env.REACT_APP_BackEnd_url+"/articles/Author/"
   const fetchAuthor = async () => {
       const urlId = urlAuthor + decodedTOKEN.user_id
 

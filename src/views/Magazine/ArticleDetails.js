@@ -80,7 +80,7 @@ function ArticleDetails(props) {
       fetchAuthor()
   }, [])
 
-  const urlArticles = "http://localhost:3002/articles/getArticleByCategory/"
+  const urlArticles = process.env.REACT_APP_BackEnd_url+"/articles/getArticleByCategory/"
   const category= localStorage.getItem("category");
   console.log("category is ===>"+category)
   const fetchArticles = async () => {
