@@ -58,7 +58,7 @@ export default function CommentBox(props) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ content: commentValue, idArticle: props.idArticle, idUser:decodedTOKEN.user_id 
-            , emailUser:decodedTOKEN.Email})
+            , emailUser:AuthorName})
             }).then((result) => {
                 result.json().then((resp) => {
                     console.warn(resp)
