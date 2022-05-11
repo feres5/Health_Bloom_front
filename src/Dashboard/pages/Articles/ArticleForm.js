@@ -27,6 +27,8 @@ function ArticleForm() {
     const [Title, setTitle] = useState()
     const [Description, setDescription] = useState()
     const [Image, setImage] = useState()
+    const [Category, setCategory] = useState()
+    // const [transcript, setImage] = useState()
 
     console.log("title is" + Title)
     const url = process.env.REACT_APP_BackEnd_url+"/articles/Author/"
@@ -48,13 +50,13 @@ function ArticleForm() {
     const onSubmit = () => {
         var newImage = Image.replace("C:\\fakepath\\", "");
         console.log(newImage)
-        console.log(Title+id+transcript+Category+newImage)
+        // console.log(Title+id+transcript+Category+newImage)
         fetch(process.env.REACT_APP_BackEnd_url+`/articles/addArticle`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 title: Title, author: id,
-                description:transcript, category:Category,image: newImage
+                description:Description, category:Category,image: newImage
             })
         }).then(
             (result) => {
@@ -62,7 +64,7 @@ function ArticleForm() {
                     console.warn(resp)
                     console.log(JSON.stringify({
                         title: Title, author: id,
-                        description:transcript, category:Category,image: newImage
+                        description:Description, category:Category,image: newImage
                     }))
                     console.log(resp.success)
                     const message = resp.message;

@@ -1,6 +1,6 @@
-import "./assets/css/datatables.bundle.scoped.css"
-import "./assets/css/plugins.bundle.scoped.css"
-import "./assets/css/style.bundle.scoped.css"
+// import "./assets/css/datatables.bundle.scoped.css"
+ import "./assets/css/plugins.bundle.scoped.css"
+ import "./assets/css/style.bundle.scoped.css"
 
 import {Button} from "react-bootstrap";
 import {AiFillDelete, AiFillEdit} from "react-icons/all";
