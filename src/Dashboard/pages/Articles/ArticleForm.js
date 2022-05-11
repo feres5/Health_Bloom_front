@@ -52,7 +52,7 @@ function ArticleForm() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 title: Title, author: id,
-                description: Description, image: newImage
+                description: transcript, category:Category, image: newImage
             })
         }).then(
             (result) => {
