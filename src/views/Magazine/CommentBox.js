@@ -40,7 +40,7 @@ export default function CommentBox(props) {
     };
     const refreshPage = () => {
         window.location.reload();
-      }
+    }
     const onChange = (e) => {
         setCommentValue(e.target.value);
     };
@@ -57,17 +57,17 @@ export default function CommentBox(props) {
         fetch(process.env.REACT_APP_BackEnd_url+`/articles/addComment`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ content: commentValue, idArticle: props.idArticle, idUser:decodedTOKEN.user_id 
-            , emailUser:decodedTOKEN.Email})
-            }).then((result) => {
-                result.json().then((resp) => {
-                    console.warn(resp)
-                    console.log(resp.success)
-                    const message=resp.message;
-                    refreshPage()
-                })
+            body: JSON.stringify({ content: commentValue, idArticle: props.idArticle, idUser:decodedTOKEN.user_id
+                , emailUser:decodedTOKEN.Email})
+        }).then((result) => {
+            result.json().then((resp) => {
+                console.warn(resp)
+                console.log(resp.success)
+                const message=resp.message;
+                refreshPage()
             })
-}
+        })
+    }
 
 
     return (
