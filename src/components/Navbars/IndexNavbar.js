@@ -169,12 +169,8 @@ function IndexNavbar() {
 
               <NavItem>
                 <NavLink
-                    href="#pablo"
+                    href="/shop"
                     onClick={(e) => {
-                      e.preventDefault();
-                      document
-                          .getElementById("download-section")
-                          .scrollIntoView();
                     }}
                 >
                   <i className="now-ui-icons shopping_basket mr-1"></i>
@@ -184,7 +180,7 @@ function IndexNavbar() {
 
               <NavItem>
                 <NavLink
-                    href="#pablo"
+                    href=""
                     onClick={(e) => {
                       e.preventDefault();
                       document
@@ -411,12 +407,9 @@ function IndexNavbar() {
 
                     <NavItem>
                       <NavLink
-                          href="#pablo"
+                          href="shop"
                           onClick={(e) => {
-                            e.preventDefault();
-                            document
-                                .getElementById("download-section")
-                                .scrollIntoView();
+
                           }}
                       >
                         <i className="now-ui-icons shopping_basket mr-1"></i>
