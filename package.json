@@ -5,6 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@craco/craco": "^6.4.3",
+    "@devexpress/dx-react-core": "^3.0.2",
     "@devexpress/dx-react-scheduler": "^3.0.2",
     "@devexpress/dx-react-scheduler-material-ui": "^3.0.2",
     "@emailjs/browser": "^3.6.2",
@@ -29,6 +30,7 @@
     "cloudinary-react": "^1.7.2",
     "context": "^2.0.4",
     "craco-plugin-scoped-css": "^1.1.1",
+    "dom-helpers": "^5.2.1",
     "dotenv": "^16.0.0",
     "emailjs-com": "^3.2.0",
     "formik": "^2.2.9",
@@ -59,6 +61,7 @@
     "react-google-login": "^5.2.2",
     "react-google-recaptcha": "^2.1.0",
     "react-icons": "^4.3.1",
+    "react-map-gl": "^4.1.2",
     "react-paginate": "^8.1.2",
     "react-router": "5.2.0",
     "react-router-dom": "^6.3.0",
@@ -69,13 +72,11 @@
     "react-use-cart": "^1.13.0",
     "reactjs-popup": "^2.0.5",
     "reactstrap": "8.9.0",
-    "stripe": "^8.219.0",
     "semantic-ui-react": "^2.1.2",
+    "stripe": "^8.219.0",
     "styled-components": "^5.3.3",
     "web-vitals": "^1.1.2",
-    "yup": "^0.32.11",
-    "react-map-gl": "^4.1.2",
-    "@devexpress/dx-react-core": "^3.0.2"
+    "yup": "^0.32.11"
   },
   "resolutions": {
     "react-error-overlay": "6.0.9"
