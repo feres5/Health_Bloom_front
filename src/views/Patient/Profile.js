@@ -122,6 +122,13 @@ function Profile()  {
         }).then(response => {
             console.log(response);
         })
+        axios({
+            method: "Post",
+            url: "http://localhost:3001/transaction/broadcast/",
+            data: form
+        }).then(response => {
+            console.log(response);
+        })
 
     }
     const [open, setOpen] = React.useState(false);
